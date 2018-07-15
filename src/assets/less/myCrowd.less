@@ -1,3 +1,94 @@
+@import "_common";
 .myCrowd{
+  background-color: #DEDEDE;
+  .content{
+    background-color: #DEDEDE;
+    .itemWrap{
+      margin-top: 20px;
+      background-color: #fff;
+      .home-item{
+        padding: 30px;
+        border-bottom: 1px solid #707070;/*px*/
+        overflow: hidden;
+        width: 690px;
+        .item-image,.item-des{
+          float: left;
+        }
+        .item-image{
+          width: 190px;
+          height: 190px;
+          background-color: #42b983;
+        }
+        .item-des{
+          height: 158px;
+          margin-left: 35px;
+          .tittle{
+            font-size: 30px;
+            width: 465px;
+            margin-bottom: 10px;
+            color: black;
+            .overflow(2);
+          }
+          .price{
+            font-size: 28px;
+            padding:6px 0;
+          }
+          .progress-parent{
+            margin-top: 10px;
+            width: 100%;
+            height: 20px;
+            border-radius: 10px;
+            position: relative;
+            background-color: #DEDEDE;
+            .icon{
+              position: absolute;
+              height: 30px;
+              width: 60px;
+              top: -40px;
+              right:6px;
+              border-radius: 5px;
+              text-align: center;
+              background-color: red;
+              color: #ffffff;
+            }
+            .progress-child{
+              position: absolute;
+              top:0;
+              left: 0;
+              width: 75%;
+              height: 20px;
+              border-radius: 10px;
+              background-color: red;
+            }
+          }
+          .need_price{
+            text-align: right;
+            color: #a0a0a0;
+            padding-top:12px;
+          }
+        }
+      }
+      .btns{
+        height: 82px;
+        &>div{
+          float: right;
+          margin:12px 18px;
+          padding:12px 18px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border:1px solid #ccc;/*px*/
+        }
+        .myself_support,.deposit,.write_message{
+          color: #fff;
+          background-color: #cc1c24;
+          border:1px solid #cc1c24;/*px*/
+        }
+        .go_crowd{}
+        .write_message{}
+      }
+    }
+  }
 
 }

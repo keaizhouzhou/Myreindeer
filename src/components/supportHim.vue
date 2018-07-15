@@ -1,6 +1,6 @@
 <template>
     <div class="share-page">
-      <houseHead>分享页</houseHead>
+      <houseHead>给他支持页</houseHead>
       <div class="img-information">
         <div class="logo">
           <div class="logo-text">
@@ -33,7 +33,7 @@
         </div>
         <div class="contentClass">
           <houseSort :tabList="tabList" @tabClick="tabClick ($event)" :isCount="isCount"></houseSort>
-          <div v-if="showIndex == 1" class="queuepeople_content contentPeople">
+          <div v-if="selectedTab.key == 'queuePeople'" class="queuepeople_content contentPeople">
             <div class="people"></div>
             <div class="people"></div>
             <div class="people"></div>
@@ -47,7 +47,7 @@
             <div class="people"></div>
             <div class="people"></div>
           </div>
-          <div v-if="showIndex == 2" class="supportpeople_content contentPeople">
+          <div v-if="selectedTab.key == 'supportPeople'" class="supportpeople_content contentPeople">
             <div class="people"></div>
             <div class="people"></div>
             <div class="people"></div>
@@ -100,9 +100,8 @@
         </div>
       </div>
       <div class="btns">
-        <div class="selfPay" @click="jumpSelfPay">自己支持</div>
-        <div class="helpPay" @click="jumpHelpPay">找人帮我筹</div>
-        <div class="myCrowd" @click="jumpMyCrowd">我的众筹</div>
+        <div class="supportHim" @click="jumpSupportHim">给他支持</div>
+        <div class="toCrowd" @click="jumpToCrowd">我也要玩</div>
       </div>
     </div>
 </template>
@@ -113,15 +112,15 @@
   export default {
     template: '.share-page',
     data: function () {
-        return {
-          tabList:[
-            {value: '参赛队伍', key: 'queue',index:0},
-            {value: '本队人数', key: 'queuePeople',index:1},
-            {value: '支持人数', key: 'supportPeople',index:2},
-          ],
-          isCount:true,
-          showIndex:0
-        };
+      return {
+        selectedTab:{value: '参赛队伍', key: 'queue'},
+        tabList:[
+          {value: '参赛队伍', key: 'queue'},
+          {value: '本队人数', key: 'queuePeople'},
+          {value: '支持人数', key: 'supportPeople'},
+        ],
+        isCount:true
+      };
     },
     computed: {},
     components: {houseHead, houseSort},
@@ -133,14 +132,11 @@
         this.selectedTab = tab;
         this.showIndex = tab.index;
       },
-      jumpSelfPay () {//跳转至自己支持付款页面
-        //this.$router.push('/payOrder');
+      jumpSupportHim () {
+        this.$router.push('/supportHimToPay');
       },
-      jumpHelpPay () {//跳转至我的众筹
-        //this.$router.push('/orderCrowd');
-      },
-      jumpMyCrowd () {
-
+      jumpToCrowd () {
+        this.$router.push('/orderCrowd');
       }
     },
     mounted: function () {

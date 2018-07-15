@@ -110,7 +110,7 @@
           this.$router.push('/orderCrowd');
         },
         tabClick (tab) {
-            this.selectedTab = tab;
+          this.selectedTab = tab;
         }
       },
     mounted() {

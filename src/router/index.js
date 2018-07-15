@@ -13,6 +13,8 @@ import activeDetail from '@/components/active-detail'
 import payOrder from '@/components/pay-order'
 import orderCrowd from '@/components/orderCrowd'
 import sharePage from '@/components/sharePage'
+import supportHim from '@/components/supportHim'
+import supportHimToPay from '@/components/supportHimToPay'
 Vue.use(Router)
 const router =  new Router({
   routes: [
@@ -83,6 +85,16 @@ const router =  new Router({
       path: '/sharePage',
       component: sharePage,
       name: 'sharePage'
+    },
+    {// 给他支持页
+      path: '/supportHim',
+      component: supportHim,
+      name: 'supportHim'
+    },
+    {// 给他支持付款页
+      path: '/supportHimToPay',
+      component: supportHimToPay,
+      name: 'supportHimToPay'
     }
   ]
 });

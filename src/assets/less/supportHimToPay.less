@@ -1,0 +1,126 @@
+html{
+  background-color: #f2f2f2;
+}
+.support_pay{
+  background-color: #f2f2f2;
+  .support_info{
+    background-color: #fff;
+    margin:30px;
+    text-align: center;
+    &>p{
+      font-weight:bolder;
+      font-size:36px;
+      text-align: left;
+      padding:16px 0 0 32px ;
+      margin:0;
+    }
+    &>img{
+      width: 160px;
+      height:160px;
+      margin:auto;
+      -webkit-border-radius:50%;
+      -moz-border-radius:50%;
+      border-radius:50%;
+    }
+    .user_name{
+      font-size:32px;
+      color: #cc1c24;
+    }
+    .user_desc{
+      padding:32px 0;
+      input{
+        width:620px;
+        outline:none;
+        border:none;
+        border-bottom:1px solid #ccc;/*px*/
+        padding:4px 8px;
+        font-size:26px;
+      }
+      div{
+        display: inline-block;
+        font-size:26px;
+      }
+      i{
+        display: inline-block;
+        background: url("../../assets/images/jie_click.png") no-repeat center;
+        -webkit-background-size:33px 33px;
+        background-size:33px 33px;
+        width:33px;
+        height:33px;
+        position: relative;
+        top: 8px;
+      }
+    }
+  }
+  .pay_info{
+    background-color: #fff;
+    margin:30px;
+    padding-bottom:20px;
+    .pay_user{
+      font-weight:bolder;
+      font-size:36px;
+      text-align: left;
+      padding:16px 0 0 32px ;
+      margin:0;
+      span{
+
+      }
+      i{
+
+      }
+    }
+    .pay_price{
+      padding:42px 30px;
+      font-size: 32px;
+      input{
+        width:435px;
+        height:32px;
+        line-height:32px;
+        font-size: 32px;
+        text-align: right;
+        padding:2px 12px;
+        border:none;
+        outline:none;
+      }
+    }
+    .price_list{
+      display: flex;
+      -webkit-margin-before: 0;
+      -webkit-margin-after: 0;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 0px;
+      padding:0 5px;
+      li{
+        list-style: none;
+        flex:1;
+        border:1px solid #ccc;
+        padding:10px 12px;
+        margin:10px;
+        text-align: center;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        border-radius:5px;
+      }
+      li.checked{
+        background: #cc1c24;
+        color: #fff;
+      }
+    }
+  }
+  .confirm_btn{
+    position: fixed;
+    width:calc( 100% - 60px );
+    bottom:30px;
+    left:30px;
+    height:82px;
+    line-height:82px;
+    background: #cc1c24;
+    color: #fff;
+    text-align: center;
+    font-size:36px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+  }
+}
