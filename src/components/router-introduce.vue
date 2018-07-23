@@ -2,9 +2,9 @@
   <div class="router-introduce">
     <houseHead>路线介绍</houseHead>
     <div class="content">
-      <div class="tittle">行走在敦煌，丝绸之路</div>
-      <div class="img"></div>
-      <div class="text">敦煌有悠久的历史</div>
+      <div class="tittle">{{getSelectRoute.RName}}</div>
+      <img class="img" :src="getBaseUrl + getSelectRoute.SmallImgUrl" alt="">
+      <div class="text">{{getSelectRoute.Introduce}}</div>
     </div>
     <div class="choiceBtn" @click="sign">马上报名</div>
   </div>
@@ -20,7 +20,12 @@
 
           };
       },
-      computed: {},
+      computed: {
+        ...mapGetters([
+          'getBaseUrl',
+          'getSelectRoute'
+        ])
+      },
       components: {houseBtn, houseHead},
       methods: {
         init() {

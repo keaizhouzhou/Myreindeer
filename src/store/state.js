@@ -1,3 +1,5 @@
 export const state = {
-  name: 'zhouwei'
+  name: 'zhouwei',
+  baseUrl:'http://xunluzhe.com.cn/',
+  selectedRoute:{}
 };

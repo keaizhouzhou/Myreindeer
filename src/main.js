@@ -6,8 +6,19 @@ import router from './router'
 import store from './store'
 import 'lib-flexible/flexible';
 Vue.config.productionTip = false;
+Vue.filter("timeSplit", function(value) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
+  return value.split(' ')[0];
+});
+Vue.filter("remain", function([timeS,timeE] = arr) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
+  let timeCounts = new Date(timeS) - new Date(timeE);
+  let days = timeCounts/(1000*60*60*24);
+  let hours = (timeCounts - Math.floor(days)*(1000*60*60*24))/(1000*60*60);
+  let minute = (timeCounts - Math.floor(days)*(1000*60*60*24) - Math.floor(hours)*(1000*60*60))/(1000*60);
+  let second = (timeCounts - Math.floor(days)*(1000*60*60*24) - Math.floor(hours)*(1000*60*60) - Math.floor(minute)*(1000*60))/1000;
+  console.log('剩余多少天'+days+'剩余小时'+hours+'剩余分钟'+minute+'剩余秒'+second);
+  return 111
+});
 
-console.log('main',router);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

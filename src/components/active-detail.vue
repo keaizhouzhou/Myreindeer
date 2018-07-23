@@ -4,20 +4,20 @@
       <div class="banners">
         <div class="timers">
           <div class="tittle">距开赛</div>
-          <div class="text">008天04:36:59</div>
+          <div class="text">{{leftCounts}}</div>
         </div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="img in listImg" >{{img.url}}</div>
+            <div class="swiper-slide" v-for="(img,index) in listImg" v-bind:style="{background:'url('+img+')' ,color:'red',backgroudSize:'cover'}"></div>
           </div>
           <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
       </div>
       <div class="introduce">
         <div class="top">
-          <div class="tittle">首届四天三夜108公里(宁夏)挑战赛</div>
+          <div class="tittle">{{MatchHandler.MName}}</div>
           <div class="pricePlace">
-            <div class="price">￥12800.00</div>
+            <div class="price">￥{{MatchHandler.Price}}.0</div>
             <div class="place">北京市</div>
           </div>
         </div>
@@ -28,7 +28,7 @@
                 队伍数量
               </div>
               <div class="text">
-                12支
+                {{countObj.TeamCount}}支
               </div>
             </div>
             <div class="peopleCount">
@@ -36,7 +36,7 @@
                 报名人数
               </div>
               <div class="text">
-                200人
+                {{countObj.OrderCount}}人
               </div>
             </div>
             <div class="support">
@@ -44,15 +44,14 @@
                 支持人数
               </div>
               <div class="text">
-                2000人
+                {{countObj.SupportCount}}人
               </div>
             </div>
           </div>
         </div>
       </div>
       <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
-      <div class="content">
-        {{selectedTab.value}}
+      <div class="content"  v-html="selectImg">
       </div>
       <div class="btns">
         <div class="Crowd" @click="jumpCrowd">我的众筹</div>
@@ -65,43 +64,38 @@
   import houseBtn from './common/house-btn.vue';
   import houseHead from './common/house-head.vue';
   import houseSort from './common/house-sort.vue';
+  import {util} from '../assets/js/util'
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
   export default {
       template: '.active-detail',
       data: function () {
           return {
-            listImg:[
-              {
-                url:'图片一'
-              },
-              {
-                url:'图片二'
-              },
-              {
-                url:'图片三'
-              },
-              {
-                url:'图片四'
-              },
-              {
-                url:'图片五'
-              }
-            ],
+            listImg:[],
             tabList: [
               {value: '详情描述', key: 'detail'},
               {value: '报名相关', key: 'sign'},
-              {value: '参数标准', key: 'params'},
-              {value: '装备要求', key: 'equipment'}
+              {value: '参赛标准', key: 'params'}
             ],
-            selectedTab:{}
+            leftCounts:'',
+            selectedTab:{},
+            MatchHandler:{},
+            countObj:{},
+            selectImg:'',
+            timer:null
           };
       },
-      computed: {},
+      computed: {
+        ...mapGetters([
+          'getBaseUrl',
+          'getSelectRoute'
+        ])
+      },
       components: {houseHead, houseBtn, houseSort},
       methods: {
         init() {
-
+          this.getMatchHandler();
+          this.getConut();
         },
         jumpPay () {
           this.$router.push('/payOrder');
@@ -109,22 +103,110 @@
         jumpCrowd () {
           this.$router.push('/orderCrowd');
         },
-        tabClick (tab) {
-          this.selectedTab = tab;
+        tabClick ({key} = tab) {
+          if (key == 'detail'){
+            this.selectImg = this.MatchHandler.DetailDesImgUrl
+          }
+          else if (key == 'sign'){
+            this.selectImg = this.MatchHandler.RegisterRelated
+          }
+          else if (key == 'params') {
+            this.selectImg = this.MatchHandler.MatchStandard
+          }
+        },
+        getMatchHandler () {
+          let jsoncontent ={
+            condition:[
+              {
+                key:'MId',
+                values:'1267615014C24B7AAD75573355975BFE',
+                oprate:''
+              }
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'getlistshow',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/MatchHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              console.log('data',res.data);
+              this.MatchHandler = res.data.data[0]|| {};
+              this.getLeftCounts([this.MatchHandler.TimeStamp,this.MatchHandler.BeingTime])
+              this.selectImg = this.MatchHandler.DetailDesImgUrl
+              this.listImg = this.MatchHandler.PlayImgUrlPath.split(',')
+              console.log(this.listImg);
+              // this.getlun()
+              setTimeout(()=>{
+                this.getlun()
+              },200)
+            }
+            else {
+
+            }
+          });
+        },
+        getLeftCounts([timeS,timeE]){
+          let timeCounts = new Date(timeE) - new Date(timeS);
+          this.timer = setInterval(()=>{
+            timeCounts = timeCounts - 1000;
+            let days = Math.floor(timeCounts/(1000*60*60*24));
+            let hours = Math.floor((timeCounts - days*(1000*60*60*24))/(1000*60*60));
+            let minute = Math.floor((timeCounts - days*(1000*60*60*24) - hours*(1000*60*60))/(1000*60));
+            let second = (timeCounts - days*(1000*60*60*24) - hours*(1000*60*60) - minute*(1000*60))/1000;
+            this.leftCounts = `${days}天 ${hours}:${minute}:${second}`;
+          },1000)
+
+        },
+        getlun () {
+          let swiper = new Swiper('.swiper-container', {
+             pagination: '.swiper-pagination',
+             paginationClickable: true,
+             loop: true,
+             speed: 600,
+             autoplay: 1000,
+             delay:1000,
+             onTouchEnd: function() {
+               swiper.startAutoplay()
+             }
+           });
+        },
+        getConut(){
+          let jsoncontent ={
+            condition:[
+              {
+                key:'MId',
+                values:'1267615014C24B7AAD75573355975BFE',
+                oprate:''
+              }
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'matchshowtosc',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/MatchHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              console.log('data',res.data);
+              this.countObj = res.data.data[0]|| {};
+            }
+            else {
+
+            }
+          });
         }
       },
     mounted() {
-      console.log('mounted', this)
-      var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        loop: true,
-        speed: 600,
-        autoplay: 4000,
-        onTouchEnd: function() {
-          swiper.startAutoplay()
-        }
-      });
+      this.init();
+    },
+    destroyed () {
+      clearInterval(this.timer);
     }
   };
 </script>
