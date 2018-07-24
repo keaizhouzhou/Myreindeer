@@ -1,0 +1,67 @@
+//Modal
+.house-dialogs{
+  .master{
+    position: fixed;
+    left: 0;
+    top:0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.60);
+  }
+  .modal-body{
+    position: fixed;
+    /*width:80%;*/
+    width: 8rem;
+    top:20%;
+    left: 50%;
+    margin-left: -4rem;
+    /*left:10%;*/
+    background-color: white;
+    border-radius: 4px;
+    z-index: 10;
+    .modal-content{
+      font-size: 32px;
+      color: #333333;
+      text-align: center;
+      padding: 66px 0 0 0;
+      .modal-tips{
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-image: url("../images/cancel.png");
+        background-size: cover;
+      }
+      .modal-text{
+        padding: 0 60px 60px 60px;
+        max-height: 560px;
+        /*overflow: scroll;*/
+      }
+      .little-text{
+        padding-bottom: 30px;
+        font-size: 26px;
+      }
+    }
+    .modal-footer{
+      display: flex;
+      div{
+        height: 96px;
+        flex:1;
+        font-size: 34px;
+        border-top:1px solid #CCCCCC;
+        text-align: center;
+        line-height: 3;
+        &:nth-of-type(2){
+          border-left:1px solid #CCCCCC;
+        }
+        .off-btn{
+          color:#999;
+        }
+        .on-btn{
+          color: #666;
+        }
+      }
+    }
+  }
+}

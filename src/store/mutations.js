@@ -4,5 +4,8 @@ export const mutations = {
   },
   SELECT_ROUTE (state,route) {
     state.selectedRoute = route;
+  },
+  CHAGE_OPEN_ID (state, openid) {
+    state.openid = openid;
   }
 }

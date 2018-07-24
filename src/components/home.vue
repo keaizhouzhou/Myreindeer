@@ -13,12 +13,14 @@
         </div>
       </div>
     </div>
+    <houseToast ref="toast"></houseToast>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import houseBtn from './common/house-btn.vue';
 import houseHead from './common/house-head.vue';
+import houseToast from './common/house-toast.vue';
 import {util} from '../assets/js/util'
 export default{
   template: '.myhome',
@@ -41,7 +43,9 @@ export default{
     ])
   },
   components: {
-    houseHead,houseBtn
+    houseHead,
+    houseBtn,
+    houseToast
   },
   methods: {
     getHomeList () {
@@ -60,10 +64,31 @@ export default{
       });
     },
     ...mapActions([
-      'changeRoute'
+      'changeRoute',
+      'changeOpenId'
     ]),
+    getOpenId () {
+      let data = {
+        data:{
+          Action:'getuserinfobycode',
+          code:util.getQueryString('code') || ''
+        },
+        url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
+      };
+      util.fetchData (data).then(res => {
+      if (res.data.result == 0) {
+        console.log('openid',res.data);
+        this.changeOpenId(res.data.data.openid);
+        this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
+      }
+      else {
+
+      }
+      });
+    },
     init () {
       this.getHomeList();
+      this.getOpenId();
     },
     introduce(item) {
       this.changeRoute(item);

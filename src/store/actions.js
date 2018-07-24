@@ -4,5 +4,9 @@ export const actions = {
   },
   changeRoute ({commit}, route) {
     commit('SELECT_ROUTE', route)
+  },
+  changeOpenId ({commit}, openid) {
+    commit('CHAGE_OPEN_ID', openid)
   }
 }
+
