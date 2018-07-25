@@ -1,0 +1,226 @@
+.task-items{
+  background-color: #ffffff;
+  margin-top: 30px;
+  .item{
+    min-height:106px;
+    margin-left: 30px;
+    padding-right: 30px;
+    border-bottom: 2px solid #ececec;/*px*/
+    overflow: hidden;
+    font-size: 30px;
+    line-height: 106px;
+    .title{
+      float: left;
+      width: 240px;
+      padding-right: 10px;
+      .must{
+        color: red;
+      }
+    }
+    .content{
+      float: left;
+      width: 450px;
+    }
+    input{
+      float: left;
+      border:none;
+      outline:medium;
+      width: 400px;
+      font-size: 30px;
+      line-height: 105px;
+    }
+    textarea{
+      float: left;
+      border:none;
+      outline:medium;
+      width: 438px;
+      font-size: 30px;
+      //border: 1px solid #ececec;
+      margin:30px 0 5px 0;
+    }
+    .select{
+      float: left;
+      width: 410px;
+      &.done{
+        color: #333333;
+      }
+    }
+    .arrow-r{
+      float: left;
+      width: 30px;
+      height: 30px;
+      background: url("../images/arrow_list.png") no-repeat 0 0;
+      background-size: cover;
+      margin-top: 38px;
+    }
+    //复选框
+    .checkbox{
+      >div{
+        float: left;
+      }
+      .lable{
+        width: 26px;
+        height: 26px;
+        border: 2px solid #CFCFCF;/*px*/
+        border-radius: 4px;
+        margin-top: 36px;
+        &.chosed{
+          width: 30px;
+          height: 30px;
+          border: none;
+          background: url("../images/choose_yes.png") no-repeat 0 0;
+          background-size: cover;
+        }
+      }
+      .option{
+        margin:0 105px 0 18px;
+      }
+      &.error{
+        color:#FF6948;
+        .lable{
+          border: 2px solid #FF6948;/*px*/
+        }
+      }
+    }
+    &.no-bottom{
+      border-bottom: none;
+    }
+    &.lines{
+      height: 150px;
+      >textarea{
+        border:none;
+        outline:medium;
+        font-size: 30px;
+        line-height: 40px;
+        resize:none;
+        width: 100%;
+        height:120px;
+        margin-top: 30px;
+      }
+      textarea::-webkit-input-placeholder {
+        color: #bfbfbf;
+      }
+      textarea::-ms-input-placeholder {
+        color: #bfbfbf;
+      }
+      textarea::-moz-placeholder {
+        color: #bfbfbf;
+      }
+    }
+    .error{
+      color:#FF6948;
+      &::-webkit-input-placeholder { /* WebKit browsers */
+        color: #FF6948 !important;
+      }
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #FF6948 !important;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #FF6948 !important;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: #FF6948 !important;
+      }
+      &textarea:-moz-placeholder {
+        color: #FF6948 !important;
+      }
+      &textarea::-webkit-input-placeholder {
+        color: #FF6948 !important;
+      }
+      &textarea:-moz-placeholder {
+        color: #FF6948 !important;
+      }
+    }
+  }
+  .blank-20{
+    background-color: #F7F7F7;
+    height: 20px;
+  }
+  .house-address{
+    .select{
+      width: 660px;
+    }
+  }
+}
+.task-items .select-options,.house-lookup .select-options{
+  position: fixed;
+  bottom: 0;
+  background-color: #ffffff;
+  /*width: 100%;*/
+  width: 10rem;
+  left: 50%;
+  margin-left: -5rem;
+  max-height: 690px;
+  overflow: scroll;
+  z-index: 10;
+  transition: all 2s;
+  -moz-transition: all 2s; /* Firefox 4 */
+  -webkit-transition: all 2s; /* Safari 和 Chrome */
+  -o-transition: all 2s;
+  &.tohide{
+    height: 0;
+  }
+  .select-head{
+    height: 90px;
+    border-bottom: 2px solid #ECECEC;
+  }
+  .title{
+    float: left;
+    font-size: 30px;
+    height: 90px;
+    line-height: 90px;
+    color: #999999;
+    padding-left: 30px;
+    text-align: left;
+    width: 590px;
+  }
+  .cancle{
+    float: left;
+    font-size: 30px;
+    height: 90px;
+    line-height: 90px;
+    color: #666666;
+    width: 100px;
+    text-align: right;
+  }
+  .option-item{
+    font-size: 30px;
+    height: 100px;
+    padding: 0 0 0 30px;
+    clear: both;
+    .font{
+      float: left;
+      width: 653px;
+      line-height: 100px;
+      color: #333333;
+    }
+    .mark{
+      display: none;
+      float: left;
+      width: 36px;
+      height: 36px;
+      background: url("../images/select_chose.png") no-repeat 0 0;
+      background-size: cover;
+      margin-top: 32px;
+      &.selected{
+        display: block;
+      }
+    }
+    .box{
+      height: 100px;
+      border-bottom: 2px solid #ECECEC;
+    }
+    &:hover{
+      background-color: #F7F7F7;
+    }
+  }
+}
+//蒙层及下拉列表选项
+.master{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  background-color: rgba(0,0,0,0.60);
+}

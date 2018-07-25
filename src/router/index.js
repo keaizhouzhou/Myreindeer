@@ -15,6 +15,7 @@ import orderCrowd from '@/components/orderCrowd'
 import sharePage from '@/components/sharePage'
 import supportHim from '@/components/supportHim'
 import supportHimToPay from '@/components/supportHimToPay'
+import addInfo from '@/components/addInfo';
 Vue.use(Router)
 const router =  new Router({
   routes: [
@@ -95,6 +96,11 @@ const router =  new Router({
       path: '/supportHimToPay',
       component: supportHimToPay,
       name: 'supportHimToPay'
+    },
+    { // 新增个人信息 addInfo
+      path: '/addInfo',
+      component: addInfo,
+      name: 'addInfo'
     }
   ]
 });
