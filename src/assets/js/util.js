@@ -37,10 +37,8 @@ export const util = {
   },
   // 获取查询参数
   getQueryString (name) {
-    let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-    let start = window.location.href.indexOf(name);
-    let r = window.location.href.substr(start).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return decodeURIComponent(r[2]); return null; //返回参数值
   }
 };
