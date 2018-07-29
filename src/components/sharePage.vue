@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <div class="portrait" v-bind:style="{background:'url('+crowdFundOrder.SmallImgUrl+')'}"></div>
+        <div class="portrait" v-bind:style="{background:'url('+getBaseUrl+crowdFundOrder.SmallImgUrl+')'}"></div>
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
