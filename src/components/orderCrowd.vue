@@ -66,7 +66,7 @@
       jumpToCrowd () {
         this.$router.push('/sharePage/'+this.matchHandler.MId)
       },
-      getMatchHandler () {
+      getMatchHandler () { // 自付赛事详情
         let jsoncontent ={
           condition:[
             {
@@ -93,7 +93,7 @@
           else {}
         });
       },
-      saveOrderCrowd() {
+      saveOrderCrowd() { // 提交订单
         let jsoncontent ={
           "field": {
             "Mid": this.matchHandler.Id,

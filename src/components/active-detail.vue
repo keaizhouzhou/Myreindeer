@@ -118,7 +118,7 @@
             this.selectImg = this.MatchHandler.MatchStandard
           }
         },
-        getMatchHandler () {
+        getMatchHandler () { // 赛事详情
           let jsoncontent ={
             condition:[
               {
@@ -178,7 +178,7 @@
              }
            });
         },
-        getCount(){
+        getCount(){ // 获取各种数量
           let jsoncontent ={
             condition:[
               {
