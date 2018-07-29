@@ -7,5 +7,8 @@ export const mutations = {
   },
   CHAGE_OPEN_ID (state, openid) {
     state.openid = openid;
+  },
+  CHANGE_USER_INFO (state, userInfo) {
+    state.userInfo = userInfo;
   }
 }

@@ -29,7 +29,6 @@
       components: {houseBtn, houseHead},
       methods: {
         init() {
-
         },
         sign(){
           this.$router.push('/activeLists')

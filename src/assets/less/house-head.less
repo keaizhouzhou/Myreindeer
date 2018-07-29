@@ -15,22 +15,31 @@
   text-align: center;
   padding: 0 20px;
   overflow: hidden;
+  position: relative;
   .return{
+    position: absolute;
     display: block;
     float: left;
     width: 44px;
     height: 44px;
     //margin-left: 20px;
     background: url("../images/back.png") no-repeat 0 0;
+    -webkit-background-size:44px 44px;
+    background-size:44px 44px;
     background-size: cover;
     margin-top: 21px;
   }
   .return-text{
+    position: absolute;
     display: block;
-    float: left;
     font-size: 30px;
-    width: 106px;
+    width: 44px;
     height: 44px;
+    left:0;
+    padding:20px;
+    background: url("../images/back.png") no-repeat center center;
+    -webkit-background-size:44px 44px;
+    background-size:44px 44px;
   }
   .title{
     display: block;

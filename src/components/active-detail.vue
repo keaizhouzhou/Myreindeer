@@ -95,7 +95,7 @@
       methods: {
         init() {
           this.getMatchHandler();
-          this.getConut();
+          this.getCount();
         },
         jumpPay () {
           this.$router.push('/payOrder');
@@ -174,7 +174,7 @@
              }
            });
         },
-        getConut(){
+        getCount(){
           let jsoncontent ={
             condition:[
               {

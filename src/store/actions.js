@@ -7,6 +7,9 @@ export const actions = {
   },
   changeOpenId ({commit}, openid) {
     commit('CHAGE_OPEN_ID', openid)
+  },
+  changeUserInfo ({commit}, userInfo) {
+    commit('CHANGE_USER_INFO', userInfo)
   }
 }
 

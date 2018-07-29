@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support">自己支持</div>
+            <div class="myself_support" @click="jumpSelfSupport">自己支持</div>
             <div class="go_crowd" @click="jumpSharePage">去众筹</div>
           </div>
         </div>
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support">自己支持</div>
+            <div class="myself_support" @click="jumpSelfSupport">自己支持</div>
             <div class="go_crowd" @click="jumpSharePage">去众筹</div>
           </div>
         </div>
@@ -108,6 +108,9 @@
       },
       tabClick (tab) {
         this.selectedTab = tab;
+      },
+      jumpSelfSupport (){
+        this.$router.push('/selfSupport');
       },
       jumpSharePage (){
         this.$router.push('/sharePage');

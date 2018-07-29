@@ -10,12 +10,15 @@ import myOrder from '@/components/myOrder'
 import routerIntroduce from '@/components/router-introduce'
 import activeLists from '@/components/active-lists'
 import activeDetail from '@/components/active-detail'
+import confirmOrder from '@/components/confirm-order'
 import payOrder from '@/components/pay-order'
 import orderCrowd from '@/components/orderCrowd'
 import sharePage from '@/components/sharePage'
+import selfSupport from '@/components/selfSupport'
 import supportHim from '@/components/supportHim'
 import supportHimToPay from '@/components/supportHimToPay'
 import addInfo from '@/components/addInfo';
+import safeState from '@/components/safeState';
 Vue.use(Router)
 const router =  new Router({
   routes: [
@@ -76,6 +79,11 @@ const router =  new Router({
       name: 'payOrder',
       component: payOrder
     },
+    { // 确认下单
+      path: '/confirmOrder/:num',
+      name: 'confirmOrder',
+      component: confirmOrder
+    },
     // 众筹下单
     {
       path: '/orderCrowd',
@@ -83,9 +91,14 @@ const router =  new Router({
       name: 'orderCrowd'
     },
     {// 分享页
-      path: '/sharePage',
+      path: '/sharePage/:MId',
       component: sharePage,
       name: 'sharePage'
+    },
+    {// 自己支持付款页
+      path: '/selfSupport',
+      component: selfSupport,
+      name: 'selfSupport'
     },
     {// 给他支持页
       path: '/supportHim',
@@ -101,6 +114,11 @@ const router =  new Router({
       path: '/addInfo',
       component: addInfo,
       name: 'addInfo'
+    },
+    { // 安全声明
+      path: '/safeState',
+      component: safeState,
+      name: 'safeState'
     }
   ]
 });

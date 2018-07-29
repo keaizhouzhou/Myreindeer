@@ -3,7 +3,7 @@
     <div class="tab-group">
       <div v-for="(tab, index) in tabList" v-bind:class="{item:!isCount,chose:tabChose==index,itemCount:isCount}" @click="onTabClick(tab, index)" v-bind:key="index">
         {{tab.value}}
-        <div v-if="isCount" class="num">100</div>
+        <div v-if="isCount" class="num">{{tab.num}}</div>
       </div>
     </div>
   </div>

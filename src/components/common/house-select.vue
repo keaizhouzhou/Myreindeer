@@ -92,46 +92,17 @@ export default {
       this.selHide = false;
     },
     selectChose (item) {
+      console.log(this.choseItem)
       if (this.type == 'select') {
         this.choseItem = item;
         this.selectCancel();
       } else {
         if (this.contains(this.choseItem.key, item.key)) {
-          let arrKey = this.choseItem.key.split(',');
-          let arrValues = this.choseItem.value.split(',');
-          let tempKeys = '';
-          let tempValues = '';
-          for (let i = 0; i < arrKey.length; i++) {
-            if (arrKey[i] != item.key) {
-              tempKeys += arrKey[i] + ',';
-            }
-          }
-          for (let i = 0; i < arrValues.length; i++) {
-            if (arrValues[i] != item.value) {
-              tempValues += arrValues[i] + ',';
-            }
-          }
-          if (tempKeys != '') {
-            tempKeys = tempKeys.substring(0, tempKeys.length - 1);
-          }
-          this.choseItem.key = tempKeys;
-          if (tempValues == '') {
-            tempValues = '请选择';
-          } else {
-            tempValues = tempValues.substring(0, tempValues.length - 1);
-          }
-          this.choseItem.value = tempValues;
+          this.choseItem.key = "";
+          this.choseItem.value = "";
         } else {
-          if (this.choseItem.key) {
-            this.choseItem.key += ',' + item.key;
-          } else {
-            this.choseItem.key = item.key;
-          }
-          if (this.choseItem.value == '请选择') {
-            this.choseItem.value = item.value;
-          } else {
-            this.choseItem.value += ',' + item.value;
-          }
+          this.choseItem.key = item.key;
+          this.choseItem.value = item.value;
         }
       }
       this.$emit('getList');
