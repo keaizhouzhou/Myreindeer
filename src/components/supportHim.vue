@@ -1,6 +1,6 @@
 <template>
     <div class="share-page">
-      <houseHead>给他支持页</houseHead>
+      <!--<houseHead>给他支持页</houseHead>-->
       <div class="img-information">
         <div class="logo">
           <div class="logo-text">
