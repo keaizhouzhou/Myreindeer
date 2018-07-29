@@ -1,6 +1,6 @@
 <template>
     <div class="safe-state">
-      <houseHead>安全声明</houseHead>
+      <!--<houseHead>安全声明</houseHead>-->
       <div class="content">
         <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
         <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
@@ -35,6 +35,7 @@
       components: {houseBtn,houseHead},
       methods: {
         init() {
+          window.changeTitle('安全声明');
         },
         ...mapActions([
           'changeRoute'

@@ -1,6 +1,6 @@
 <template>
     <div class="user-center">
-      <houseHead>个人中心</houseHead>
+      <!--<houseHead>个人中心</houseHead>-->
       <div class="logo-bg">
         <div class="portrait"></div>
         <div class="name">花花超人</div>
@@ -60,6 +60,7 @@
       methods: {
         init() {
 
+          window.changeTitle('个人中心');
         },
       },
       mounted: function () {

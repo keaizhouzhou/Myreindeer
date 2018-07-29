@@ -1,6 +1,6 @@
 <template>
   <div class="myCrowd">
-    <houseHead>我的众筹</houseHead>
+    <!--<houseHead>我的众筹</houseHead>-->
     <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
     <div class="content">
       <div v-if="selectedTab.key == 'crowding'">
@@ -104,7 +104,7 @@
     components: { houseHead, houseBtn, houseSort},
     methods: {
       init () {
-
+        window.changeTitle('我的众筹');
       },
       tabClick (tab) {
         this.selectedTab = tab;

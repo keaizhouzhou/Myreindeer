@@ -1,6 +1,6 @@
 <template>
     <div class="active-detail">
-      <houseHead>活动详情</houseHead>
+      <!--<houseHead>活动详情</houseHead>-->
       <div class="banners">
         <div class="timers">
           <div class="tittle">距开赛</div>
@@ -96,6 +96,7 @@
         init() {
           this.getMatchHandler();
           this.getCount();
+          window.changeTitle('活动详情');
         },
         jumpPay () {
           this.$router.push('/payOrder');

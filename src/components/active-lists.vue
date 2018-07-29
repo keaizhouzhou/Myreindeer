@@ -1,6 +1,6 @@
 <template>
     <div class="active-lists">
-      <houseHead>活动列表</houseHead>
+      <!--<houseHead>活动列表</houseHead>-->
       <div class="home-item"  v-for="(match,index) in matchLists" @click="jumpActiveDetail(match)">
         <img class="item-image" :src="getBaseUrl + match.SmallImgUrl" alt="">
         <div class="item-des">
@@ -72,6 +72,7 @@
       },
       init () {
         this.getMatchList();
+        window.changeTitle('活动列表');
       }
     },
     mounted: function () {
