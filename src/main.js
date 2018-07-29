@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 import 'lib-flexible/flexible';
+window.changeTitle = function (title) {
+  document.querySelector('head title').innerHTML = title;
+};
 Vue.config.productionTip = false;
 Vue.filter("timeSplit", function(value) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
   return value.split(' ')[0];

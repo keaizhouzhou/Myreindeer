@@ -1,6 +1,5 @@
 <template>
   <div class="myhome">
-    <houseHead>驯鹿户外</houseHead>
     <div class="home-item" v-for="(item,i) in homeLists">
       <img :src="getBaseUrl + item.SmallImgUrl" alt="" class="item-image">
       <!--<div class="item-image" :style="{'background-image':'url('+(item.SmallImgUrl?getBaseUrl + item.SmallImgUrl:'')+')','background-size':'cover'}"></div>-->
@@ -89,6 +88,7 @@ export default{
     init () {
       this.getHomeList();
       this.getOpenId();
+      window.changeTitle('驯鹿户外');
     },
     introduce(item) {
       this.changeRoute(item);
