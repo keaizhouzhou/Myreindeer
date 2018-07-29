@@ -3,5 +3,6 @@ export const getters = {
   getBaseUrl (state) {return state.baseUrl},
   getSelectRoute (state) {return state.selectedRoute},
   getOpenId (state) {return state.openid},
-  getUserInfo (state) {return state.userInfo}
+  getUserInfo (state) {return state.userInfo},
+  getDev (state) {return state.dev}
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="pay-order">
-      <!--<houseHead>确认订单</houseHead>-->
+      <houseHead v-if="dev">确认订单</houseHead>
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
@@ -44,6 +44,7 @@
       template: '.pay-order',
       data: function () {
           return {
+            dev:true,
             orderNum:1,
             userInfo:null,
             matchHandler:{}
@@ -53,7 +54,8 @@
       ...mapGetters([
         'getBaseUrl',
         'getSelectRoute',
-        'getUserInfo'
+        'getUserInfo',
+        'getDev'
       ])
     },
       components: {houseBtn, houseHead },
@@ -62,7 +64,8 @@
           this.orderNum = this.$router.history.current.params.num;
           this.userInfo=this.getUserInfo;
           this.getMatchHandler();
-          window.changeTitle('确认订单');
+          this.dev=this.getDev;
+          if( !this.dev ) window.changeTitle('确认订单');
         },
         jumpToOrder () {
           this.$router.push('/main/myOrder')

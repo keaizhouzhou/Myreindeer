@@ -1,6 +1,6 @@
 <template>
   <div class="myOrder">
-    <!--<houseHead>我的订单</houseHead>-->
+    <houseHead v-if="dev">我的订单</houseHead>
     <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
     <div class="content">
       <div v-if="selectedTab.key == 'unComplete'">
@@ -86,6 +86,7 @@
     template: '.myOrder',
     data: function () {
       return {
+        dev:true,
         selectedTab:{value: '待支付', key: 'unComplete'},
         tabList:[
           {value: '待支付', key: 'unComplete'},
@@ -95,11 +96,18 @@
       };
     },
     computed: {
+      ...mapGetters([
+        'getBaseUrl',
+        'getSelectRoute',
+        'getUserInfo',
+        'getDev'
+      ])
     },
     components: { houseHead, houseBtn, houseSort},
     methods: {
       init () {
-        window.changeTitle('我的订单');
+        this.dev=this.getDev;
+        if( !this.dev ) window.changeTitle('我的订单');
       },
       tabClick (tab) {
         this.selectedTab = tab;

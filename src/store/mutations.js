@@ -10,5 +10,8 @@ export const mutations = {
   },
   CHANGE_USER_INFO (state, userInfo) {
     state.userInfo = userInfo;
+  },
+  CHANGE_DEV (state, dev) {
+    state.dev = dev;
   }
 }
