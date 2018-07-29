@@ -126,6 +126,7 @@
     components: {houseHead, houseSort},
     methods: {
       init() {
+        window.changeTitle('给他支持页');
 
       },
       tabClick (tab) {

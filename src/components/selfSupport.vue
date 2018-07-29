@@ -1,6 +1,6 @@
 <template>
     <div class="self-support">
-      <houseHead>活动名称</houseHead>
+      <!--<houseHead>活动名称</houseHead>-->
       <div class="content">
         <p>自己支持（元）</p>
         <div class="pay_content">
@@ -37,6 +37,7 @@
       components: {houseBtn,houseHead},
       methods: {
         init() {
+          window.changeTitle('活动名称');
         },
         ...mapActions([
           'changeRoute'

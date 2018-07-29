@@ -1,6 +1,6 @@
 <template>
     <div class="add-info">
-      <houseHead>新增个人信息</houseHead>
+      <!--<houseHead>新增个人信息</houseHead>-->
       <div class="task-items">
         <houseInput
           type='input'
@@ -70,6 +70,7 @@
         },
         init() {
           this.getList();
+          window.changeTitle('新增个人信息');
         },
         change () {
         },

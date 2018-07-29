@@ -1,6 +1,6 @@
 <template>
     <div class="strategy">
-      <houseHead>攻略</houseHead>
+      <!--<houseHead>攻略</houseHead>-->
     </div>
 </template>
 <script>
@@ -24,7 +24,7 @@
       components: { houseHead },
       methods: {
           init() {
-
+            window.changeTitle('攻略');
           },
       },
       mounted: function () {

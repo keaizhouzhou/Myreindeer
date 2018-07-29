@@ -1,6 +1,6 @@
 <template>
     <div class="share-page">
-      <houseHead>分享页</houseHead>
+      <!--<houseHead>分享页</houseHead>-->
       <div class="img-information">
         <div class="logo">
           <div class="logo-text">
@@ -144,6 +144,7 @@
         this.getCount();
         this.getSelfTeamList();
         this.getSupportList();
+        window.changeTitle('分享页');
       },
       tabClick (tab) {
         this.selectedTab = tab;

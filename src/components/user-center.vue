@@ -60,6 +60,7 @@
       methods: {
         init() {
 
+          window.changeTitle('个人中心');
         },
       },
       mounted: function () {

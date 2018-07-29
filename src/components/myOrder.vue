@@ -1,6 +1,6 @@
 <template>
   <div class="myOrder">
-    <houseHead>我的订单</houseHead>
+    <!--<houseHead>我的订单</houseHead>-->
     <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
     <div class="content">
       <div v-if="selectedTab.key == 'unComplete'">
@@ -99,7 +99,7 @@
     components: { houseHead, houseBtn, houseSort},
     methods: {
       init () {
-
+        window.changeTitle('我的订单');
       },
       tabClick (tab) {
         this.selectedTab = tab;

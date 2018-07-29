@@ -1,6 +1,6 @@
 <template>
     <div class="support_pay">
-      <houseHead>给他支持付款页</houseHead>
+      <!--<houseHead>给他支持付款页</houseHead>-->
       <div class="support_info">
         <p>支持他：</p>
         <img src="../assets/images/img.jpg" alt="" class="user_img">
@@ -43,7 +43,7 @@
     components: {houseHead, houseSort},
     methods: {
       init() {
-
+        window.changeTitle('给他支持付款页');
       },
       tabClick (tab) {
         this.selectedTab = tab;

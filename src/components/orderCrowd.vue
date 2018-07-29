@@ -1,6 +1,6 @@
 <template>
     <div class="order-crowd">
-      <houseHead>众筹下单</houseHead>
+      <!--<houseHead>众筹下单</houseHead>-->
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
@@ -55,6 +55,7 @@
       init() {
         this.userInfo=this.getUserInfo;
         this.getMatchHandler();
+        window.changeTitle('众筹下单');
       },
       jumpAddInfo () {
         this.$router.push('/addInfo')

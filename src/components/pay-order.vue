@@ -1,6 +1,6 @@
 <template>
     <div class="pay-order">
-      <houseHead>自付下单</houseHead>
+      <!--<houseHead>自付下单</houseHead>-->
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
@@ -61,6 +61,7 @@
         init() {
           this.userInfo=this.getUserInfo;
           this.getMatchHandler();
+          window.changeTitle('自付下单');
         },
         jumpToOrder () {
           this.$router.push('/confirmOrder/'+this.orderNum);
