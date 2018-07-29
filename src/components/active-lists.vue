@@ -43,7 +43,7 @@
       jumpActiveDetail (match) {
         this.$router.push('/activeDetail/'+match.MId)
       },
-      getMatchList () {
+      getMatchList () { // 获取赛事页面
         let jsoncontent ={
           condition:[
             {

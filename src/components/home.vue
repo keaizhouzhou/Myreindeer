@@ -47,7 +47,7 @@ export default{
     houseToast
   },
   methods: {
-    getHomeList () {
+    getHomeList () { // 获取首页列表
       let data = {
         data:{},
         url:this.getBaseUrl + 'CommonHandler/RouteHandler.ashx?Action=routeshow'
@@ -66,7 +66,7 @@ export default{
       'changeRoute',
       'changeOpenId'
     ]),
-    getOpenId () {
+    getOpenId () { // 获取openid
       let data = {
         data:{
           Action:'getuserinfobycode',
