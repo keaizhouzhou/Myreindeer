@@ -73,7 +73,7 @@
         jumpAddInfo () {
           this.$router.push('/addInfo')
         },
-        getMatchHandler () {
+        getMatchHandler () {//赛事详情
           let jsoncontent ={
             condition:[
               {
@@ -100,7 +100,7 @@
             else {}
           });
         },
-        saveOrder() {
+        saveOrder() {//自付下单
           jsoncontent={
             "field": { }}
           let jsoncontent ={

@@ -72,7 +72,7 @@
         jumpAddInfo () {
           this.$router.push('/addInfo')
         },
-        getMatchHandler () {
+        getMatchHandler () {//赛事详情
           let jsoncontent ={
             condition:[
               {

@@ -153,7 +153,7 @@
       tabClick (tab) {
         this.selectedTab = tab;
       },
-      getMatchHandler () {
+      getMatchHandler () {//赛事详情
         let jsoncontent ={
           condition:[
             {
@@ -180,7 +180,7 @@
           }
         });
       },
-      getCrowdFundOrderHandler () {
+      getCrowdFundOrderHandler () {//众筹赛事详情
         let jsoncontent ={
           condition:[
             {"key":"CId","values":"37D072C9F0BB4044AE061DD52C9673E9","oprate":"="},
@@ -205,7 +205,7 @@
           }
         });
       },
-      getCount(){
+      getCount(){//赛事的参赛队伍数量、本队人数、支持人数
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
@@ -233,7 +233,7 @@
           }
         });
       },
-      getSelfTeamList(){
+      getSelfTeamList(){//本队人数信息列表接口
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
@@ -261,7 +261,7 @@
           }
         });
       },
-      getSupportList(){
+      getSupportList(){//支持人数信息列表接口
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},

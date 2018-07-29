@@ -81,7 +81,7 @@
           'changeRoute',
           'changeUserInfo'
         ]),
-        getList () {
+        getList () {//选择队伍
           let jsoncontent ={
             condition:[
               {
@@ -111,7 +111,7 @@
             }
           });
         },
-        saveInfo (){
+        saveInfo (){//新增个人信息
           let jsoncontent ={
             field:{
               username:this.$refs.username.finalValue,
