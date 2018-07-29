@@ -1,6 +1,6 @@
 <template>
     <div class="user-center">
-      <!--<houseHead>个人中心</houseHead>-->
+      <houseHead v-if="dev">个人中心</houseHead>
       <div class="logo-bg">
         <div class="portrait"></div>
         <div class="name">花花超人</div>
@@ -45,6 +45,7 @@
       template: '.user-center',
       data: function () {
           return {
+              dev:true,
               errorMessage: '',
               isHide: true,
               titleShow: true,
@@ -55,12 +56,19 @@
               batchApplyId: ''
           };
       },
-      computed: {},
+      computed: {
+        ...mapGetters([
+          'getBaseUrl',
+          'getSelectRoute',
+          'getUserInfo',
+          'getDev'
+        ])
+      },
       components: { houseHead },
       methods: {
         init() {
-
-          window.changeTitle('个人中心');
+          this.dev=this.getDev;
+          if( !this.dev ) window.changeTitle('个人中心');
         },
       },
       mounted: function () {

@@ -1,6 +1,6 @@
 <template>
     <div class="share-page">
-      <!--<houseHead>分享页</houseHead>-->
+      <houseHead v-if="dev">分享页</houseHead>
       <div class="img-information">
         <div class="logo">
           <div class="logo-text">
@@ -114,6 +114,7 @@
     template: '.share-page',
     data: function () {
         return {
+          dev:true,
           selectedTab:{value: '参赛队伍', key: 'queue'},
           tabList:[
             {value: '参赛队伍', key: 'queue',num:0},
@@ -133,7 +134,9 @@
     computed: {
       ...mapGetters([
         'getBaseUrl',
-        'getSelectRoute'
+        'getSelectRoute',
+        'getUserInfo',
+        'getDev'
       ])
     },
     components: {houseHead, houseSort},
@@ -144,12 +147,13 @@
         this.getCount();
         this.getSelfTeamList();
         this.getSupportList();
-        window.changeTitle('分享页');
+        this.dev=this.getDev;
+        if( !this.dev ) window.changeTitle('分享页');
       },
       tabClick (tab) {
         this.selectedTab = tab;
       },
-      getMatchHandler () {
+      getMatchHandler () {//赛事详情
         let jsoncontent ={
           condition:[
             {
@@ -176,7 +180,7 @@
           }
         });
       },
-      getCrowdFundOrderHandler () {
+      getCrowdFundOrderHandler () {//众筹赛事详情
         let jsoncontent ={
           condition:[
             {"key":"CId","values":"37D072C9F0BB4044AE061DD52C9673E9","oprate":"="},
@@ -201,7 +205,7 @@
           }
         });
       },
-      getCount(){
+      getCount(){//赛事的参赛队伍数量、本队人数、支持人数
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
@@ -229,7 +233,7 @@
           }
         });
       },
-      getSelfTeamList(){
+      getSelfTeamList(){//本队人数信息列表接口
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
@@ -257,7 +261,7 @@
           }
         });
       },
-      getSupportList(){
+      getSupportList(){//支持人数信息列表接口
         let jsoncontent ={
           condition:[
             {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},

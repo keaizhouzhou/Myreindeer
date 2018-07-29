@@ -10,6 +10,9 @@ export const actions = {
   },
   changeUserInfo ({commit}, userInfo) {
     commit('CHANGE_USER_INFO', userInfo)
+  },
+  changeDev ({commit}, dev) {
+    commit('CHANGE_DEV', dev)
   }
 }
 

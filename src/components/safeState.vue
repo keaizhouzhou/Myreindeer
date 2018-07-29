@@ -1,6 +1,6 @@
 <template>
     <div class="safe-state">
-      <!--<houseHead>安全声明</houseHead>-->
+      <houseHead v-if="dev">安全声明</houseHead>
       <div class="content">
         <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
         <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
@@ -21,6 +21,7 @@
       template: '.safe-state',
       data: function () {
           return {
+            dev:true,
             errorMessage: '',
             isHide: true,
             titleShow: true
@@ -29,13 +30,16 @@
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute'
+          'getSelectRoute',
+          'getUserInfo',
+          'getDev'
         ])
       },
       components: {houseBtn,houseHead},
       methods: {
         init() {
-          window.changeTitle('安全声明');
+          this.dev=this.getDev;
+          if( !this.dev ) window.changeTitle('安全声明');
         },
         ...mapActions([
           'changeRoute'

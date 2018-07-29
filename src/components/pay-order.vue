@@ -1,6 +1,6 @@
 <template>
     <div class="pay-order">
-      <!--<houseHead>自付下单</houseHead>-->
+      <houseHead v-if="dev">自付下单</houseHead>
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
@@ -44,6 +44,7 @@
       template: '.pay-order',
       data: function () {
           return {
+            dev:true,
             orderNum:1,
             userInfo:null,
             matchHandler:{}
@@ -53,7 +54,8 @@
       ...mapGetters([
         'getBaseUrl',
         'getSelectRoute',
-        'getUserInfo'
+        'getUserInfo',
+        'getDev'
       ])
     },
       components: {houseBtn, houseHead },
@@ -61,7 +63,8 @@
         init() {
           this.userInfo=this.getUserInfo;
           this.getMatchHandler();
-          window.changeTitle('自付下单');
+          this.dev=this.getDev;
+          if( !this.dev ) window.changeTitle('自付下单');
         },
         jumpToOrder () {
           this.$router.push('/confirmOrder/'+this.orderNum);
@@ -69,7 +72,7 @@
         jumpAddInfo () {
           this.$router.push('/addInfo')
         },
-        getMatchHandler () {
+        getMatchHandler () {//赛事详情
           let jsoncontent ={
             condition:[
               {

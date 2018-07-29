@@ -1,6 +1,6 @@
 <template>
     <div class="support_pay">
-      <!--<houseHead>给他支持付款页</houseHead>-->
+      <houseHead v-if="dev">给他支持付款页</houseHead>
       <div class="support_info">
         <p>支持他：</p>
         <img src="../assets/images/img.jpg" alt="" class="user_img">
@@ -33,17 +33,26 @@
     template: '.support_pay',
     data: function () {
         return {
+          dev:true,
           userDesc:"人生就是走好每一步，等你圆满归来。",
           isEditDesc:false,
           priceList:[66,108,199,520,999],
           defaultPrice:199
         };
     },
-    computed: {},
+    computed: {
+      ...mapGetters([
+        'getBaseUrl',
+        'getSelectRoute',
+        'getUserInfo',
+        'getDev'
+      ])
+    },
     components: {houseHead, houseSort},
     methods: {
       init() {
-        window.changeTitle('给他支持付款页');
+        this.dev=this.getDev;
+        if( !this.dev ) window.changeTitle('给他支持付款页');
       },
       tabClick (tab) {
         this.selectedTab = tab;
