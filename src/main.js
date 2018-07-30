@@ -12,6 +12,17 @@ Vue.config.productionTip = false;
 Vue.filter("timeSplit", function(value) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
   return value.split(' ')[0];
 });
+Vue.filter('orderState',function (value) {
+  if (value == 0) {
+    return '待支付'
+  }
+  else if (value == 1) {
+    return '已完成'
+  }
+  else if (value == 2) {
+
+  }
+})
 Vue.filter("remain", function([timeS,timeE] = arr) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
   let timeCounts = new Date(timeS) - new Date(timeE);
   let days = timeCounts/(1000*60*60*24);
