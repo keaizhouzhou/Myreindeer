@@ -80,7 +80,7 @@ const router =  new Router({
       component: payOrder
     },
     { // 确认下单
-      path: '/confirmOrder/:num',
+      path: '/confirmOrder/:num/:teamName/:teamId',
       name: 'confirmOrder',
       component: confirmOrder
     },
