@@ -1,6 +1,6 @@
 <template>
     <div class="add-info">
-      <houseHead v-if="dev">新增个人信息</houseHead>
+      <!--<houseHead>新增个人信息</houseHead>-->
       <div class="task-items">
         <houseInput
           type='input'
@@ -41,7 +41,6 @@
       template: '.add-info',
       data: function () {
           return {
-            dev:true,
             errorMessage: '',
             isHide: true,
             titleShow: true,
@@ -62,8 +61,7 @@
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute',
-          'getDev'
+          'getSelectRoute'
         ])
       },
       components: {houseBtn,houseHead,houseToast,houseSelect,houseInput},
@@ -72,8 +70,7 @@
         },
         init() {
           this.getList();
-          this.dev=this.getDev;
-          if( !this.dev ) window.changeTitle('新增个人信息');
+          window.changeTitle('新增个人信息');
         },
         change () {
         },
@@ -81,7 +78,7 @@
           'changeRoute',
           'changeUserInfo'
         ]),
-        getList () {//选择队伍
+        getList () {
           let jsoncontent ={
             condition:[
               {
@@ -111,7 +108,7 @@
             }
           });
         },
-        saveInfo (){//新增个人信息
+        saveInfo (){
           let jsoncontent ={
             field:{
               username:this.$refs.username.finalValue,

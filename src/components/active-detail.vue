@@ -1,6 +1,6 @@
 <template>
     <div class="active-detail">
-      <houseHead v-if="dev">活动详情</houseHead>
+      <!--<houseHead>活动详情</houseHead>-->
       <div class="banners">
         <div class="timers">
           <div class="tittle">距开赛</div>
@@ -71,7 +71,6 @@
       template: '.active-detail',
       data: function () {
           return {
-            dev:true,
             listImg:[],
             tabList: [
               {value: '详情描述', key: 'detail'},
@@ -89,17 +88,15 @@
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute',
-          'getDev'
+          'getSelectRoute'
         ])
       },
       components: {houseHead, houseBtn, houseSort},
       methods: {
         init() {
-          this.dev=this.getDev;
           this.getMatchHandler();
           this.getCount();
-          if( !this.dev ) window.changeTitle('活动详情');
+          window.changeTitle('活动详情');
         },
         jumpPay () {
           this.$router.push('/payOrder');

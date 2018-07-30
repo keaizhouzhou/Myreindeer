@@ -1,6 +1,6 @@
 <template>
   <div class="myCrowd">
-    <houseHead v-if="dev">我的众筹</houseHead>
+    <!--<houseHead>我的众筹</houseHead>-->
     <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
     <div class="content">
       <div v-if="selectedTab.key == 'crowding'">
@@ -91,7 +91,6 @@
     template: '.myCrowd',
     data: function () {
       return {
-        dev:true,
         selectedTab:{value: '进行中', key: 'crowding'},
         tabList:[
           {value: '进行中', key: 'crowding'},
@@ -101,18 +100,11 @@
       };
     },
     computed: {
-      ...mapGetters([
-        'getBaseUrl',
-        'getSelectRoute',
-        'getUserInfo',
-        'getDev'
-      ])
     },
     components: { houseHead, houseBtn, houseSort},
     methods: {
       init () {
-        this.dev=this.getDev;
-        if( !this.dev ) window.changeTitle('我的众筹');
+        window.changeTitle('我的众筹');
       },
       tabClick (tab) {
         this.selectedTab = tab;

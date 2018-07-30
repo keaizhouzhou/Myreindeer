@@ -1,6 +1,6 @@
 <template>
     <div class="share-page">
-      <houseHead v-if="dev">给他支持页</houseHead>
+      <!--<houseHead>给他支持页</houseHead>-->
       <div class="img-information">
         <div class="logo">
           <div class="logo-text">
@@ -113,7 +113,6 @@
     template: '.share-page',
     data: function () {
       return {
-        dev:true,
         selectedTab:{value: '参赛队伍', key: 'queue'},
         tabList:[
           {value: '参赛队伍', key: 'queue'},
@@ -123,19 +122,11 @@
         isCount:true
       };
     },
-    computed: {
-      ...mapGetters([
-        'getBaseUrl',
-        'getSelectRoute',
-        'getUserInfo',
-        'getDev'
-      ])
-    },
+    computed: {},
     components: {houseHead, houseSort},
     methods: {
       init() {
-        this.dev=this.getDev;
-        if( !this.dev ) window.changeTitle('给他支持页');
+        window.changeTitle('给他支持页');
 
       },
       tabClick (tab) {

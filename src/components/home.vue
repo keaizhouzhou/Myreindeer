@@ -1,6 +1,5 @@
 <template>
   <div class="myhome">
-    <houseHead v-if="dev">驯鹿户外</houseHead>
     <div class="home-item" v-for="(item,i) in homeLists">
       <img :src="getBaseUrl + item.SmallImgUrl" alt="" class="item-image">
       <!--<div class="item-image" :style="{'background-image':'url('+(item.SmallImgUrl?getBaseUrl + item.SmallImgUrl:'')+')','background-size':'cover'}"></div>-->
@@ -26,7 +25,6 @@ export default{
   template: '.myhome',
   data: function () {
     return {
-      dev:true,
       errorMessage: '',
       isHide: true,
       titleShow: true,
@@ -40,8 +38,7 @@ export default{
   },
   computed: {
     ...mapGetters([
-      'getBaseUrl',
-      'getDev'
+      'getBaseUrl'
     ])
   },
   components: {
@@ -91,8 +88,7 @@ export default{
     init () {
       this.getHomeList();
       this.getOpenId();
-      this.dev=this.getDev;
-      if( !this.dev ) window.changeTitle('驯鹿户外');
+      window.changeTitle('驯鹿户外');
     },
     introduce(item) {
       this.changeRoute(item);

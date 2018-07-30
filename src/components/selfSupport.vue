@@ -1,6 +1,6 @@
 <template>
     <div class="self-support">
-      <houseHead v-if="dev">活动名称</houseHead>
+      <!--<houseHead>活动名称</houseHead>-->
       <div class="content">
         <p>自己支持（元）</p>
         <div class="pay_content">
@@ -23,7 +23,6 @@
       template: '.self-support',
       data: function () {
           return {
-            dev:true,
             errorMessage: '',
             isHide: true,
             titleShow: true
@@ -32,16 +31,13 @@
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute',
-          'getUserInfo',
-          'getDev'
+          'getSelectRoute'
         ])
       },
       components: {houseBtn,houseHead},
       methods: {
         init() {
-          this.dev=this.getDev;
-          if( !this.dev ) window.changeTitle('活动名称');
+          window.changeTitle('活动名称');
         },
         ...mapActions([
           'changeRoute'

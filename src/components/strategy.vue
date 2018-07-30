@@ -1,6 +1,6 @@
 <template>
     <div class="strategy">
-      <houseHead v-if="dev">攻略</houseHead>
+      <!--<houseHead>攻略</houseHead>-->
     </div>
 </template>
 <script>
@@ -10,7 +10,6 @@
       template: '.strategy',
       data: function () {
           return {
-              dev:true,
               errorMessage: '',
               isHide: true,
               titleShow: true,
@@ -21,19 +20,11 @@
               batchApplyId: ''
           };
       },
-      computed: {
-        ...mapGetters([
-          'getBaseUrl',
-          'getSelectRoute',
-          'getUserInfo',
-          'getDev'
-        ])
-      },
+      computed: {},
       components: { houseHead },
       methods: {
           init() {
-            this.dev=this.getDev;
-            if( !this.dev ) window.changeTitle('攻略');
+            window.changeTitle('攻略');
           },
       },
       mounted: function () {
