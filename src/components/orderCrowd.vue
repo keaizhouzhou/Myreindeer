@@ -12,7 +12,8 @@
       </div>
       <div class="itemWrap">
         <div class="home-item">
-          <div class="item-image" v-bind:style="{background:'url('+matchHandler.SmallImgUrl+')'}"></div>
+          <div class="item-image" v-if="matchHandler.SmallImgUrl"
+               :style="{background:'url('+getBaseUrl+matchHandler.SmallImgUrl+')',backgroundSize:'cover'}"></div>
           <div class="item-des">
             <div class="tittle">{{matchHandler.MName}}</div>
           </div>

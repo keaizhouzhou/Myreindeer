@@ -77,7 +77,7 @@ export default{
       util.fetchData (data).then(res => {
       if (res.data.result == 0) {
         console.log('openid',res.data);
-        this.changeOpenId(res.data.data.openid);
+        // this.changeOpenId(res.data.data.openid);
         this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
       }
       else {

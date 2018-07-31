@@ -11,7 +11,8 @@
         </div>
       </div>
       <div class="active">
-        <div class="img" v-bind:style="{background:'url('+matchHandler.SmallImgUrl+')'}"></div>
+        <div class="img" v-if="matchHandler.SmallImgUrl"
+             :style="{background:'url('+getBaseUrl+matchHandler.SmallImgUrl+')',backgroundSize:'cover'}"></div>
         <div class="tittle">{{matchHandler.MName}}</div>
         <div class="price">
           <div class="onePrice">￥{{matchHandler.Price}}</div>
