@@ -1,6 +1,6 @@
 <template>
     <div class="pay-order">
-
+      <!--<houseHead>自付下单</houseHead>-->
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
@@ -9,16 +9,6 @@
           <div class="tittle" @click="jumpAddInfo" >新增个人页面<span>></span></div>
           <div class="text">请填写您的个人信息以便工作人员更好的为您服务</div>
         </div>
-      </div>
-      <div class="task-items">
-        <houseSelect
-          title = '队伍'
-          :choseList = 'channellist'<!--<houseHead>自付下单</houseHead>-->
-          :initValue = channel
-          @getList="change"
-          placeHolder="请选择"
-          ref="channel"
-        ></houseSelect>
       </div>
       <div class="active">
         <div class="img" v-if="matchHandler.SmallImgUrl"
@@ -50,7 +40,6 @@
   import {mapGetters} from 'vuex';
   import houseBtn from './common/house-btn.vue';
   import houseHead from './common/house-head.vue';
-  import houseSelect from './common/house-select.vue';
   import {util} from '../assets/js/util'
   export default {
       template: '.pay-order',
@@ -58,12 +47,7 @@
           return {
             orderNum:1,
             userInfo:null,
-            matchHandler:{},
-            channellist:{
-              "1":'么么哒',
-              "2":"hello"
-            },
-            channel:"1"
+            matchHandler:{}
           };
       },
       computed: {
@@ -73,18 +57,15 @@
         'getUserInfo'
       ])
     },
-      components: {houseBtn, houseHead ,houseSelect},
+      components: {houseBtn, houseHead },
       methods: {
         init() {
           this.userInfo=this.getUserInfo;
           this.getMatchHandler();
-          this.getList();
           window.changeTitle('自付下单');
         },
-        change () {
-        },
         jumpToOrder () {
-          this.$router.push('/confirmOrder/'+this.orderNum+"/"+encodeURIComponent(this.$refs.channel.choseItem.value)+"/"+this.$refs.channel.choseItem.key);
+          this.$router.push('/confirmOrder/'+this.orderNum);
         },
         jumpAddInfo () {
           this.$router.push('/addInfo')
@@ -116,36 +97,6 @@
             else {}
           });
         },
-        getList () {
-          let jsoncontent ={
-            condition:[
-              {
-                key:'Del',
-                values:0,
-                oprate:'='
-              }
-            ]
-          };
-          let data = {
-            data:{
-              Action:'getlist',
-              jsoncontent:JSON.stringify(jsoncontent)
-            },
-            url:this.getBaseUrl + 'CommonHandler/TeamHandler.ashx'
-          };
-          util.fetchData (data).then(res => {
-            if (res.data.result == 0) {
-              //this.channellist=res.data.data;
-              this.channellist={};
-              res.data.data.map((item,key,ary) => {
-                this.channellist[item.TId]=item.TName;
-              });
-            }
-            else {
-
-            }
-          });
-        },
       },
       mounted: function () {
           this.init()
@@ -154,5 +105,4 @@
 </script>
 <style lang="less">
     @import './../assets/less/pay-order.less';
-    @import './../assets/less/item-style';
 </style>
