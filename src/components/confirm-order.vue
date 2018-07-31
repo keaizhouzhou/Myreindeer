@@ -4,7 +4,7 @@
       <div class="relationship">
         <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
         <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
-        <div v-if=" userInfo && userInfo.channel" class="queue">队伍：{{userInfo.channel}}</div>
+        <div v-if=" team.teamName" class="queue">队伍：{{team.teamName}}</div>
         <div v-if="!userInfo" class="addRelationship">
           <div class="tittle" @click="jumpAddInfo" >新增个人页面<span>></span></div>
           <div class="text">请填写您的个人信息以便工作人员更好的为您服务</div>
@@ -20,11 +20,6 @@
         </div>
       </div>
       <div class="computed">
-       <!-- <div class="computedCount">
-          <div class="reduce" @click="orderNum>1?orderNum&#45;&#45;:''">-</div>
-          <div class="count">{{orderNum}}</div>
-          <div class="plus" @click="orderNum++">+</div>
-        </div>-->
         <div class="totalPrice">
           合计:￥{{orderNum*matchHandler.Price}}
         </div>
@@ -46,6 +41,7 @@
       data: function () {
           return {
             orderNum:1,
+            team:{},
             userInfo:null,
             matchHandler:{}
           };
@@ -61,6 +57,8 @@
       methods: {
         init() {
           this.orderNum = this.$router.history.current.params.num;
+          this.team.teamId = this.$router.history.current.params.teamId;
+          this.team.teamName = this.$router.history.current.params.teamName;
           this.userInfo=this.getUserInfo;
           this.getMatchHandler();
           window.changeTitle('确认订单');
@@ -102,7 +100,7 @@
           let jsoncontent ={
             "field": {
               "Mid": this.matchHandler.Id,
-              "Tid": "A55C5A5A1B8F4DAB9EF2EB48ED6FCFD0",
+              "Tid": this.team.teamId,
               "UserName": this.userInfo.username,
               "Phone": this.userInfo.phone,
               //"UserId": this.$store.state.openid

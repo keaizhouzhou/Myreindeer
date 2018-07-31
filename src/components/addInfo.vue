@@ -16,14 +16,6 @@
             :initValue = "recordPerson"
             ref="phone" @KeyUp="keyupPerson"
           ></houseInput>
-          <houseSelect
-            title = '队伍'
-            :choseList = 'channellist'
-            :initValue = channel
-            @getList="change"
-            placeHolder="请选择"
-            ref="channel"
-          ></houseSelect>
       </div>
       <houseBtn title="保存" v-on:toSave="saveInfo"></houseBtn>
       <houseToast></houseToast>
@@ -34,7 +26,6 @@
   import houseBtn from './common/house-btn.vue';
   import houseHead from './common/house-head.vue';
   import houseToast from './common/house-toast.vue';
-  import houseSelect from './common/house-select.vue';
   import houseInput from './common/house-input.vue';
   import {util} from '../assets/js/util'
   export default {
@@ -49,13 +40,7 @@
             jkxqFinish: false,
             disabled: true,
             batchApplyId: '',
-            recordPerson:'',
-            channellist:{
-              "1":'么么哒',
-              "2":"hello"
-            },
-            /*channellist:[],*/
-            channel:"1"
+            recordPerson:''
           };
       },
       computed: {
@@ -64,12 +49,11 @@
           'getSelectRoute'
         ])
       },
-      components: {houseBtn,houseHead,houseToast,houseSelect,houseInput},
+      components: {houseBtn,houseHead,houseToast,houseInput},
       methods: {
         keyupPerson () {
         },
         init() {
-          this.getList();
           window.changeTitle('新增个人信息');
         },
         change () {
@@ -78,43 +62,11 @@
           'changeRoute',
           'changeUserInfo'
         ]),
-        getList () {
-          let jsoncontent ={
-            condition:[
-              {
-                key:'Del',
-                values:0,
-                oprate:'='
-              }
-            ]
-          };
-          let data = {
-            data:{
-              Action:'getlist',
-              jsoncontent:JSON.stringify(jsoncontent)
-            },
-            url:this.getBaseUrl + 'CommonHandler/TeamHandler.ashx'
-          };
-          util.fetchData (data).then(res => {
-            if (res.data.result == 0) {
-              //this.channellist=res.data.data;
-              this.channellist={};
-              res.data.data.map((item,key,ary) => {
-                this.channellist[item.TId]=item.TName;
-              });
-            }
-            else {
-
-            }
-          });
-        },
         saveInfo (){
           let jsoncontent ={
             field:{
               username:this.$refs.username.finalValue,
-              phone:this.$refs.phone.finalValue,
-              channelKey:this.$refs.channel.choseItem.key,
-              channelValue:this.$refs.channel.choseItem.value
+              phone:this.$refs.phone.finalValue
             },
             condition:[
               {
