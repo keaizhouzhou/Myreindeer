@@ -75,18 +75,18 @@ const router =  new Router({
       component: activeDetail
     },
     { // 自付下单
-      path: '/payOrder',
+      path: '/payOrder/:MId',
       name: 'payOrder',
       component: payOrder
     },
     { // 确认下单
-      path: '/confirmOrder/:num/:teamName/:teamId',
+      path: '/confirmOrder/:num/:teamName/:teamId/:Mid',
       name: 'confirmOrder',
       component: confirmOrder
     },
     // 众筹下单
     {
-      path: '/orderCrowd',
+      path: '/orderCrowd/:MId',
       component: orderCrowd,
       name: 'orderCrowd'
     },

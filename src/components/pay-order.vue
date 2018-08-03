@@ -2,12 +2,24 @@
     <div class="pay-order">
       <!--<houseHead>自付下单</houseHead>-->
       <div class="relationship">
-        <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
-        <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
-        <div v-if=" userInfo && userInfo.channel" class="queue">队伍：{{userInfo.channel}}</div>
-        <div v-if="!userInfo" class="addRelationship">
+        <div class="nameAndPhone">
+          <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
+          <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
+          <div class="leftArr" @click="jumpAddInfo">></div>
+        </div>
+        <div v-if="!userInfo.username && !userInfo.phone" class="addRelationship">
           <div class="tittle" @click="jumpAddInfo" >新增个人页面<span>></span></div>
           <div class="text">请填写您的个人信息以便工作人员更好的为您服务</div>
+        </div>
+        <div class="task-items">
+          <houseSelect
+            title = '队伍'
+            :choseList = 'channellist'
+            :initValue = channel
+            @getList="change"
+            placeHolder="请选择"
+            ref="channel"
+          ></houseSelect>
         </div>
       </div>
       <div class="active">
@@ -37,8 +49,9 @@
     </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
   import houseBtn from './common/house-btn.vue';
+  import houseSelect from './common/house-select.vue';
   import houseHead from './common/house-head.vue';
   import {util} from '../assets/js/util'
   export default {
@@ -46,36 +59,105 @@
       data: function () {
           return {
             orderNum:1,
-            userInfo:null,
-            matchHandler:{}
+            userInfo:{},
+            matchHandler:{},
+            channellist:{
+
+            },
+            channel:'',
+            channelName:''
           };
       },
       computed: {
       ...mapGetters([
         'getBaseUrl',
         'getSelectRoute',
-        'getUserInfo'
+        'getUserInfo',
+        'getOpenId'
       ])
     },
-      components: {houseBtn, houseHead },
+      components: {houseBtn, houseHead, houseSelect },
       methods: {
+        ...mapActions([
+          'changeRoute',
+          'changeOpenId',
+          'changeUserInfo'
+        ]),
         init() {
-          this.userInfo=this.getUserInfo;
           this.getMatchHandler();
+          this.useInfo();
+          this.getTeams();
           window.changeTitle('自付下单');
         },
         jumpToOrder () {
-          this.$router.push('/confirmOrder/'+this.orderNum);
+          this.$router.push(`/confirmOrder/${this.orderNum}/${this.channellist[this.$refs.channel.choseItem.key]}/${this.$refs.channel.choseItem.key}/${this.$route.params.MId}`);
         },
         jumpAddInfo () {
           this.$router.push('/addInfo')
+        },
+        change(){
+
+        },
+
+        useInfo () { // 通过接口获取用户信息
+          let jsoncontent ={
+            condition:[
+              {
+                key:'openid',
+                values:this.getOpenId || '',
+                oprate:''
+              }
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'getmodel',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/UserInfoHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              this.userInfo = res.data.data;
+              this.changeUserInfo(res.data.data)
+            }
+            else {}
+          });
+        },
+        getTeams () { // 获取赛事队伍
+          let jsoncontent = {
+            condition:[
+              {
+                key:'Del',
+                values:'0',
+                oprate:''
+              }
+            ]
+          };
+          let data = {
+            data:{
+              Action:'getlist',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/TeamHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              console.log('sss',res.data)
+              let lists = res.data.data;
+              for (let i = 0; i < lists.length; i++) {
+                this.channellist[lists[i].Id + ''] = lists[i].TName
+              }
+            }
+            else {}
+          });
         },
         getMatchHandler () {
           let jsoncontent ={
             condition:[
               {
                 key:'MId',
-                values:'1267615014C24B7AAD75573355975BFE',
+                values:this.$route.params.MId || '',
                 oprate:''
               }
             ]
@@ -105,4 +187,5 @@
 </script>
 <style lang="less">
     @import './../assets/less/pay-order.less';
+    @import './../assets/less/item-style.less';
 </style>

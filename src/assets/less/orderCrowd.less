@@ -1,5 +1,6 @@
 .order-crowd{
-  background-color: #eee;
+  /*background-color: #a0a0a0;*/
+  overflow: hidden;
   .relationship{
     background-color: #fff;
     padding: 20px;
@@ -17,71 +18,87 @@
         text-align: center;
       }
     }
-    .phone{
-      margin: 16px 0;
+    .nameAndPhone{
+      position: relative;
+      .leftArr{
+        position: absolute;
+        right: 10px;
+        top: 80px;
+      }
+      .phone{
+        margin: 16px 0;
+
+      }
+      .phone, .name,.queue{
+        margin-left: 30px;
+      }
+    }
+
+  }
+  /*.task-items{
+    margin: 30px 0;
+    .house-select{
+      .item{
+        border:none;
+        .select{
+          text-align: right;
+          width: 380px;
+          padding-right:30px;
+        }
+      }
+    }
+  }*/
+  .active{
+    overflow: hidden;
+    background-color: #DEDEDE;
+    padding: 20px;
+    margin: 5px 0;
+    .img, .tittle, .price{
+      float: left;
+    }
+    .img{
+      width: 150px;
+      height: 150px;
+      background-color: #42b983;
+      margin-right: 30px;
+    }
+    .tittle{
+      width: 350px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+    .price{
+      float: right;
+      .onePrice{
+        color: red;
+        margin-bottom: 14px;
+      }
+      .count {
+        text-align: right;
+        padding-right: 20px;
+      }
     }
   }
-  .itemWrap{
-    margin-top: 20px;
+  .computed{
+    height: 40px;
     background-color: #fff;
-    .home-item{
-      padding: 30px;
-      border-bottom: 1px solid #707070;/*px*/
-      overflow: hidden;
-      width: 690px;
-      background-color: #bcbcbc;
-      .item-image,.item-des{
+    padding: 18px 20px;
+    .computedCount{
+      .reduce,.count,.plus{
+        border: 1px solid #DEDEDE;/*px*/
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        line-height: 44px;
         float: left;
-      }
-      .item-image{
-        width: 215px;
-        height: 140px;
-        background-color: #42b983;
-      }
-      .item-des{
-        height: 158px;
-        margin-left: 35px;
-        .state{
-          color: red;
-        }
-        .tittle{
-          font-size: 30px;
-          width: 420px;
-          margin-bottom: 10px;
-          color: black;
-        }
-        .text{
-          font-size: 20px;
-          color: #707070;
-        }
       }
     }
-    .total{
-      overflow: hidden;
-      /* padding-right: 20px;
-       padding-left: 20px;*/
-      height: 78px;
-      border-top: 1px solid #a0a0a0;
-      border-bottom: 1px solid #a0a0a0;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      .tittle{
-        font-family: Microsoft YaHei;
-        font-size: 24px;
-        color: #cc1c24;
-        float: left;
-        margin-left: 20px;
-      }
-      .text{
-        margin-left: 20px;
-      }
-      .set{
-        float: right;
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-      }
+    .totalPrice{
+      float: right;
+      height: 44px;
+      line-height: 44px;
     }
   }
   .pay{
@@ -113,5 +130,5 @@
     justify-content: center;
     align-items: center;
   }
-
 }
+

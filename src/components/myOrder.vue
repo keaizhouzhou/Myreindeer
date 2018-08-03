@@ -93,7 +93,8 @@
     computed: {
       ...mapGetters([
         'getBaseUrl',
-        'getSelectRoute'
+        'getSelectRoute',
+        'getOpenId'
       ])
     },
     components: { houseHead, houseBtn, houseSort},
@@ -121,7 +122,7 @@
           condition:[
             {
               key:'openid',
-              values:"ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values:this.getOpenId || '',
               oprate:''
             }
           ]
@@ -136,48 +137,7 @@
         util.fetchData (data).then(res => {
           if (res.data.result == 0) {
             console.log('data',res.data);
-            this.allOrders =  [
-              {
-                "Id": 4,
-                "OId": "A2EE5E42B9004E3D9FDC830E500E3C2C",
-                "MId": "D3438C9EC51341258E53460167DD7466",
-                "TId": "A8AEA2803D2E4E42951B7689A3C71A91",
-                "PayTime": "2018-06-23 01:09:02",
-                "Price": 120.00,
-                "Num": 3,
-                "TotalPrice": 360.00,
-                "State": 0,
-                "Remark": "",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "username": "姓名",
-                "phone": "联系电话",
-                "nickname": "王国壮",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "SmallImgUrl": "",
-                "FirstImgUrl": "ueditor/net/upload/image/20180708/6366660768052374223029545.gif",
-                "MName": "赛事111"
-              },
-              {
-                "Id": 5,
-                "OId": "5957E1C15F8342668AB22DE8E182C265",
-                "MId": "B1D666DA3CB24328887FD969CC1EC48B",
-                "TId": "",
-                "PayTime": "2018-06-23 01:09:02",
-                "Price": "",
-                "Num": "",
-                "TotalPrice": "",
-                "State": 1,
-                "Remark": "",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "username": "姓名",
-                "phone": "联系电话",
-                "nickname": "王国壮",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "SmallImgUrl": "",
-                "FirstImgUrl": "ueditor/net/upload/image/20180708/6366660768052374223029545.gif",
-                "MName": "赛事2"
-              }
-            ];
+            this.allOrders =  res.data.data;
           }
           else {
 
@@ -189,7 +149,7 @@
           condition:[
             {
               key:'openid',
-              values:"ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values:this.getOpenId || '',
               oprate:'='
             },
             {"key":"State","values":"0","oprate":"="}
@@ -204,29 +164,7 @@
         };
         util.fetchData (data).then(res => {
           if (res.data.result == 0) {
-            console.log('data',res.data);
-            this.unCompleteOrders =  [
-              {
-                "Id": 4,
-                "OId": "A2EE5E42B9004E3D9FDC830E500E3C2C",
-                "MId": "D3438C9EC51341258E53460167DD7466",
-                "TId": "A8AEA2803D2E4E42951B7689A3C71A91",
-                "PayTime": "2018-06-23 01:09:02",
-                "Price": 120.00,
-                "Num": 3,
-                "TotalPrice": 360.00,
-                "State": 0,
-                "Remark": "",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "username": "姓名",
-                "phone": "联系电话",
-                "nickname": "王国壮",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "SmallImgUrl": "",
-                "FirstImgUrl": "ueditor/net/upload/image/20180708/6366660768052374223029545.gif",
-                "MName": "赛事111"
-              }
-            ];
+            this.unCompleteOrders = res.data.data;
           }
           else {
 
@@ -238,10 +176,10 @@
           condition:[
             {
               key:'openid',
-              values:"ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values:this.getOpenId || '',
               oprate:'='
             },
-            {"key":"State","values":"0","oprate":"="}
+            {"key":"State","values":"1","oprate":"="}
           ]
         } ;
         let data = {
@@ -253,29 +191,7 @@
         };
         util.fetchData (data).then(res => {
           if (res.data.result == 0) {
-            console.log('data',res.data);
-            this.completeOrders =  [
-              {
-                "Id": 4,
-                "OId": "A2EE5E42B9004E3D9FDC830E500E3C2C",
-                "MId": "D3438C9EC51341258E53460167DD7466",
-                "TId": "A8AEA2803D2E4E42951B7689A3C71A91",
-                "PayTime": "2018-06-23 01:09:02",
-                "Price": 120.00,
-                "Num": 3,
-                "TotalPrice": 360.00,
-                "State": 1,
-                "Remark": "",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "username": "姓名",
-                "phone": "联系电话",
-                "nickname": "王国壮",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "SmallImgUrl": "",
-                "FirstImgUrl": "ueditor/net/upload/image/20180708/6366660768052374223029545.gif",
-                "MName": "赛事111"
-              }
-            ];
+            this.completeOrders =  res.data.data;
           }
           else {
 

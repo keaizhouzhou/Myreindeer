@@ -46,7 +46,8 @@
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute'
+          'getSelectRoute',
+          'getOpenId'
         ])
       },
       components: {houseBtn,houseHead,houseToast,houseInput},
@@ -61,18 +62,18 @@
         ...mapActions([
           'changeRoute',
           'changeUserInfo'
+
         ]),
         saveInfo (){
           let jsoncontent ={
             field:{
-              username:this.$refs.username.finalValue,
-              phone:this.$refs.phone.finalValue
+              username:this.$refs.username.finalValue || '',
+              phone:this.$refs.phone.finalValue || ''
             },
             condition:[
               {
                 key:'openid',
-                //values:this.$store.state.openid,
-                values:'ol7xB1my-BpVVyQGg-Cu5Riptdbc',
+                values:this.getOpenId,
                 oprate:'='
               }
             ]
@@ -87,8 +88,7 @@
           util.fetchData (data).then(res => {
             console.log(res);
             if (res.data.result == 0) {
-              this.changeUserInfo(jsoncontent.field);
-              this.$router.go(-1);
+               this.$router.go(-1);
             }
             else {
 

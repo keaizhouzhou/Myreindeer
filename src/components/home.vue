@@ -64,7 +64,8 @@ export default{
     },
     ...mapActions([
       'changeRoute',
-      'changeOpenId'
+      'changeOpenId',
+      'changeUserInfo'
     ]),
     getOpenId () { // 获取openid
       let data = {
@@ -76,9 +77,9 @@ export default{
       };
       util.fetchData (data).then(res => {
       if (res.data.result == 0) {
-        console.log('openid',res.data);
-        // this.changeOpenId(res.data.data.openid);
-        this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
+        this.changeOpenId(res.data.data.openid); // 存储openid
+        this.changeUserInfo(res.data.data); // 存储useinfo
+        // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
       }
       else {
 
@@ -96,7 +97,7 @@ export default{
     },
     signUp(item){
       this.changeRoute(item);
-      this.$router.push('/routerIntroduce');
+      this.$router.push('/activeLists');
     }
   },
   created () {

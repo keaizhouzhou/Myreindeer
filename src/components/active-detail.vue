@@ -99,10 +99,10 @@
           window.changeTitle('活动详情');
         },
         jumpPay () {
-          this.$router.push('/payOrder');
+          this.$router.push('/payOrder/' + this.$route.params.MId);
         },
         jumpCrowd () {
-          this.$router.push('/orderCrowd');
+          this.$router.push('/orderCrowd/'  + this.$route.params.MId);
         },
         tabClick ({key} = tab) {
           if (key == 'detail'){
@@ -120,7 +120,7 @@
             condition:[
               {
                 key:'MId',
-                values:'1267615014C24B7AAD75573355975BFE',
+                values:this.$route.params.MId || '',
                 oprate:''
               }
             ]
@@ -180,7 +180,7 @@
             condition:[
               {
                 key:'MId',
-                values:'1267615014C24B7AAD75573355975BFE',
+                values:this.$route.params.MId || '',
                 oprate:''
               }
             ]

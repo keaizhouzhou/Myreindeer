@@ -100,7 +100,8 @@
     computed: {
       ...mapGetters([
         'getBaseUrl',
-        'getSelectRoute'
+        'getSelectRoute',
+        'getOpenId'
       ])
     },
     components: {houseHead, houseBtn, houseSort},
@@ -137,7 +138,7 @@
           condition: [
             {
               key: 'openid',
-              values: "ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values: this.getOpenId || '',
               oprate: '='
             },
             {"key": "State", "values": "0", "oprate": "="}
@@ -152,28 +153,7 @@
         };
         util.fetchData(data).then(res => {
           if (res.data.result == 0) {
-            console.log('data', res.data);
-            this.crowdingItems = [
-              {
-                "Id": 1,
-                "CId": "37D072C9F0BB4044AE061DD52C9673E9",
-                "MId": "F689820F66C94B33AA04ED0D3E9BCA74",
-                "UserName": "姓名",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "BeginTime": "2018-06-25 00:04:08",
-                "Unfinished": "473.0",
-                "SmallImgUrl": "ueditor/net/upload/image/20180715/6366727671960796523812055.gif",
-                "FirstImgUrl": "ueditor/net/upload/image/20180715/6366727671768523272898970.gif",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "Declaration": "",
-                "State": 0,
-                "MName": "王瑞锡赛事",
-                "Rate": "5.4%",
-                "Price": "500.00",
-                "Sumprice": "27.00",
-                "NickName": "王国壮"
-              }
-            ];
+            this.crowdingItems = res.data.data;
           }
           else {
 
@@ -185,7 +165,7 @@
           condition: [
             {
               key: 'openid',
-              values: "ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values: this.getOpenId || '',
               oprate: '='
             },
             {"key": "State", "values": "1", "oprate": "="}
@@ -201,39 +181,19 @@
         util.fetchData(data).then(res => {
           if (res.data.result == 0) {
             console.log('data', res.data);
-            this.successfulItems = [
-              {
-                "Id": 1,
-                "CId": "37D072C9F0BB4044AE061DD52C9673E9",
-                "MId": "F689820F66C94B33AA04ED0D3E9BCA74",
-                "UserName": "姓名",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "BeginTime": "2018-06-25 00:04:08",
-                "Unfinished": "0",
-                "SmallImgUrl": "ueditor/net/upload/image/20180715/6366727671960796523812055.gif",
-                "FirstImgUrl": "ueditor/net/upload/image/20180715/6366727671768523272898970.gif",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "Declaration": "",
-                "State": 1,
-                "MName": "王瑞锡赛事",
-                "Rate": "100%",
-                "Price": "500.00",
-                "Sumprice": "500.00",
-                "NickName": "王国壮"
-              }
-            ];
+            this.successfulItems = res.data.data;
           }
           else {
 
           }
         });
       },
-      getFailureItems() {
+      getFailureItems() { // 失败的
         let jsoncontent = {
           condition: [
             {
               key: 'openid',
-              values: "ol7xB1grgNlrobJfBQEKMRFEMrVY",
+              values: this.getOpenId || '',
               oprate: '='
             },
             {"key": "State", "values": "2", "oprate": "="}
@@ -249,27 +209,7 @@
         util.fetchData(data).then(res => {
           if (res.data.result == 0) {
             console.log('data', res.data);
-            this.failureItems = [
-              {
-                "Id": 1,
-                "CId": "37D072C9F0BB4044AE061DD52C9673E9",
-                "MId": "F689820F66C94B33AA04ED0D3E9BCA74",
-                "UserName": "姓名",
-                "openid": "ol7xB1grgNlrobJfBQEKMRFEMrVY",
-                "BeginTime": "2018-06-25 00:04:08",
-                "Unfinished": "100.00",
-                "SmallImgUrl": "ueditor/net/upload/image/20180715/6366727671960796523812055.gif",
-                "FirstImgUrl": "ueditor/net/upload/image/20180715/6366727671768523272898970.gif",
-                "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132",
-                "Declaration": "",
-                "State": 2,
-                "MName": "王瑞锡赛事",
-                "Rate": "80%",
-                "Price": "500.00",
-                "Sumprice": "400.00",
-                "NickName": "王国壮"
-              }
-            ];
+            this.failureItems = res.data.data;
           }
           else {
 

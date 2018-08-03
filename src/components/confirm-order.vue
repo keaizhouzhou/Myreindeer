@@ -50,7 +50,8 @@
       ...mapGetters([
         'getBaseUrl',
         'getSelectRoute',
-        'getUserInfo'
+        'getUserInfo',
+        'getOpenId'
       ])
     },
       components: {houseBtn, houseHead },
@@ -74,7 +75,7 @@
             condition:[
               {
                 key:'MId',
-                values:'1267615014C24B7AAD75573355975BFE',
+                values:this.$router.history.current.params.Mid,
                 oprate:''
               }
             ]
@@ -99,15 +100,14 @@
         saveOrder() {
           let jsoncontent ={
             "field": {
-              "Mid": this.matchHandler.Id,
+              "Mid": this.$router.history.current.params.Mid,
               "Tid": this.team.teamId,
               "UserName": this.userInfo.username,
               "Phone": this.userInfo.phone,
-              //"UserId": this.$store.state.openid
-              "UserId": "ol7xB1my-BpVVyQGg-Cu5Riptdbc",
+              "UserId": this.getOpenId,
               "Price": this.matchHandler.Price,
-              "Num": 1,
-              "TotalPrice": this.matchHandler.Price
+              "Num": this.orderNum,
+              "TotalPrice": this.matchHandler.Price * this.orderNum
             }
           } ;
           let data = {
