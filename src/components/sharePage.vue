@@ -30,7 +30,9 @@
               <div class="tittle">{{matchHandler.MName}}</div>
               <div class="expense">报名费用：<span style="color: red;">{{matchHandler.Price}}元</span></div>
             </div>
-            <div class="item-image" v-bind:style="{background:'url('+matchHandler.SmallImgUrl+')'}"></div>
+            <div class="item-image"
+                 v-if="matchHandler.SmallImgUrl"
+                 v-bind:style="{background:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')'}"></div>
           </div>
         </div>
         <div class="contentClass">
@@ -108,9 +110,9 @@
     </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
   import houseHead from './common/house-head.vue';
-  import houseSort from './common/house-sort.vue';;
+  import houseSort from './common/house-sort.vue';
   import {util} from '../assets/js/util'
   export default {
     template: '.share-page',
@@ -135,7 +137,8 @@
     computed: {
       ...mapGetters([
         'getBaseUrl',
-        'getSelectRoute'
+        'getSelectRoute',
+        'getOpenId'
       ])
     },
     components: {houseHead, houseSort},
@@ -151,12 +154,12 @@
       tabClick (tab) {
         this.selectedTab = tab;
       },
-      getMatchHandler () {
+      getMatchHandler () {  // 获取赛事信息
         let jsoncontent ={
           condition:[
             {
               key:'MId',
-              values:'1267615014C24B7AAD75573355975BFE',
+              values:this.$route.params.MId,
               oprate:''
             }
           ]
@@ -203,11 +206,11 @@
           }
         });
       },
-      getCount(){
+      getCount(){ // 获取三个tab的人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
-            {"key":"MId","values":"F689820F66C94B33AA04ED0D3E9BCA74","oprate":"="}
+            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
         let data = {
@@ -231,11 +234,11 @@
           }
         });
       },
-      getSelfTeamList(){
+      getSelfTeamList(){ // 本队人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
-            {"key":"MId","values":"F689820F66C94B33AA04ED0D3E9BCA76","oprate":"="}
+            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
         let data = {
@@ -259,11 +262,11 @@
           }
         });
       },
-      getSupportList(){
+      getSupportList(){ // 支持人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":"ol7xB1grgNlrobJfBQEKMRFEMrVY","oprate":"="},
-            {"key":"MId","values":"F689820F66C94B33AA04ED0D3E9BCA77","oprate":"="}
+            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
         let data = {

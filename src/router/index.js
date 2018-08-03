@@ -101,7 +101,7 @@ const router =  new Router({
       name: 'selfSupport'
     },
     {// 给他支持页
-      path: '/supportHim',
+      path: '/supportHim/:MId',
       component: supportHim,
       name: 'supportHim'
     },

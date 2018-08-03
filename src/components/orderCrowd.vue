@@ -81,8 +81,13 @@
     },
     components: {houseBtn, houseHead, houseSelect, houseToast},
     methods: {
+      ...mapActions([
+        'changeRoute',
+        'changeOpenId',
+        'changeUserInfo'
+      ]),
       init() {
-        this.userInfo=this.getUserInfo;
+        this.useInfo();
         this.getMatchHandler();
         this.getTeams();
         window.changeTitle('众筹下单');
