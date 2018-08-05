@@ -23,6 +23,9 @@ Vue.filter('orderState',function (value) {
 
   }
 })
+Vue.filter('leftTime',function () {
+  
+})
 Vue.filter("remain", function([timeS,timeE] = arr) {   //全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面
   let timeCounts = new Date(timeS) - new Date(timeE);
   let days = timeCounts/(1000*60*60*24);

@@ -37,8 +37,8 @@
         </div>
         <div class="contentClass">
           <houseSort :tabList="tabList" @tabClick="tabClick ($event)" :isCount="isCount"></houseSort>
-          <div v-if="selectedTab.key == 'queuePeople'" class="queuepeople_content contentPeople">
-            <div v-if="!selfShow && index<5" v-for="(item,index) in selfTeamList" class="people" @click="jumpSharePage(item)"></div>
+          <div v-if="selectedTab.key == 'queue'" class="queuepeople_content contentPeople">
+           <!-- <div v-if="!selfShow && index<5" v-for="(item,index) in selfTeamList" class="people" @click="jumpSharePage(item)"></div>
             <div v-if="selfShow " v-for="(item,index) in selfTeamList" class="people" @click="jumpSharePage(item)"></div>
             <div v-if="!selfShow" class="more" @click="selfShow=!selfShow;">
               <span class="text">更多</span>
@@ -47,9 +47,9 @@
             <div v-if="selfShow" class="more" @click="selfShow=!selfShow;">
               <span class="text">收起</span>
               <span class="icon">^</span>
-            </div>
+            </div>-->
           </div>
-          <div v-if="selectedTab.key == 'supportPeople'" class="supportpeople_content contentPeople">
+          <div v-if="selectedTab.key == 'queuePeople'" class="supportpeople_content contentPeople">
             <div v-if="!supportShow && index<5" v-for="(item,index) in supportList" class="people" @click="jumpSharePage(item)"></div>
             <div v-if="supportShow " v-for="(item,index) in supportList" class="people" @click="jumpSharePage(item)"></div>
             <div v-if="!supportShow" class="more" @click="supportShow=!supportShow;">
@@ -61,15 +61,23 @@
               <span class="icon">^</span>
             </div>
           </div>
-          <div class="queue_content">
+          <div class="queue_content" v-if="selectedTab.key == 'supportPeople'">
             <p>已有 <span>{{countObj.SupportCount}}</span>人支持</p>
             <ul>
-              <li>
-                <img src="../assets/images/img.jpg" alt="">
+              <li v-for="(item,index) in supportList">
+                <img :src="item.headimgurl" alt="">
                 <div>
-                  <span class="name">昵称</span>
-                  <span class="pay_money">付款 <i>10.00</i>元</span>
-                  <span class="time">45天前</span>
+                  <span class="name">{{item.nickname}}</span>
+                  <span class="pay_money">付款 <i>{{item.Price}}</i>元</span>
+                  <span class="time">{{item.DateNowTime - item.CreateTime}}</span>
+                  <span class="reply_btn" @click="replay(item)">回复</span>
+                  <span class="thank_btn">答谢</span>
+                  <div class="reply_content">
+                    <textarea v-model="item.replayData"></textarea><span>确认</span>
+                    <i></i>
+                    <p>三页：</p>
+                    <div>九回复内容回复内容</div>
+                  </div>
                 </div>
               </li>
               <li>
@@ -90,6 +98,7 @@
                   <span class="pay_money">付款 <i>10.00</i>元</span>
                   <p class="message">支持留言</p>
                   <span class="time">45天前</span>
+                  <span class="reply_btn">回复</span>
                   <span class="thank_btn">答谢</span>
                   <div class="reply_content">
                     <i></i>
@@ -153,6 +162,9 @@
       },
       tabClick (tab) {
         this.selectedTab = tab;
+      },
+      replay(item) {
+
       },
       getMatchHandler () {  // 获取赛事信息
         let jsoncontent ={
@@ -253,9 +265,9 @@
           if (res.data.result == 0) {
             console.log('selfTeamList',res.data.data);
             this.selfTeamList = res.data.data;
+           /* this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
             this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
-            this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
-            this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
+            this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);*/
           }
           else {
 
@@ -281,8 +293,6 @@
           if (res.data.result == 0) {
             console.log('supportList',res.data.data);
             this.supportList = res.data.data;
-            this.supportList = this.supportList.concat(this.supportList);
-            this.supportList = this.supportList.concat(this.supportList);
           }
           else {
 
@@ -293,7 +303,7 @@
         this.$router.push('/selfSupport');
       },
       jumpHelpPay () {
-        this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId);
+        // this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId);
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');

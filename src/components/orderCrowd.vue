@@ -139,7 +139,7 @@
             console.log('sss',res.data)
             let lists = res.data.data;
             for (let i = 0; i < lists.length; i++) {
-              this.channellist[lists[i].Id + ''] = lists[i].TName
+              this.channellist[lists[i].TId + ''] = lists[i].TName
             }
           }
           else {}
@@ -201,7 +201,7 @@
         if (this.check()) {
           let jsoncontent ={
             "field": {
-              "Mid": this.matchHandler.Id,
+              "Mid": this.$route.params.MId,
               "Tid": this.$refs.channel.choseItem.key,
               "username": this.userInfo.username,
               "phone": this.userInfo.phone,
