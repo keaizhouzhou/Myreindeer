@@ -184,7 +184,7 @@
       getCrowdFundOrderHandler () {
         let jsoncontent ={
           condition:[
-            {"key":"CId","values":"37D072C9F0BB4044AE061DD52C9673E9","oprate":"="},
+            {"key":"CId","values":this.$route.params.CId,"oprate":"="},
             {"key":"MId","values":"F689820F66C94B33AA04ED0D3E9BCA74","oprate":"="}
           ]
         } ;
@@ -293,7 +293,7 @@
         this.$router.push('/selfSupport');
       },
       jumpHelpPay () {
-        //this.$router.push('/myCrowd');
+        this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId);
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');

@@ -114,8 +114,8 @@
       jumpAddInfo () {
         this.$router.push('/addInfo')
       },
-      jumpToCrowd () {
-        this.$router.push('/sharePage/'+this.matchHandler.MId)
+      jumpToCrowd (CId) {
+        this.$router.push('/sharePage/'+this.matchHandler.MId+'/' + CId)
       },
       getTeams () { // 获取赛事队伍
         let jsoncontent = {
@@ -217,7 +217,7 @@
           };
           util.fetchData (data).then(res => {
             if (res.data.result == 0) {
-              this.jumpToCrowd();
+              this.jumpToCrowd(res.data.data.CId);
             }
             else {
             }

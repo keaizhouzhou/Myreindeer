@@ -130,6 +130,7 @@
         this.$router.push('/sharePage');
       },
       goInfo() {
+        this.$router.push('/')
       },
       payLast() {
       },

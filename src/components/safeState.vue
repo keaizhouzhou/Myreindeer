@@ -1,12 +1,9 @@
 <template>
     <div class="safe-state">
       <!--<houseHead>安全声明</houseHead>-->
-      <div class="content">
-        <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
-        <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
-        <p>安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案安全声明文案</p>
+      <div class="content" v-html="Describe">
       </div>
-      <houseBtn title="我同意，现在去报名" ></houseBtn>
+      <houseBtn title="我同意，现在去报名" @toSave="toSave"></houseBtn>
     </div>
 </template>
 <script>
@@ -23,18 +20,40 @@
           return {
             errorMessage: '',
             isHide: true,
-            titleShow: true
+            titleShow: true,
+            Describe:''
           };
       },
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute'
+          'getSelectRoute',
+          'getOpenId'
         ])
       },
       components: {houseBtn,houseHead},
       methods: {
+        toSave () {//
+          console.log(3333)
+        },
+        getContent () { // 支持
+          let data = {
+            data:{
+              Action:'getmodel'
+            },
+            url:this.getBaseUrl + 'CommonHandler/SecurityStatementHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              this.Describe = res.data.data.Describe
+            }
+            else {
+
+            }
+          });
+        },
         init() {
+          this.getContent();
           window.changeTitle('安全声明');
         },
         ...mapActions([

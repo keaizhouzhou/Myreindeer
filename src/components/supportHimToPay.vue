@@ -19,31 +19,97 @@
           付款金额：<input type="text" class="price" v-model="defaultPrice">
         </div>
         <ul class="price_list">
-          <li @click="defaultPrice=price" :class="{checked:defaultPrice==price}" v-for="price in priceList">￥{{price}}</li>
+          <li @click="defaultPrice=item.Price;userDesc=item.Msg" :class="{checked:item.Price==defaultPrice}" v-for="item in priceList">￥{{item.Price}}</li>
         </ul>
       </div>
-      <div class="confirm_btn">确认付款</div>
+      <div class="confirm_btn" @click="saveOrder">确认付款</div>
     </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
   import houseHead from './common/house-head.vue';
   import houseSort from './common/house-sort.vue';
+  import {util} from '../assets/js/util';
   export default {
     template: '.support_pay',
     data: function () {
         return {
           userDesc:"人生就是走好每一步，等你圆满归来。",
           isEditDesc:false,
-          priceList:[66,108,199,520,999],
-          defaultPrice:199
+          priceList:[],
+          defaultPrice:1
         };
     },
-    computed: {},
+    computed: {
+      ...mapGetters([
+        'getBaseUrl',
+        'getSelectRoute',
+        'getUserInfo',
+        'getOpenId'
+      ])
+    },
     components: {houseHead, houseSort},
     methods: {
+      ...mapActions([
+        'changeRoute',
+        'changeOpenId',
+        'changeUserInfo'
+      ]),
       init() {
+        this.getPayMsg();
         window.changeTitle('给他支持付款页');
+      },
+      saveOrder () {
+        let jsoncontent ={
+          "field": {
+            "CId": this.$route.params.CId,
+            "UserId": this.getOpenId || '',
+            "Price": this.defaultPrice || '',
+            "Msg": this.userDesc || ''
+          }
+        } ;
+        let data = {
+          data:{
+            Action:'adddata',
+            jsoncontent:JSON.stringify(jsoncontent)
+          },
+          url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderSupportHandler.ashx'
+        };
+        util.fetchData (data).then(res => {
+          if (res.data.result == 0) {
+
+          }
+          else {}
+        });
+      },
+      getPayMsg () { // 获取付款信息
+        let jsoncontent ={
+          condition:[
+            {
+              key:'MId',
+              values:'1A45AB980B69476693F24B5A22F334D8',
+              oprate:''
+            }
+          ]
+        } ;
+        let data = {
+          data:{
+            Action:'getlist',
+            jsoncontent:JSON.stringify(jsoncontent)
+          },
+          url:this.getBaseUrl + 'CommonHandler/MatchCrowdFundRecomPriceHandler.ashx'
+        };
+        util.fetchData (data).then(res => {
+          if (res.data.result == 0) {
+            this.priceList = res.data.data;
+            let obj = res.data.data.find((item)=>{
+              return item.Def == 1;
+            });
+            this.defaultPrice = obj.Price;
+            this.userDesc = obj.Msg;
+          }
+          else {}
+        });
       },
       tabClick (tab) {
         this.selectedTab = tab;

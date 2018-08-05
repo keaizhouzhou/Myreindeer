@@ -91,22 +91,22 @@ const router =  new Router({
       name: 'orderCrowd'
     },
     {// 分享页
-      path: '/sharePage/:MId',
+      path: '/sharePage/:MId/:CId',
       component: sharePage,
       name: 'sharePage'
     },
     {// 自己支持付款页
-      path: '/selfSupport',
+      path: '/selfSupport/:MId',
       component: selfSupport,
       name: 'selfSupport'
     },
     {// 给他支持页
-      path: '/supportHim/:MId',
+      path: '/supportHim/:MId/:CId',
       component: supportHim,
       name: 'supportHim'
     },
     {// 给他支持付款页
-      path: '/supportHimToPay',
+      path: '/supportHimToPay/:MId/:CId',
       component: supportHimToPay,
       name: 'supportHimToPay'
     },

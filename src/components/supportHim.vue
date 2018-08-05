@@ -289,10 +289,10 @@
         });
       },
       jumpSupportHim () { // 给他支持付款页
-        this.$router.push('/supportHimToPay');
+        this.$router.push('/supportHimToPay/'+this.$route.params.MId+'/'+ this.$route.params.CId);
       },
       jumpToCrowd () {// 我也要玩
-        this.$router.push('/orderCrowd');
+        this.$router.push('/orderCrowd/' + this.$route.params.MId);
       }
     },
     mounted: function () {
