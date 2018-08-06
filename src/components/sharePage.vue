@@ -3,6 +3,8 @@
       <!--<houseHead>分享页</houseHead>-->
       <div class="img-information">
         <div class="logo">
+          <textarea style="display: block;"
+            v-model="crowdFundOrder.Declaration" @blur="saveDes(crowdFundOrder.Declaration)"></textarea>
           <div class="logo-text">
             <div class="text">
               {{crowdFundOrder.UserName}}的赛事
@@ -69,18 +71,20 @@
                 <div>
                   <span class="name">{{item.nickname}}</span>
                   <span class="pay_money">付款 <i>{{item.Price}}</i>元</span>
-                  <span class="time">{{item.DateNowTime - item.CreateTime}}</span>
-                  <span class="reply_btn" @click="replay(item)">回复</span>
-                  <span class="thank_btn">答谢</span>
-                  <div class="reply_content">
-                    <textarea v-model="item.replayData"></textarea><span>确认</span>
+                  <span class="time">{{[item.DateNowTime,item.CreateTime] | leftTime}}</span>
+                  <span class="reply_btn" @click="replay(index)" v-if="item.Msg">回复</span>
+                  <span class="thank_btn" v-if="false">答谢</span>
+                  <div class="reply_content" v-if="item.ReplyMsg">
+                    <div  v-if="item.content">
+                      <textarea v-model="item.ReplyMsg"></textarea><span @click="replaySave(item, index)">确认</span>
+                    </div>
                     <i></i>
-                    <p>三页：</p>
-                    <div>九回复内容回复内容</div>
+                    <p>{{item.username}}：</p>
+                    <div>{{item.ReplyMsg}}</div>
                   </div>
                 </div>
               </li>
-              <li>
+             <!-- <li>
                 <img src="../assets/images/img.jpg" alt="">
                 <div>
                   <span class="name">昵称</span>
@@ -106,7 +110,7 @@
                     <div>九回复内容回复内容</div>
                   </div>
                 </div>
-              </li>
+              </li>-->
             </ul>
           </div>
         </div>
@@ -163,8 +167,68 @@
       tabClick (tab) {
         this.selectedTab = tab;
       },
-      replay(item) {
+      saveDes(des) {
+        let jsoncontent ={
+          "field":{
+            "Declaration":des
+          },
+          "condition":[
+            {
+              "key":"CId",
+              "values":this.$route.params.CId,
+              "oprate":"="
+            }
+          ]
+        } ;
+        let data = {
+          data:{
+            Action:'updatedata',
+            jsoncontent:JSON.stringify(jsoncontent)
+          },
+          url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
+        };
+        util.fetchData (data).then(res => {
+          if (res.data.result == 0) {
+          }
+          else {
 
+          }
+        });
+      },
+      replay(index) {
+        if (!this.supportList[index].ReplyMsg){
+          this.supportList[index].content = true;
+        }
+
+      },
+      replaySave(item,index) {
+        let {ReplyMsg,CSId} = item;
+        let jsoncontent ={
+          "field":{
+            "ReplyMsg":this.supportList[index].ReplyMsg
+          },
+          condition:[
+            {
+              "key":"CSId",
+              "values":CSId,
+              "oprate":"="
+            }
+          ]
+        } ;
+        let data = {
+          data:{
+            Action:'updatedata',
+            jsoncontent:JSON.stringify(jsoncontent)
+          },
+          url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderSupportHandler.ashx'
+        };
+        util.fetchData (data).then(res => {
+          if (res.data.result == 0) {
+          }
+          else {
+
+          }
+        });
       },
       getMatchHandler () {  // 获取赛事信息
         let jsoncontent ={
