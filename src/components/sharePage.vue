@@ -2,7 +2,7 @@
     <div class="share-page">
       <!--<houseHead>分享页</houseHead>-->
       <div class="img-information">
-        <div class="logo">
+        <div class="logo" :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
           <textarea style="display: block;"
             v-model="crowdFundOrder.Declaration" @blur="saveDes(crowdFundOrder.Declaration)"></textarea>
           <div class="logo-text">
@@ -20,7 +20,7 @@
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
-            <div class="icon" v-bind:style="{left:crowdFundOrder.Rate}">{{crowdFundOrder.Rate}}</div>
+            <div class="icon" v-bind:style="{left:crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}">{{crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}}</div>
             <div class="progress-child"  v-bind:style="{width:crowdFundOrder.Rate}"></div>
           </div>
           <div class="money">还差{{crowdFundOrder.Price-crowdFundOrder.Sumprice}}元</div>
