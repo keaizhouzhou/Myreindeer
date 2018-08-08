@@ -4,7 +4,7 @@
     <div class="content">
       <div class="tittle">{{getSelectRoute.RName}}</div>
       <img class="img" :src="getBaseUrl + getSelectRoute.SmallImgUrl" alt="">
-      <div class="text">{{getSelectRoute.Introduce}}</div>
+      <div class="text" v-html="getSelectRoute.Introduce"></div>
     </div>
     <div class="choiceBtn" @click="sign">马上报名</div>
   </div>
