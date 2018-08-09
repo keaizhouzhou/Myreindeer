@@ -313,7 +313,7 @@
       getSelfTeamList(){ // 本队人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"TId","values":this.$route.params.TId,"oprate":"="},
             {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
@@ -338,7 +338,7 @@
       getSupportList(){ // 支持人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"CId","values":this.$route.params.CId,"oprate":"="},
             {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };

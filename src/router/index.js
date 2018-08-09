@@ -91,7 +91,7 @@ const router =  new Router({
       name: 'orderCrowd'
     },
     {// 分享页
-      path: '/sharePage/:MId/:CId',
+      path: '/sharePage/:MId/:CId/:TId',
       component: sharePage,
       name: 'sharePage'
     },
@@ -101,7 +101,7 @@ const router =  new Router({
       name: 'selfSupport'
     },
     {// 给他支持页
-      path: '/supportHim/:MId/:CId',
+      path: '/supportHim/:MId/:CId/:TId',
       component: supportHim,
       name: 'supportHim'
     },

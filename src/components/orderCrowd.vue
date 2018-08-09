@@ -115,7 +115,7 @@
         this.$router.push('/addInfo')
       },
       jumpToCrowd (CId) {
-        this.$router.push('/sharePage/'+this.matchHandler.MId+'/' + CId)
+        this.$router.push('/sharePage/'+this.matchHandler.MId+'/' + CId + '/' + this.$refs.channel.choseItem.key)
       },
       getTeams () { // 获取赛事队伍
         let jsoncontent = {

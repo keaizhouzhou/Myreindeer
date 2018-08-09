@@ -2,7 +2,9 @@
     <div class="share-page">
       <!--<houseHead>分享页</houseHead>-->
       <div class="img-information">
-        <div class="logo" :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
+        <div class="logo"
+             v-if="crowdFundOrder.FirstImgUrl"
+             :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
           <textarea style="display: block;"
             v-model="crowdFundOrder.Declaration" @blur="saveDes(crowdFundOrder.Declaration)"></textarea>
           <div class="logo-text">
@@ -314,7 +316,7 @@
       getSelfTeamList(){ // 本队人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"TId","values":this.$route.params.TId,"oprate":"="},
             {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
@@ -342,7 +344,7 @@
       getSupportList(){ // 支持人数
         let jsoncontent ={
           condition:[
-            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {"key":"CId","values":this.$route.params.CId,"oprate":"="},
             {"key":"MId","values":this.$route.params.MId,"oprate":"="}
           ]
         };
@@ -368,7 +370,7 @@
         this.$router.push('/selfSupport/' + this.$route.params.MId);
       },
       jumpHelpPay () {
-        this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId);
+        this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');
