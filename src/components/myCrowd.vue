@@ -12,15 +12,15 @@
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
               <div class="progress-parent">
-                <div class="icon">{{item.Rate}}</div>
+                <div class="icon" :style="{left:item.Rate?item.Rate:'0%'}">{{item.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
               <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
+            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
             <div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
@@ -35,15 +35,15 @@
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
               <div class="progress-parent">
-                <div class="icon">{{item.Rate}}</div>
+                <div class="icon" :style="{left:item.Rate?item.Rate:'0%'}">{{tem.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
               <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
+            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
             <div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
@@ -58,15 +58,15 @@
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
               <div class="progress-parent">
-                <div class="icon">{{item.Rate}}</div>
+                <div class="icon" :style="{left:item.Rate?item.Rate:'0%'}">{{item.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
               <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
+            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
             <div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
@@ -123,11 +123,11 @@
           this.getFailureItems();
         }
       },
-      jumpSelfSupport() {
-        this.$router.push('/selfSupport');
+      jumpSelfSupport({MId} = item) {
+        this.$router.push(`/selfSupport/${MId}`);
       },
-      jumpSharePage() {
-        this.$router.push('/sharePage');
+      jumpSharePage({MId,CId,TId} = item) {
+        this.$router.push(`/sharePage/${MId}/${CId}/${TId}`);
       },
       goInfo() {
         this.$router.push('/')

@@ -289,7 +289,8 @@
         let jsoncontent ={
           condition:[
             {"key":"openid","values":this.getOpenId,"oprate":"="},
-            {"key":"MId","values":this.$route.params.MId,"oprate":"="}
+            {"key":"MId","values":this.$route.params.MId,"oprate":"="},
+            {"key":"CId","values":this.$route.params.CId,"oprate":"="}
           ]
         };
         let data = {
@@ -303,10 +304,10 @@
          // res.data={"result":0,"message":"","data":[{"openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","MId":"F689820F66C94B33AA04ED0D3E9BCA74","TeamCount":"2","TheTeamCount":"2","SupportCount":"2"}]};
           if (res.data.result == 0) {
             console.log('countObj',res.data);
-            this.countObj = res.data.data[0];
-            this.tabList[0].num=res.data.data[0].TeamCount;
-            this.tabList[1].num=res.data.data[0].TheTeamCount;
-            this.tabList[2].num=res.data.data[0].SupportCount;
+            this.countObj = res.data.data;
+            this.tabList[0].num=res.data.data.TeamCount;
+            this.tabList[1].num=res.data.data.TheTeamCount;
+            this.tabList[2].num=res.data.data.SupportCount;
           }
           else {
 
@@ -328,13 +329,9 @@
           url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
         };
         util.fetchData (data).then(res => {
-          // res.data={"result":0,"message":"","data":[{"CId":"37D072C9F0BB4044AE061DD52C9673E9","MId":"F689820F66C94B33AA04ED0D3E9BCA74","TId":"A55C5A5A1B8F4DAB9EF2EB48ED6FCFD0","Id":1,"UId":"8FD79AF0A4D247CD83B7DBE6C88AB0CC","unionid":"","openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","username":"姓名","nickname":"王国壮","sex":0,"age":32,"country":"中国","province":"北京","city":"海淀","district":"","street":"","headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132","birthday":"","phone":"联系电话","password":"","subscribe_time":"2018/6/6 22:22:29","unsubscribe_time":"","is_bindcard":0,"substatus":0,"createtime":"2018-07-24 20:07:47","timestamp":"2018-07-24 20:07:47","areacode":"","areausercode":"","signature":"","position":"","company":"","remark":"","Del":0},{"CId":"B0482EFB7E91495AB410147BF851A26D","MId":"F689820F66C94B33AA04ED0D3E9BCA74","TId":"A8AEA2803D2E4E42951B7689A3C71A91","Id":1,"UId":"8FD79AF0A4D247CD83B7DBE6C88AB0CC","unionid":"","openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","username":"姓名","nickname":"王国壮","sex":0,"age":32,"country":"中国","province":"北京","city":"海淀","district":"","street":"","headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132","birthday":"","phone":"联系电话","password":"","subscribe_time":"2018/6/6 22:22:29","unsubscribe_time":"","is_bindcard":0,"substatus":0,"createtime":"2018-07-24 20:07:47","timestamp":"2018-07-24 20:07:47","areacode":"","areausercode":"","signature":"","position":"","company":"","remark":"","Del":0}]};
           if (res.data.result == 0) {
             console.log('selfTeamList',res.data.data);
             this.selfTeamList = res.data.data;
-           /* this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
-            this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);
-            this.selfTeamList = this.selfTeamList.concat(this.selfTeamList).concat(this.selfTeamList);*/
           }
           else {
 
