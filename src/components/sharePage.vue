@@ -1,12 +1,30 @@
 <template>
     <div class="share-page">
       <!--<houseHead>分享页</houseHead>-->
+      <div id="mask" v-if="isCancal">
+        <div id="pop" @click="cancalShare" v-if="isPop">
+
+        </div>
+        <div class="myEdit" v-if="isEdit">
+           <textarea style="display: block;"
+                     v-model="crowdFundOrder.Declaration"
+                     @blur=""></textarea>
+          <div class="edit-btn">
+            <button @click="saveDes(crowdFundOrder.Declaration)">确认</button>
+            <button @clcik="cancalEdit()">取消</button>
+          </div>
+        </div>
+      </div>
       <div class="img-information">
         <div class="logo"
              v-if="crowdFundOrder.FirstImgUrl"
              :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
-          <textarea style="display: block;"
-            v-model="crowdFundOrder.Declaration" @blur="saveDes(crowdFundOrder.Declaration)"></textarea>
+          <div class="edit-text">
+            <div @click=editPop  class="editPop">编辑</div>
+            <div>
+              {{crowdFundOrder.Declaration}}
+            </div>
+          </div>
           <div class="logo-text">
             <div class="text">
               {{crowdFundOrder.UserName}}的赛事
@@ -146,7 +164,10 @@
           selfTeamList:{},
           selfShow:false,
           supportList:{},
-          supportShow:false
+          supportShow:false,
+          isCancal:false,
+          isEdit:false,
+          isPop:false
         };
     },
     computed: {
@@ -165,6 +186,18 @@
         this.getSelfTeamList();
         this.getSupportList();
         window.changeTitle('分享页');
+      },
+      cancalEdit(){
+        this.isCancal = false;
+        this.isEdit = false;
+      },
+      cancalShare() {
+        this.isCancal = false;
+        this.isPop = false;
+      },
+      editPop() {
+        this.isCancal = true;
+        this.isEdit = true;
       },
       tabClick (tab) {
         this.selectedTab = tab;
@@ -191,6 +224,8 @@
         };
         util.fetchData (data).then(res => {
           if (res.data.result == 0) {
+            this.isCancal = false;
+            this.isEdit = false;
           }
           else {
 
@@ -290,7 +325,8 @@
           condition:[
             {"key":"openid","values":this.getOpenId,"oprate":"="},
             {"key":"MId","values":this.$route.params.MId,"oprate":"="},
-            {"key":"CId","values":this.$route.params.CId,"oprate":"="}
+            {"key":"CId","values":this.$route.params.CId,"oprate":"="},
+            {"key":"TId","values":this.$route.params.TId,"oprate":"="}
           ]
         };
         let data = {
@@ -364,10 +400,13 @@
         });
       },
       jumpSelfSupport () {//跳转至自己支持付款页面
-        this.$router.push('/selfSupport/' + this.$route.params.MId);
+        console.log('/selfSupport/' + this.$route.params.MId + '/' + this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice)
+        this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
       },
-      jumpHelpPay () {
-        this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
+      jumpHelpPay () { // 进行分享 调第三方接口
+        // this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
+        this.isCancal = true;
+        this.isPop = true;
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');

@@ -46,6 +46,7 @@
         <div class="icon"></div>
       </div>
       <div class="btn" @click="jumpToOrder">提交订单</div>
+      <houseToast ref="toast"></houseToast>
     </div>
 </template>
 <script>
@@ -53,6 +54,7 @@
   import houseBtn from './common/house-btn.vue';
   import houseSelect from './common/house-select.vue';
   import houseHead from './common/house-head.vue';
+  import houseToast from './common/house-toast.vue';
   import {util} from '../assets/js/util'
   export default {
       template: '.pay-order',
@@ -76,13 +78,29 @@
         'getOpenId'
       ])
     },
-      components: {houseBtn, houseHead, houseSelect },
+      components: {houseBtn, houseHead, houseSelect,houseToast },
       methods: {
         ...mapActions([
           'changeRoute',
           'changeOpenId',
           'changeUserInfo'
         ]),
+        check() { // 校验
+          let Tid = this.$refs.channel.choseItem.key;
+          if (!Tid) {
+            this.$refs.toast.toastShow('请选择队伍')
+            return false;
+          }
+          if (!this.userInfo.username) {
+            this.$refs.toast.toastShow('请填写名字')
+            return false;
+          }
+          if (!this.userInfo.phone) {
+            this.$refs.toast.toastShow('请填写电话')
+            return false;
+          }
+          return true;
+        },
         init() {
           this.getMatchHandler();
           this.useInfo();
@@ -90,7 +108,9 @@
           window.changeTitle('自付下单');
         },
         jumpToOrder () {
-          this.$router.push(`/confirmOrder/${this.orderNum}/${this.channellist[this.$refs.channel.choseItem.key]}/${this.$refs.channel.choseItem.key}/${this.$route.params.MId}`);
+          if (this.check()){
+            this.$router.push(`/confirmOrder/${this.orderNum}/${this.channellist[this.$refs.channel.choseItem.key]}/${this.$refs.channel.choseItem.key}/${this.$route.params.MId}`);
+          }
         },
         jumpAddInfo () {
           this.$router.push('/addInfo')

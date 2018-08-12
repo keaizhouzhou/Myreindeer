@@ -6,7 +6,7 @@
         <div class="pay_content">
           ￥<input type="number" ng-model="">
         </div>
-        <p>当前最多可支持8888.8元</p>
+        <p>当前最多可支持{{lastPrice}}元</p>
       </div>
       <houseBtn title="确认付款"></houseBtn>
     </div>
@@ -25,7 +25,8 @@
           return {
             errorMessage: '',
             isHide: true,
-            titleShow: true
+            titleShow: true,
+            lastPrice:null
           };
       },
       computed: {
@@ -38,6 +39,7 @@
       methods: {
         init() {
           window.changeTitle('活动名称');
+          this.lastPrice = this.$route.params.price;
         },
         ...mapActions([
           'changeRoute'

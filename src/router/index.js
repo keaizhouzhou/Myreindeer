@@ -96,7 +96,7 @@ const router =  new Router({
       name: 'sharePage'
     },
     {// 自己支持付款页
-      path: '/selfSupport/:MId',
+      path: '/selfSupport/:MId/:price',
       component: selfSupport,
       name: 'selfSupport'
     },
@@ -120,7 +120,11 @@ const router =  new Router({
       component: safeState,
       name: 'safeState'
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+    // return 期望滚动到哪个的位置
+  }
 });
 export default router;
 

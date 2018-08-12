@@ -1,5 +1,6 @@
 @import "_common";
 .share-page{
+  height: 100%;
   .img-information{
     position: relative;
     margin-bottom: 120px;
@@ -9,6 +10,14 @@
       align-items: center;
       height: 428px;
       background-color: rosybrown;
+      .edit-text{
+        font-size: 24px;
+        color: #ffffff;
+        margin-top: -200px;
+        .editPop{
+          text-align: center;margin-bottom: 20px;
+        }
+      }
       .logo-text{
         position: absolute;
         left: 185px;
@@ -229,7 +238,7 @@
   .btns{
     position: fixed;
     bottom: 0;
-    padding:5px 20px;
+    padding:10px 20px;
     display: flex;
     width:calc(100% - 40px );
     background-color: #fff;
@@ -249,6 +258,39 @@
       background-color: #cc1c24;
       color: #ffffff;
       border:1px solid #cc1c24;/*px*/
+    }
+  }
+  #mask{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,.6);
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    #pop{
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+      background: url('../images/sharePop.png') no-repeat;
+      background-size: cover;
+    }
+    .myEdit{
+      width: 400px;
+      margin: 0 auto;
+      margin-top: 100px;
+      textarea{
+        display: block;
+        margin: 0 auto;
+      }
+      .edit-btn{
+        width: 100%;
+        display: flex;
+        color: #fff;
+        justify-content: center;
+        button{
+          color: #ffffff;
+        }
+      }
     }
   }
 }
