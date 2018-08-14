@@ -18,6 +18,13 @@
       .text{
         font-size: 30px;
       }
+      .isOver{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+      }
     }
     .swiper-container{
       .swiper-slide{
@@ -88,8 +95,21 @@
   }
   .btns{
     padding:0px 20px;
-    margin-bottom: 10px;
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    bottom: 10px;
+    .btnOvers{
+      width: 100%;
+      margin-left: -20px;
+      height: 100%;
+      background-color: #a0a0a0;
+      font-size: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
     .Crowd,.pay{
       float: left;
       width: 345px;

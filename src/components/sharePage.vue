@@ -11,7 +11,7 @@
                      @blur=""></textarea>
           <div class="edit-btn">
             <button @click="saveDes(crowdFundOrder.Declaration)">确认</button>
-            <button @clcik="cancalEdit()">取消</button>
+            <button @click="cancalEdit()">取消</button>
           </div>
         </div>
       </div>

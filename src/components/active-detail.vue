@@ -3,8 +3,9 @@
       <!--<houseHead>活动详情</houseHead>-->
       <div class="banners">
         <div class="timers">
-          <div class="tittle">距开赛</div>
-          <div class="text">{{leftCounts}}</div>
+          <div class="tittle" v-if="!isOver">距开赛</div>
+          <div class="text" v-if="!isOver">{{leftCounts}}</div>
+          <div class="isOver" v-if="isOver">活动已结束</div>
         </div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
@@ -54,8 +55,9 @@
       <div class="content"  v-html="selectImg">
       </div>
       <div class="btns">
-        <div class="Crowd" @click="jumpCrowd">我的众筹</div>
-        <div class="pay" @click="jumpPay">立即支付</div>
+        <div class="Crowd" @click="jumpCrowd" v-if="!isOver">我的众筹</div>
+        <div class="pay" @click="jumpPay" v-if="!isOver">立即支付</div>
+        <div class="btnOvers" v-if="isOver">活动已经结束</div>
       </div>
     </div>
 </template>
@@ -82,7 +84,8 @@
             MatchHandler:{},
             countObj:{},
             selectImg:'',
-            timer:null
+            timer:null,
+            isOver:false
           };
       },
       computed: {
@@ -152,6 +155,9 @@
         },
         getLeftCounts([timeS,timeE]){
           let timeCounts = new Date(timeE) - new Date(timeS);
+          if (timeCounts <= 0){
+            this.isOver = true;
+          }
           this.timer = setInterval(()=>{
             timeCounts = timeCounts - 1000;
             let days = Math.floor(timeCounts/(1000*60*60*24));
