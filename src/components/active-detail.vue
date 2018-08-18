@@ -7,12 +7,17 @@
           <div class="text" v-if="!isOver">{{leftCounts}}</div>
           <div class="isOver" v-if="isOver">活动已结束</div>
         </div>
-        <div class="swiper-container">
+        <!--<div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="(img,index) in listImg" v-bind:style="{background:'url('+img+')' ,color:'red',backgroudSize:'cover'}"></div>
           </div>
           <div class="swiper-pagination swiper-pagination-white"></div>
-        </div>
+        </div>-->
+        <swiper :options="swiperOption" v-if="listImg.length>0" ref="swiperOption">
+          <swiper-slide v-for="(img,index) in listImg">
+            <div class="swiper-slide"  v-bind:style="{background:'url('+img+')' ,color:'red',backgroudSize:'cover'}"></div>
+          </swiper-slide>
+        </swiper>
       </div>
       <div class="introduce">
         <div class="top">
@@ -55,7 +60,7 @@
       <div class="content"  v-html="selectImg">
       </div>
       <div class="btns">
-        <div class="Crowd" @click="jumpCrowd" v-if="!isOver">我的众筹</div>
+        <div class="Crowd" @click="jumpCrowd" v-if="!isOver">我要众筹</div>
         <div class="pay" @click="jumpPay" v-if="!isOver">立即支付</div>
         <div class="btnOvers" v-if="isOver">活动已经结束</div>
       </div>
@@ -69,10 +74,21 @@
   import {util} from '../assets/js/util'
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
+  import 'swiper/dist/css/swiper.css'////这里注意具体看使用的版本是否需要引入样式，以及具体位置。
+  import { swiper, swiperSlide } from 'vue-awesome-swiper'
   export default {
       template: '.active-detail',
       data: function () {
           return {
+            swiperOption: {//swiper3
+              autoplay: {
+                stopOnLastSlide: false,
+                disableOnInteraction: true,
+                delay: 2000,
+              },
+              speed: 500,
+              loop: true
+            },
             listImg:[],
             tabList: [
               {value: '详情描述', key: 'detail'},
@@ -94,12 +110,12 @@
           'getSelectRoute'
         ])
       },
-      components: {houseHead, houseBtn, houseSort},
+      components: {houseHead, houseBtn, houseSort, swiper, swiperSlide},
       methods: {
         init() {
           this.getMatchHandler();
           this.getCount();
-          window.changeTitle('活动详情');
+
         },
         jumpPay () {
           this.$router.push('/payOrder/' + this.$route.params.MId);
@@ -141,12 +157,14 @@
               this.MatchHandler = res.data.data[0]|| {};
               this.getLeftCounts([this.MatchHandler.TimeStamp,this.MatchHandler.BeingTime])
               this.selectImg = this.MatchHandler.DetailDesImgUrl
-              this.listImg = this.MatchHandler.PlayImgUrlPath.split(',')
+              this.listImg = this.MatchHandler.PlayImgUrlPath.split(',');
+              console.log(this.listImg)
+              window.changeTitle(this.MatchHandler.MName);
               console.log(this.listImg);
               // this.getlun()
-              setTimeout(()=>{
+            /*  setTimeout(()=>{
                 this.getlun()
-              },200)
+              },200)*/
             }
             else {
 
@@ -173,11 +191,10 @@
              pagination: '.swiper-pagination',
              paginationClickable: true,
              loop: true,
-             speed: 600,
-             autoplay: 1000,
-             delay:1000,
+             speed: 100,
+             autoplay: 100,
              onTouchEnd: function() {
-               swiper.startAutoplay()
+               /*swiper.startAutoplay()*/
              }
            });
         },
