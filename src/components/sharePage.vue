@@ -2,17 +2,17 @@
     <div class="share-page">
       <!--<houseHead>分享页</houseHead>-->
       <div id="mask" v-if="isCancal">
-        <div id="pop" @click="cancalShare" v-if="isPop">
+      </div>
+      <div id="pop" @click="cancalShare" v-if="isPop">
 
-        </div>
-        <div class="myEdit" v-if="isEdit">
+      </div>
+      <div class="myEdit" v-if="isEdit">
            <textarea style="display: block;"
                      v-model="crowdFundOrder.Declaration"
                      @blur=""></textarea>
-          <div class="edit-btn">
-            <button @click="saveDes(crowdFundOrder.Declaration)">确认</button>
-            <button @click="cancalEdit()">取消</button>
-          </div>
+        <div class="edit-btn">
+          <button @click="saveDes(crowdFundOrder.Declaration)">确认</button>
+          <button @click="cancalEdit()">取消</button>
         </div>
       </div>
       <div class="img-information">
