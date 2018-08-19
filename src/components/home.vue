@@ -24,6 +24,7 @@ import houseBtn from './common/house-btn.vue';
 import houseHead from './common/house-head.vue';
 import houseToast from './common/house-toast.vue';
 import {util} from '../assets/js/util'
+import wx from 'weixin-js-sdk'
 export default{
   template: '.myhome',
   data: function () {
@@ -70,6 +71,50 @@ export default{
       'changeOpenId',
       'changeUserInfo'
     ]),
+    getJsdk () {
+      let data = {
+        data:{
+          Action:'getweixinjsapiconfig',
+          url:encodeURIComponent(location.href.split('#')[0])
+        },
+        url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
+      };
+      util.fetchData (data).then(res => {
+        console.log('jssdk',res.data.data);
+        const _jsApiList = ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","closeWindow","chooseImage","previewImage","uploadImage","downloadImage"];
+        let config = res.data.data;
+        config.debug = true;
+        config.jsApiList = _jsApiList;
+        wx.config(config);
+        wx.ready(function(){
+          $("#sharePage").click(function () {
+            wx.onMenuShareAppMessage({
+              title: '这是一个自定义的标题！', // 分享标题
+              desc: '这是一个自定义的描述！', // 分享描述
+              link: host + '/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: host + '/wx_pic.png', // 分享图标
+              type: 'link', // 分享类型,music、video或link，不填默认为link
+              success: function () {
+                // 用户确认分享后执行的回调函数
+                alert('succ')
+              },
+              fail () {
+                alert('分享失败')
+              },
+              complete () {
+                alert('分享结束')
+              },
+              cancel: function () {
+                // 用户取消分享后执行的回调函数
+                alert('cancel')
+              }
+            });
+            alert('已注册获取“发送给朋友”状态事件');
+          });
+
+        })
+      });
+    },
     getOpenId () { // 获取openid
       let data = {
         data:{
@@ -92,6 +137,7 @@ export default{
     init () {
       this.getHomeList();
       this.getOpenId();
+      this.getJsdk();
       window.changeTitle('驯鹿户外');
     },
     introduce(item) {

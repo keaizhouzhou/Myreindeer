@@ -4,15 +4,15 @@
       <div id="mask" v-if="isCancal">
       </div>
       <div id="pop" @click="cancalShare" v-if="isPop">
-
+        点击右上角，进行朋友圈分享
       </div>
       <div class="myEdit" v-if="isEdit">
            <textarea style="display: block;"
                      v-model="crowdFundOrder.Declaration"
                      @blur=""></textarea>
         <div class="edit-btn">
-          <button @click="saveDes(crowdFundOrder.Declaration)">确认</button>
-          <button @click="cancalEdit()">取消</button>
+          <div @click="saveDes(crowdFundOrder.Declaration)">确认</div>
+          <div @click="cancalEdit()">取消</div>
         </div>
       </div>
       <div class="img-information">
