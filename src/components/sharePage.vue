@@ -147,6 +147,7 @@
   import houseHead from './common/house-head.vue';
   import houseSort from './common/house-sort.vue';
   import {util} from '../assets/js/util'
+
   export default {
     template: '.share-page',
     data: function () {
@@ -407,6 +408,28 @@
         // this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
         this.isCancal = true;
         this.isPop = true;
+        wx.onMenuShareAppMessage({
+          title: this.matchHandler.ShareTitle, // 分享标题
+          desc:  this.matchHandler.ShareDescribe, // 分享描述
+          link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
+          type: 'link', // 分享类型,music、video或link，不填默认为link
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            alert('succ')
+          },
+          fail () {
+            alert('分享失败')
+          },
+          complete () {
+            alert('分享结束')
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+            alert('cancel')
+          }
+        });
+
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');
