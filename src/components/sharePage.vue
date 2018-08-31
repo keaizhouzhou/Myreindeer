@@ -451,7 +451,8 @@
         wx.onMenuShareAppMessage({
           title: this.matchHandler.ShareTitle, // 分享标题
           desc:  this.matchHandler.ShareDescribe, // 分享描述
-          link:`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F#/sharePage/${this.MId}/${this.CId}/${this.TId}/true&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`,
+          link: 'https://www.baidu.com/',
+          /*link:`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F#/sharePage/${this.MId}/${this.CId}/${this.TId}/true&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`,*/
           /*link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
