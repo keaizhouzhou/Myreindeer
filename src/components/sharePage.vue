@@ -136,11 +136,11 @@
         </div>
       </div>
       <div class="btns">
-        <div class="selfPay" @click="jumpSelfSupport" v-if="!isShare">自己支持</div>
-        <div class="helpPay" @click="jumpHelpPay" v-if="!isShare">找人帮我筹</div>
-        <div class="myCrowd" @click="jumpMyCrowd" v-if="!isShare">我的众筹</div>
-        <div class="selfPay" @click="jumpHimSupport" v-if="isShare">给他支持</div>
-        <div class="myCrowd" @click="myPlay" v-if="isShare">我也要玩</div>
+        <div class="selfPay" @click="jumpSelfSupport" v-if="isShare == 'false'">自己支持</div>
+        <div class="helpPay" @click="jumpHelpPay" v-if="isShare == 'false'">找人帮我筹</div>
+        <div class="myCrowd" @click="jumpMyCrowd" v-if="isShare == 'false'">我的众筹</div>
+        <div class="selfPay" @click="jumpHimSupport" v-if="isShare == 'true'">给他支持</div>
+        <div class="myCrowd" @click="myPlay" v-if="isShare == 'true'">我也要玩</div>
       </div>
     </div>
 </template>
@@ -439,7 +439,7 @@
         this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
       },
       jumpHimSupport(){// 跳转到给他支持页面
-        this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
+        this.$router.push('/supportHimToPay/' + this.MId + '/' + this.CId + '/' + TId);
       },
       myPlay(){ // 我也要玩跳转到众筹下单
         this.$router.push(`/orderCrowd/${this.MId}`)
