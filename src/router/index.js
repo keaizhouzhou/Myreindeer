@@ -91,7 +91,7 @@ const router =  new Router({
       name: 'orderCrowd'
     },
     {// 分享页
-      path: '/sharePage/:MId/:CId/:TId',
+      path: '/sharePage/:MId/:CId/:TId/:isShare',
       component: sharePage,
       name: 'sharePage'
     },

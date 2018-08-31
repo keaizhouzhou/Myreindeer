@@ -136,9 +136,11 @@
         </div>
       </div>
       <div class="btns">
-        <div class="selfPay" @click="jumpSelfSupport">自己支持</div>
-        <div class="helpPay" @click="jumpHelpPay">找人帮我筹</div>
-        <div class="myCrowd" @click="jumpMyCrowd">我的众筹</div>
+        <div class="selfPay" @click="jumpSelfSupport" v-if="!isShare">自己支持</div>
+        <div class="helpPay" @click="jumpHelpPay" v-if="!isShare">找人帮我筹</div>
+        <div class="myCrowd" @click="jumpMyCrowd" v-if="!isShare">我的众筹</div>
+        <div class="selfPay" @click="jumpHimSupport" v-if="isShare">给他支持</div>
+        <div class="myCrowd" @click="myPlay" v-if="isShare">我也要玩</div>
       </div>
     </div>
 </template>
@@ -168,7 +170,11 @@
           supportShow:false,
           isCancal:false,
           isEdit:false,
-          isPop:false
+          isPop:false,
+          isShare:'false',
+          MId:'',
+          CId:'',
+          TId:''
         };
     },
     computed: {
@@ -186,7 +192,35 @@
         this.getCount();
         this.getSelfTeamList();
         this.getSupportList();
+        this.MId = this.$route.params.MId;
+        this.CId = this.$route.params.CId;
+        this.TId = this.$route.params.TId;
+        this.isShare = this.$route.params.isShare;
         window.changeTitle('分享页');
+      },
+      getNewOpen () {
+        if (this.isShare == 'false') {//自己的分享
+
+        }
+        else { // 读取别人分享的页面
+          let data = {
+            data:{
+              Action:'getuserinfobycode',
+              code:util.getQueryString('code') || ''
+            },
+            url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              this.changeOpenId(res.data.data.openid); // 存储openid
+              this.changeUserInfo(res.data.data); // 存储useinfo
+              // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
+            }
+            else {
+
+            }
+          });
+        }
       },
       cancalEdit(){
         this.isCancal = false;
@@ -404,6 +438,12 @@
         console.log('/selfSupport/' + this.$route.params.MId + '/' + this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice)
         this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
       },
+      jumpHimSupport(){// 跳转到给他支持页面
+        this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
+      },
+      myPlay(){ // 我也要玩跳转到众筹下单
+        this.$router.push(`/orderCrowd/${this.MId}`)
+      },
       jumpHelpPay () { // 进行分享 调第三方接口
         // this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
         this.isCancal = true;
@@ -411,7 +451,8 @@
         wx.onMenuShareAppMessage({
           title: this.matchHandler.ShareTitle, // 分享标题
           desc:  this.matchHandler.ShareDescribe, // 分享描述
-          link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link:`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F#/sharePage/${this.MId}/${this.CId}/${this.TId}/true&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`,
+          /*link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
           success: function () {
