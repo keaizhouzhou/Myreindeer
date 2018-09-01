@@ -104,6 +104,9 @@ export default{
       if (res.data.result == 0) {
         this.changeOpenId(res.data.data.openid); // 存储openid
         this.changeUserInfo(res.data.data); // 存储useinfo
+        if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
+          this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
+        }
         // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
       }
       else {
