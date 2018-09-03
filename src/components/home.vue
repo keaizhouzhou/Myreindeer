@@ -93,6 +93,8 @@ export default{
       });
     },
     getOpenId () { // 获取openid
+      alert(1)
+      alert(window.location.href)
       let data = {
         data:{
           Action:'getuserinfobycode',
@@ -101,24 +103,38 @@ export default{
         url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
       };
       util.fetchData (data).then(res => {
+        alert(2)
       if (res.data.result == 0) {
+          alert(3)
         this.changeOpenId(res.data.data.openid); // 存储openid
         this.changeUserInfo(res.data.data); // 存储useinfo
-        if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
-          this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
-        }
+        alert(window.location.href)
         // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
       }
       else {
-
+        alert(4)
       }
       });
     },
     init () {
-      this.getHomeList();
-      this.getOpenId();
-      this.getJsdk();
+     // this.judge();
+      if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
+        //this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
+      }
+      else {
+        this.getHomeList();
+        this.getOpenId();
+        this.getJsdk();
+      }
+
       window.changeTitle('驯鹿户外');
+    },
+    judge(){
+      if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${this.MId}%2F${this.CId}%2F${this.TId}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
+        //this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
+      }
     },
     introduce(item) {
       this.changeRoute(item);

@@ -186,24 +186,26 @@
     },
     components: {houseHead, houseSort},
     methods: {
+      ...mapActions([
+        'changeRoute',
+        'changeOpenId',
+        'changeUserInfo'
+      ]),
       init() {
-        this.getMatchHandler();
-        this.getCrowdFundOrderHandler();
-        this.getCount();
-        this.getSelfTeamList();
-        this.getSupportList();
         this.MId = this.$route.params.MId;
         this.CId = this.$route.params.CId;
         this.TId = this.$route.params.TId;
         this.isShare = this.$route.params.isShare;
+        this.getNewOpen();
+        this.getMatchHandler();
+        this.getCrowdFundOrderHandler();
+        this.getSelfTeamList();
+        this.getSupportList();
         window.changeTitle('分享页');
       },
       getNewOpen () {
-        if (this.isShare == 'false') {//自己的分享
-
-        }
-        else { // 读取别人分享的页面
-         /* let data = {
+        if (this.isShare == 'true') {
+          let data = {
             data:{
               Action:'getuserinfobycode',
               code:util.getQueryString('code') || ''
@@ -211,15 +213,20 @@
             url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
           };
           util.fetchData (data).then(res => {
+            alert(2)
             if (res.data.result == 0) {
+              alert(3)
               this.changeOpenId(res.data.data.openid); // 存储openid
               this.changeUserInfo(res.data.data); // 存储useinfo
-              // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
+              this.getCount();
             }
             else {
-
+              alert(4)
             }
-          });*/
+          });
+        }
+        else {
+          this.getCount();
         }
       },
       cancalEdit(){
@@ -345,7 +352,6 @@
           url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
         };
         util.fetchData (data).then(res => {
-          // res.data={"result":0,"message":"","data":[{"Unfinished":"473.0","SmallImgUrl":"ueditor/net/upload/image/20180715/6366727671960796523812055.gif","FirstImgUrl":"ueditor/net/upload/image/20180715/6366727671768523272898970.gif","headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132","Declaration":"","MName":"王瑞锡赛事","Rate":"5.4%","Price":"500.00","Sumprice":"27.00","NickName":"王国壮","Id":1,"CId":"37D072C9F0BB4044AE061DD52C9673E9","MId":"F689820F66C94B33AA04ED0D3E9BCA74","UserName":"姓名","openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","BeginTime":"2018-06-25 00:04:08"}]};
           if (res.data.result == 0) {
             console.log('crowdFundOrder',res.data);
             this.crowdFundOrder = res.data.data[0]|| {};
@@ -372,7 +378,6 @@
           url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
         };
         util.fetchData (data).then(res => {
-         // res.data={"result":0,"message":"","data":[{"openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","MId":"F689820F66C94B33AA04ED0D3E9BCA74","TeamCount":"2","TheTeamCount":"2","SupportCount":"2"}]};
           if (res.data.result == 0) {
             console.log('countObj',res.data);
             this.countObj = res.data.data;
@@ -424,7 +429,6 @@
           url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
         };
         util.fetchData (data).then(res => {
-         // res.data={"result":0,"message":"","data":[{"CSId":"5AB7A21D58CA4BE69256F45A083D5627","CId":"37D072C9F0BB4044AE061DD52C9673E9","MId":"F689820F66C94B33AA04ED0D3E9BCA74","Price":12.00,"Msg":"","ReplyMsg":"","CreateTime":"2018-06-25 00:05:28","Id":1,"UId":"8FD79AF0A4D247CD83B7DBE6C88AB0CC","unionid":"","openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","username":"姓名","nickname":"王国壮","sex":0,"age":32,"headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132","phone":"联系电话","createtime":"2018-06-25 00:05:28"},{"CSId":"91418AF81E7743FB801066E037099EC3","CId":"37D072C9F0BB4044AE061DD52C9673E9","MId":"F689820F66C94B33AA04ED0D3E9BCA74","Price":15.00,"Msg":"","ReplyMsg":"","CreateTime":"2018-06-25 00:05:58","Id":1,"UId":"8FD79AF0A4D247CD83B7DBE6C88AB0CC","unionid":"","openid":"ol7xB1grgNlrobJfBQEKMRFEMrVY","username":"姓名","nickname":"王国壮","sex":0,"age":32,"headimgurl":"http://thirdwx.qlogo.cn/mmopen/vi_32/8fC42gYUBu8eSQq4VXecGjRFoO4rrCeWM9kiaEeYZt6iavQvJFE465kyFheqBiaKhUibUYjJbE1DgC77dpH7mCNtJw/132","phone":"联系电话","createtime":"2018-06-25 00:05:58"}]};
           if (res.data.result == 0) {
             console.log('supportList',res.data.data);
             this.supportList = res.data.data;
@@ -452,8 +456,9 @@
           title: this.matchHandler.ShareTitle, // 分享标题
           desc:  this.matchHandler.ShareDescribe, // 分享描述
          /* link: 'https://www.baidu.com/',*/
-          link:`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%3FMId=${this.MId}%26CId=${this.CId}%26TId=${this.TId}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`,
-          /*link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
+          /*link:`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%%3FTId=${this.TId}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`,*/
+          /*link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}/true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
+          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
           success: function () {
@@ -473,7 +478,8 @@
         });
         wx.onMenuShareTimeline({
           title: this.matchHandler.ShareTitle, // 分享标题
-          link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
+          /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           success: function () {
             // 用户确认分享后执行的回调函数
