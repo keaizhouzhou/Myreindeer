@@ -213,15 +213,12 @@
             url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
           };
           util.fetchData (data).then(res => {
-            alert(2)
             if (res.data.result == 0) {
-              alert(3)
               this.changeOpenId(res.data.data.openid); // 存储openid
               this.changeUserInfo(res.data.data); // 存储useinfo
               this.getCount();
             }
             else {
-              alert(4)
             }
           });
         }

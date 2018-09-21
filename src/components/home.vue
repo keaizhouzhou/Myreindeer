@@ -83,7 +83,6 @@ export default{
         console.log('jssdk',res.data.data);
         const _jsApiList = ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","closeWindow","chooseImage","previewImage","uploadImage","downloadImage"];
         let config = res.data.data;
-        config.debug = true;
         config.jsApiList = _jsApiList;
         wx.config(config);
         wx.ready(function(){
@@ -93,8 +92,6 @@ export default{
       });
     },
     getOpenId () { // 获取openid
-      alert(1)
-      alert(window.location.href)
       let data = {
         data:{
           Action:'getuserinfobycode',
@@ -103,16 +100,12 @@ export default{
         url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
       };
       util.fetchData (data).then(res => {
-        alert(2)
       if (res.data.result == 0) {
-          alert(3)
         this.changeOpenId(res.data.data.openid); // 存储openid
         this.changeUserInfo(res.data.data); // 存储useinfo
-        alert(window.location.href)
         // this.$refs.toast.toastShow('额度预估成功，页面即将跳转!')
       }
       else {
-        alert(4)
       }
       });
     },
