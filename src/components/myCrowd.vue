@@ -123,11 +123,11 @@
           this.getFailureItems();
         }
       },
-      jumpSelfSupport({MId} = item) {
-        this.$router.push(`/selfSupport/${MId}`);
+      jumpSelfSupport({MId,Unfinished} = item) {
+        this.$router.push(`/selfSupport/${MId}/${Unfinished}`);
       },
       jumpSharePage({MId,CId,TId} = item) {
-        this.$router.push(`/sharePage/${MId}/${CId}/${TId}`);
+        this.$router.push(`/sharePage/${MId}/${CId}/${TId}/false`);
       },
       goInfo() {
         this.$router.push('/')

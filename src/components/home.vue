@@ -112,7 +112,7 @@ export default{
     init () {
      // this.judge();
       if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
         //this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
       }
       else {
@@ -125,7 +125,7 @@ export default{
     },
     judge(){
       if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx20271bf64bdca86a&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${this.MId}%2F${this.CId}%2F${this.TId}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${this.MId}%2F${this.CId}%2F${this.TId}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
         //this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
       }
     },

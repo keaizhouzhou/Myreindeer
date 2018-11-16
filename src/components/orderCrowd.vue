@@ -5,7 +5,7 @@
         <div class="nameAndPhone">
           <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
           <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
-          <div class="leftArr" @click="jumpAddInfo">></div>
+          <div class="leftArr" @click="jumpAddInfo"></div>
         </div>
         <div v-if="!userInfo.username && !userInfo.phone" class="addRelationship">
           <div class="tittle" @click="jumpAddInfo" >新增个人页面<span>></span></div>
