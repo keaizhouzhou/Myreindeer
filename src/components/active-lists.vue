@@ -41,7 +41,7 @@
     components: {houseBtn, houseHead},
     methods: {
       jumpActiveDetail (match) {
-        this.$router.push('/activeDetail/'+match.MId)
+        this.$router.push('/activeDetail/'+match.MId + '/false')
       },
       getMatchList () { // 获取赛事页面
         let jsoncontent ={

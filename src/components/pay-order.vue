@@ -109,6 +109,7 @@
         },
         jumpToOrder () {
           if (this.check()){
+              // 提交订单信息到表里去
             this.$router.push(`/confirmOrder/${this.orderNum}/${this.channellist[this.$refs.channel.choseItem.key]}/${this.$refs.channel.choseItem.key}/${this.$route.params.MId}`);
           }
         },

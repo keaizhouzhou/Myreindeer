@@ -60,8 +60,8 @@
       <div class="content"  v-html="selectImg">
       </div>
       <div class="btns">
-        <div class="Crowd" @click="jumpCrowd" v-if="!isOver">我要众筹</div>
-        <div class="pay" @click="jumpPay" v-if="!isOver">立即支付</div>
+        <div class="Crowd" @click="jumpCrowd" v-if="!isOver&&!hasOrder&&isSupport">我要众筹</div>
+        <div class="pay" @click="jumpPay" v-if="!isOver&&!hasOrder&&isSupport">立即支付</div>
         <div class="btnOvers" v-if="isOver">活动已经结束</div>
       </div>
     </div>
@@ -101,13 +101,16 @@
             countObj:{},
             selectImg:'',
             timer:null,
-            isOver:false
+            isOver:false, // 活动时间是否过期
+            hasOrder:false, // 订单是否存在
+            isSupport:true // 该活动是否支持众筹
           };
       },
       computed: {
         ...mapGetters([
           'getBaseUrl',
-          'getSelectRoute'
+          'getSelectRoute',
+          'getOpenId'
         ])
       },
       components: {houseHead, houseBtn, houseSort, swiper, swiperSlide},
@@ -115,7 +118,89 @@
         init() {
           this.getMatchHandler();
           this.getCount();
+          this.getCrowdOreder();
+          this.getSelfOrder();
+          this.getIsCrowdFund();
 
+        },
+        getIsCrowdFund () { // 判断此活动是否支持众筹
+          let jsoncontent ={
+            condition:[
+              {key:'MId', values:this.$route.params.MId || '', oprate:'='}
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'getmodel',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/MatchHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result === 0) {
+              this.isSupport = res.data.data.IsCrowdFund !== 0?false:'';
+            }
+            else {
+
+            }
+          });
+        },
+        getCrowdOreder () { // 获取众筹订单
+          let jsoncontent ={
+            condition:[
+              {"key":"openid","values":this.getOpenId,"oprate":"="},
+              {key:'MId', values:this.$route.params.MId || '', oprate:'='}
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'getlistwxpersondetail',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result === 0) {
+              res.data.data.map((item)=>{
+                if (item.MId === this.$route.params.MId) {
+                  // 订单已经存在
+                  this.hasOrder = true;
+                }
+              })
+            }
+            else {
+
+            }
+          });
+        },
+        getSelfOrder () { // 获取自付订单
+          let jsoncontent ={
+            condition:[
+              {"key":"openid","values":this.getOpenId,"oprate":"="},
+              {key:'MId', values:this.$route.params.MId || '', oprate:'='}
+            ]
+          } ;
+          let data = {
+            data:{
+              Action:'getlistwxmyorder',
+              jsoncontent:JSON.stringify(jsoncontent)
+            },
+            url:this.getBaseUrl + 'CommonHandler/OrderHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result === 0) {
+              res.data.data.map((item)=>{
+                if (item.MId === this.$route.params.MId) {
+                  // 订单已经存在
+                  this.hasOrder = true;
+                }
+
+              })
+            }
+            else {
+
+            }
+          });
         },
         jumpPay () {
           this.$router.push('/payOrder/' + this.$route.params.MId);
@@ -155,16 +240,55 @@
             if (res.data.result == 0) {
               console.log('data',res.data);
               this.MatchHandler = res.data.data[0]|| {};
+              // 判断时间
               this.getLeftCounts([this.MatchHandler.TimeStamp,this.MatchHandler.BeingTime])
               this.selectImg = this.MatchHandler.DetailDesImgUrl
               this.listImg = this.MatchHandler.PlayImgUrlPath.split(',');
               console.log(this.listImg)
-              window.changeTitle(this.MatchHandler.MName);
-              console.log(this.listImg);
-              // this.getlun()
-            /*  setTimeout(()=>{
-                this.getlun()
-              },200)*/
+              window.changeTitle('活动详情');
+              let vm = this;
+              wx.onMenuShareAppMessage({ // 发送朋友
+                title: vm.MatchHandler.ShareTitle, // 分享标题
+                desc:  vm.MatchHandler.ShareDescribe, // 分享描述
+                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                success: function () {
+                  // 用户确认分享后执行的回调函数
+                  console.log('succ')
+                },
+                fail () {
+                  console.log('发送失败')
+                },
+                complete () {
+                  console.log('发送结束')
+                },
+                cancel: function () {
+                  // 用户取消分享后执行的回调函数
+                  console.log('cancel')
+                }
+              });
+              wx.onMenuShareTimeline({ // 分享朋友圈
+                title: vm.MatchHandler.ShareTitle, // 分享标题
+                desc:  vm.MatchHandler.ShareDescribe, // 分享描述
+                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                success: function () {
+                  // 用户确认分享后执行的回调函数
+                  console.log('succ')
+                },
+                fail () {
+                  console.log('发送失败')
+                },
+                complete () {
+                  console.log('发送结束')
+                },
+                cancel: function () {
+                  // 用户取消分享后执行的回调函数
+                  console.log('cancel')
+                }
+              });
             }
             else {
 
@@ -224,10 +348,32 @@
 
             }
           });
+        },
+        getNewOpen () {
+          if (this.isShare === 'true') { // 通过别人分享来的
+            let data = {
+              data:{
+                Action:'getuserinfobycode',
+                code:util.getQueryString('code') || ''
+              },
+              url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
+            };
+            util.fetchData (data).then(res => {
+              if (res.data.result === 0) {
+                this.changeOpenId(res.data.data.openid); // 存储openid
+                this.changeUserInfo(res.data.data); // 存储useinfo
+                this.init();
+              }
+            });
+          }
+          else { // 自己访问的
+            this.init();
+          }
         }
       },
     mounted() {
-      this.init();
+      this.getNewOpen();
+
     },
     destroyed () {
       clearInterval(this.timer);

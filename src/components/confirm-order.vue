@@ -28,7 +28,7 @@
       <div class="payTittle">在线支付</div>
       <div class="icon"></div>
     </div>
-    <div class="btn" @click="wxPay">确认提交</div>
+    <div class="btn" @click="saveOrder">确认提交</div>
   </div>
 </template>
 <script>

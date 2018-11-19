@@ -452,8 +452,6 @@
         wx.onMenuShareAppMessage({ // 发送朋友
           title: this.matchHandler.ShareTitle, // 分享标题
           desc:  this.matchHandler.ShareDescribe, // 分享描述
-         /* link: 'https://www.baidu.com/',*/
-          /*link:`${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}/true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
@@ -474,7 +472,7 @@
         });
         wx.onMenuShareTimeline({ // 分享朋友圈
           title: this.matchHandler.ShareTitle, // 分享标题
-          link:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
+          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           success: function () {
@@ -485,8 +483,6 @@
             // 用户取消分享后执行的回调函数
           }
         });
-
-
       },
       jumpMyCrowd () {//跳转至我的众筹
         this.$router.push('/main/myCrowd');

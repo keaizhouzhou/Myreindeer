@@ -70,7 +70,7 @@ const router =  new Router({
       component: activeLists
     },
     { // 活动详情页
-      path: '/activeDetail/:MId',
+      path: '/activeDetail/:MId/:isShare',
       name: 'activeDetail',
       component: activeDetail
     },

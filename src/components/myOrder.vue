@@ -102,7 +102,25 @@
       init () {
         window.changeTitle('我的订单');
         //this.getALLOrders();
-        this.getUnComplete();
+        if (!this.getOpenId) { // 如果没有openid 先获取
+          let data = {
+            data:{
+              Action:'getuserinfobycode',
+              code:util.getQueryString('code') || ''
+            },
+            url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
+          };
+          util.fetchData (data).then(res => {
+            if (res.data.result == 0) {
+              this.changeOpenId(res.data.data.openid); // 存储openid
+              this.changeUserInfo(res.data.data); // 存储useinfo
+              this.getUnComplete();
+            }
+          });
+        }
+        else {
+          this.getUnComplete();
+        }
       },
       tabClick (tab) {
         this.selectedTab = tab;
