@@ -20,7 +20,7 @@
              v-if="crowdFundOrder.FirstImgUrl"
              :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
           <div class="edit-text">
-            <div @click=editPop  class="editPop">编辑</div>
+           <!-- <div @click=editPop  class="editPop">编辑</div>-->
             <div>
               {{crowdFundOrder.Declaration}}
             </div>
@@ -35,8 +35,8 @@
           </div>
         </div>
         <div class="portrait"
-             v-if="crowdFundOrder.SmallImgUrl"
-             v-bind:style="{background:'url('+getBaseUrl+crowdFundOrder.SmallImgUrl+')'}"></div>
+             v-if="crowdFundOrder.headimgurl"
+             v-bind:style="{background:'url('+getBaseUrl+crowdFundOrder.headimgurl+')'}"></div>
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
@@ -72,8 +72,11 @@
             </div>-->
           </div>
           <div v-if="selectedTab.key == 'queuePeople'" class="supportpeople_content contentPeople">
-            <div v-if="!supportShow && index<5" v-for="(item,index) in selfTeamList" class="people"></div>
-            <div v-if="supportShow " v-for="(item,index) in selfTeamList" class="people" ></div>
+            <div v-if="!supportShow && index<5" v-for="(item,index) in selfTeamList" class="people"
+                 :style="{background:'url('+item.headimgurl+')',backgroundSize:'contain'}"></div>
+            <div v-if="supportShow " v-for="(item,index) in selfTeamList" class="people"
+                 :style="{background:'url('+item.headimgurl+')',backgroundSize:'contain'}"
+            ></div>
             <div v-if="!supportShow" class="more" @click="supportShow=!supportShow;">
               <span class="text">更多</span>
               <span class="icon">></span>
@@ -139,8 +142,8 @@
         <div class="selfPay" @click="jumpSelfSupport" v-if="isShare == 'false'">自己支持</div>
         <div class="helpPay" @click="jumpHelpPay" v-if="isShare == 'false'">找人帮我筹</div>
         <div class="myCrowd" @click="jumpMyCrowd" v-if="isShare == 'false'">我的众筹</div>
-        <div class="selfPay" @click="jumpHimSupport" v-if="isShare == 'true'">给他支持</div>
-        <div class="myCrowd" @click="myPlay" v-if="isShare == 'true'">我也要玩</div>
+        <div class="selfPay" @click="jumpHimSupport" v-show="isShare == 'true'">给他支持</div>
+        <div class="myCrowd" @click="myPlay" v-if="isShare == 'true'&&!hasOrder">我也要玩</div>
       </div>
     </div>
 </template>
@@ -174,7 +177,8 @@
           isShare:'false',
           MId:'',
           CId:'',
-          TId:''
+          TId:'',
+          hasOrder:false
         };
     },
     computed: {
@@ -203,6 +207,39 @@
         this.getSupportList();
         window.changeTitle('分享页');
       },
+      getCrowdOreder () { // 获取众筹订单
+        let jsoncontent ={
+          condition:[
+            {"key":"openid","values":this.getOpenId,"oprate":"="},
+            {key:'MId', values:this.MId || '', oprate:'='}
+          ]
+        } ;
+        let data = {
+          data:{
+            Action:'getlistwxpersondetail',
+            jsoncontent:JSON.stringify(jsoncontent)
+          },
+          url:this.getBaseUrl + 'CommonHandler/CrowdFundOrderHandler.ashx'
+        };
+        util.fetchData (data).then(res => {
+          if (res.data.result === 0) {
+            if (res.data.data.length === 0) { // 没有订单
+              // this.hasOrder = true;
+            }
+            else { // 有订单
+              res.data.data.map((item)=>{
+                if (item.MId === this.$route.params.MId) {
+                  // 订单已经存在
+                  this.hasOrder = true;
+                }
+              })
+            }
+          }
+          else {
+
+          }
+        });
+      },
       getNewOpen () {
         if (this.isShare == 'true') {
           let data = {
@@ -217,6 +254,7 @@
               this.changeOpenId(res.data.data.openid); // 存储openid
               this.changeUserInfo(res.data.data); // 存储useinfo
               this.getCount();
+              this.getCrowdOreder();
             }
             else {
             }
@@ -440,7 +478,7 @@
         this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
       },
       jumpHimSupport(){// 跳转到给他支持页面
-        this.$router.push('/supportHimToPay/' + this.MId + '/' + this.CId + '/' + TId);
+        this.$router.push('/supportHimToPay/' + this.MId + '/' + this.CId + '/' + this.TId);
       },
       myPlay(){ // 我也要玩跳转到众筹下单
         this.$router.push(`/orderCrowd/${this.MId}`)

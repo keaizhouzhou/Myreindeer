@@ -56,6 +56,8 @@
         },
         init() {
           window.changeTitle('新增个人信息');
+          this.$refs.username.finalValue = window.userInfo.username;
+          this.$refs.phone.finalValue  = window.userInfo.phone;
         },
         change () {
         },

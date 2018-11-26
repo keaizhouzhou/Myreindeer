@@ -4,7 +4,7 @@
       <div class="home-item"  v-for="(match,index) in matchLists" @click="jumpActiveDetail(match)">
         <img class="item-image" :src="getBaseUrl + match.SmallImgUrl" alt="">
         <div class="item-des">
-          <div class="tittle">{{match.RName}}</div>
+          <div class="tittle">{{match.MName}}</div>
           <div class="text">{{match.CreateTime | timeSplit}}~{{match.CrowdFundEndTime | timeSplit}}</div>
           <div class="price">{{match.Price?`￥${match.Price}.0`:`￥0`}}</div>
         </div>

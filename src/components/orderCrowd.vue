@@ -112,6 +112,7 @@
         return true;
       },
       jumpAddInfo () {
+        window.userInfo = this.userInfo;
         this.$router.push('/addInfo')
       },
       jumpToCrowd (CId) {

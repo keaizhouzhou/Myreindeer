@@ -106,7 +106,7 @@ const router =  new Router({
       name: 'supportHim'
     },
     {// 给他支持付款页
-      path: '/supportHimToPay/:MId/:CId',
+      path: '/supportHimToPay/:MId/:CId/:TId',
       component: supportHimToPay,
       name: 'supportHimToPay'
     },

@@ -60,8 +60,8 @@
       <div class="content"  v-html="selectImg">
       </div>
       <div class="btns">
-        <div class="Crowd" @click="jumpCrowd" v-if="!isOver&&!hasOrder&&isSupport">我要众筹</div>
-        <div class="pay" @click="jumpPay" v-if="!isOver&&!hasOrder&&isSupport">立即支付</div>
+        <div class="Crowd" @click="jumpCrowd" v-show="!isOver&&!hasOrder&&isSupport">我要众筹</div>
+        <div class="pay" @click="jumpPay" v-show="!isOver&&!hasOrder" >立即支付</div>
         <div class="btnOvers" v-if="isOver">活动已经结束</div>
       </div>
     </div>
@@ -163,7 +163,7 @@
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
               if (res.data.data.length === 0) { // 没有订单
-                // this.hasOrder = true;
+               // this.hasOrder = true;
               }
               else { // 有订单
                 res.data.data.map((item)=>{
@@ -196,7 +196,7 @@
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
               if (res.data.data.length === 0) { // 没有订单
-               // this.hasOrder = true;
+               //this.hasOrder = true;
               }
               else { // 有订单
                 res.data.data.map((item)=>{
