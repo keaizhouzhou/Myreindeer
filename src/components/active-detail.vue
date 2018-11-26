@@ -138,7 +138,8 @@
           };
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
-              this.isSupport = res.data.data.IsCrowdFund !== 0?false:'';
+              this.isSupport = res.data.data.IsCrowdFund !== 0?false:true;
+              console.log('支付支持',this.isSupport)
             }
             else {
 
@@ -161,12 +162,17 @@
           };
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
-              res.data.data.map((item)=>{
-                if (item.MId === this.$route.params.MId) {
-                  // 订单已经存在
-                  this.hasOrder = true;
-                }
-              })
+              if (res.data.data.length === 0) { // 没有订单
+                // this.hasOrder = true;
+              }
+              else { // 有订单
+                res.data.data.map((item)=>{
+                  if (item.MId === this.$route.params.MId) {
+                    // 订单已经存在
+                    this.hasOrder = true;
+                  }
+                })
+              }
             }
             else {
 
@@ -189,13 +195,17 @@
           };
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
-              res.data.data.map((item)=>{
-                if (item.MId === this.$route.params.MId) {
-                  // 订单已经存在
-                  this.hasOrder = true;
-                }
-
-              })
+              if (res.data.data.length === 0) { // 没有订单
+               // this.hasOrder = true;
+              }
+              else { // 有订单
+                res.data.data.map((item)=>{
+                  if (item.MId === this.$route.params.MId) {
+                    // 订单已经存在
+                    this.hasOrder = true;
+                  }
+                })
+              }
             }
             else {
 

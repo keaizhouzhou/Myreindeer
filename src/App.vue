@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    document.addEventListener('WeixinJSBridgeReady', function () {
+      console.log('支付监听成')
+    },false)
+  }
 }
 </script>
 

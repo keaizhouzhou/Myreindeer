@@ -19,7 +19,7 @@
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice?`￥${item.TotalPrice}`:''}}</span></div>
             <div class="set">
               <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
-              <div class="payBtn" v-if="item.State == 0" @click="goPay()">去支付</div>
+              <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice)">去支付</div>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice?`￥${item.TotalPrice}`:''}}</span></div>
             <div class="set">
               <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
-              <div class="payBtn" v-if="item.State == 0" @click="goPay()">去支付</div>
+              <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice)">去支付</div>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice?`￥${item.TotalPrice}`:''}}</span></div>
             <div class="set">
               <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
-              <div class="payBtn" v-if="item.State == 0" @click="goPay()">去支付</div>
+              <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice)">去支付</div>
             </div>
           </div>
         </div>
@@ -99,6 +99,35 @@
     },
     components: { houseHead, houseBtn, houseSort},
     methods: {
+      goPay (totalPrice){
+        totalPrice = totalPrice?totalPrice:0;
+         let data = {
+             data:{
+               total_fee:totalPrice,
+               openid:this.getOpenId
+             },
+             url:'../../CommonHandler/APIHandler.ashx?Action=getjsapiparameters'
+           };
+           util.fetchData (data).then(res => {
+             if (res.data.result == 0) {
+               //公众号支付
+               WeixinJSBridge.invoke(
+                 'getBrandWCPayRequest',
+                 JSON.parse(res.data.data),
+                 function (response) {
+                   if (response.err_msg == "get_brand_wcpay_request:ok") {
+                     alert("支付成功");
+                   }
+                   else if (response.err_msg == "get_brand_wcpay_request:cancel") {
+                     alert("您放弃了支付");
+                   } else {
+                     alert("支付失败,请稍后重试！如果收到支付通知，切勿重复支付！");
+                   }
+                 });
+             }
+             else {}
+           });
+      },
       init () {
         window.changeTitle('我的订单');
         //this.getALLOrders();
