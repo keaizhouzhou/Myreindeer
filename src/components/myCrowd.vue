@@ -142,11 +142,11 @@
           this.getFailureItems();
         }
       },
-      jumpSelfSupport({MId,Unfinished} = item) {
-        this.$router.push(`/selfSupport/${MId}/${Unfinished}`);
+      jumpSelfSupport({MId,Unfinished,CId} = item) {
+        this.$router.push(`/selfSupport/${MId}/${Unfinished}/${CId}`);
       },
       jumpSharePage({MId,CId,TId} = item) {
-        this.$router.push(`/sharePage/${MId}/${CId}/${TId}/false`);
+        this.$router.push(`/sharePage/${MId}/${CId}/${TId}/false/none`);
       },
       goInfo() {
         this.$router.push('/')

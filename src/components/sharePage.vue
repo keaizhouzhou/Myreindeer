@@ -18,7 +18,7 @@
       <div class="img-information">
         <div class="logo"
              v-if="crowdFundOrder.FirstImgUrl"
-             :style="{background:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroudSize:'cover'}">
+             :style="{backgroundImage:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroundSize:'contain'}">
           <div class="edit-text">
            <!-- <div @click=editPop  class="editPop">编辑</div>-->
             <div>
@@ -36,14 +36,14 @@
         </div>
         <div class="portrait"
              v-if="crowdFundOrder.headimgurl"
-             v-bind:style="{background:'url('+getBaseUrl+crowdFundOrder.headimgurl+')'}"></div>
+             v-bind:style="{backgroundImage:'url('+crowdFundOrder.headimgurl+')',backgroundSize:'contain'}"></div>
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
             <div class="icon" v-bind:style="{left:crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}">{{crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}}</div>
             <div class="progress-child"  v-bind:style="{width:crowdFundOrder.Rate}"></div>
           </div>
-          <div class="money">还差{{crowdFundOrder.Price-crowdFundOrder.Sumprice}}元</div>
+          <div class="money">还差{{crowdFundOrder.Unfinished}}元</div>
         </div>
         <div class="activeInformation">
           <div class="fill-color"></div>
@@ -54,7 +54,7 @@
             </div>
             <div class="item-image"
                  v-if="matchHandler.SmallImgUrl"
-                 v-bind:style="{background:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')'}"></div>
+                 v-bind:style="{backgroundImage:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')',backgroundSize:'contain'}"></div>
           </div>
         </div>
         <div class="contentClass">
@@ -178,7 +178,8 @@
           MId:'',
           CId:'',
           TId:'',
-          hasOrder:false
+          hasOrder:false,
+          himHeadUrl:'none'
         };
     },
     computed: {
@@ -200,6 +201,7 @@
         this.CId = this.$route.params.CId;
         this.TId = this.$route.params.TId;
         this.isShare = this.$route.params.isShare;
+        this.himHeadUrl = encodeURIComponent(this.$route.params.headimgurl);
         this.getNewOpen();
         this.getMatchHandler();
         this.getCrowdFundOrderHandler();
@@ -475,10 +477,11 @@
       },
       jumpSelfSupport () {//跳转至自己支持付款页面
         console.log('/selfSupport/' + this.$route.params.MId + '/' + this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice)
-        this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice));
+        this.$router.push('/selfSupport/' + this.$route.params.MId + '/' + (this.crowdFundOrder.Price - this.crowdFundOrder.Sumprice) + '/' + this.$route.params.CId);
       },
       jumpHimSupport(){// 跳转到给他支持页面
-        this.$router.push('/supportHimToPay/' + this.MId + '/' + this.CId + '/' + this.TId);
+        this.himHeadUrl = this.himHeadUrl?this.himHeadUrl:'none';
+        this.$router.push('/supportHimToPay/' + this.MId + '/' + this.CId + '/' + this.TId + '/' + this.himHeadUrl);
       },
       myPlay(){ // 我也要玩跳转到众筹下单
         this.$router.push(`/orderCrowd/${this.MId}`)
@@ -490,7 +493,7 @@
         wx.onMenuShareAppMessage({ // 发送朋友
           title: this.matchHandler.ShareTitle, // 分享标题
           desc:  this.matchHandler.ShareDescribe, // 分享描述
-          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           type: 'link', // 分享类型,music、video或link，不填默认为link
           success: function () {
@@ -510,7 +513,7 @@
         });
         wx.onMenuShareTimeline({ // 分享朋友圈
           title: this.matchHandler.ShareTitle, // 分享标题
-          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
           imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
           success: function () {

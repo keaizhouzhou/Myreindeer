@@ -6,7 +6,7 @@
         <div class="item-des">
           <div class="tittle">{{match.MName}}</div>
           <div class="text">{{match.CreateTime | timeSplit}}~{{match.CrowdFundEndTime | timeSplit}}</div>
-          <div class="price">{{match.Price?`￥${match.Price}.0`:`￥0`}}</div>
+          <div class="price">{{match.Price?`￥${match.Price}`:`￥0`}}</div>
         </div>
         <div class="arrow"></div>
       </div>

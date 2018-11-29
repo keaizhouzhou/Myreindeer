@@ -71,26 +71,6 @@ export default{
       'changeOpenId',
       'changeUserInfo'
     ]),
-    getJsdk () {
-      let data = {
-        data:{
-          Action:'getweixinjsapiconfig',
-          url:encodeURIComponent(location.href.split('#')[0])
-        },
-        url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
-      };
-      util.fetchData (data).then(res => {
-        console.log('jssdk',res.data.data);
-        const _jsApiList = ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","closeWindow","chooseImage","previewImage","uploadImage","downloadImage"];
-        let config = res.data.data;
-        config.jsApiList = _jsApiList;
-        wx.config(config);
-        wx.ready(function(){
-
-
-        })
-      });
-    },
     getOpenId () { // 获取openid
       let data = {
         data:{
@@ -111,7 +91,8 @@ export default{
     init () {
      // this.judge();
       if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
+        let headimgurl = encodeURIComponent(encodeURIComponent(util.getQueryString('headimgurl')));
+        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue%2F${headimgurl}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
       }
       else if (util.getQueryString('type') === 'detail') { // 详情页的分享
         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FactiveDetail%2F${util.getQueryString('MId')}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
@@ -119,16 +100,10 @@ export default{
       else {
         this.getHomeList();
         this.getOpenId();
-        this.getJsdk();
+       // this.getJsdk();
       }
 
       window.changeTitle('驯鹿户外');
-    },
-    judge(){
-      if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${this.MId}%2F${this.CId}%2F${this.TId}%2Ftrue&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
-        //this.$router.push(`/sharePage/${util.getQueryString('MId')}/${util.getQueryString('CId')}/${util.getQueryString('TId')}/true`)
-      }
     },
     introduce(item) {
       this.changeRoute(item);

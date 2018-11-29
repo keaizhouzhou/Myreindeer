@@ -91,12 +91,12 @@ const router =  new Router({
       name: 'orderCrowd'
     },
     {// 分享页
-      path: '/sharePage/:MId/:CId/:TId/:isShare',
+      path: '/sharePage/:MId/:CId/:TId/:isShare/:headimgurl',
       component: sharePage,
       name: 'sharePage'
     },
     {// 自己支持付款页
-      path: '/selfSupport/:MId/:price',
+      path: '/selfSupport/:MId/:price/:CId',
       component: selfSupport,
       name: 'selfSupport'
     },
@@ -106,7 +106,7 @@ const router =  new Router({
       name: 'supportHim'
     },
     {// 给他支持付款页
-      path: '/supportHimToPay/:MId/:CId/:TId',
+      path: '/supportHimToPay/:MId/:CId/:TId/:headimgurl',
       component: supportHimToPay,
       name: 'supportHimToPay'
     },

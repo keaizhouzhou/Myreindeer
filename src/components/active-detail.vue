@@ -15,7 +15,7 @@
         </div>-->
         <swiper :options="swiperOption" v-if="listImg.length>0" ref="swiperOption">
           <swiper-slide v-for="(img,index) in listImg">
-            <div class="swiper-slide"  v-bind:style="{background:'url('+img+')' ,color:'red',backgroudSize:'cover'}"></div>
+            <div class="swiper-slide"  v-bind:style="{background:'url('+img+')' ,backgroundSize:'cover'}"></div>
           </swiper-slide>
         </swiper>
       </div>
@@ -23,7 +23,7 @@
         <div class="top">
           <div class="tittle">{{MatchHandler.MName}}</div>
           <div class="pricePlace">
-            <div class="price">￥{{MatchHandler.Price}}.0</div>
+            <div class="price">￥{{MatchHandler.Price}}</div>
             <div class="place">北京市</div>
           </div>
         </div>

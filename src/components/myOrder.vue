@@ -18,7 +18,7 @@
             <!--<div class="tittle">等待付款</div>-->
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice ? `￥${item.TotalPrice}` : ''}}</span></div>
             <div class="set">
-              <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
+              <!--<div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
               <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice,item.OId)">去支付</div>
             </div>
           </div>
@@ -39,7 +39,7 @@
             <!--<div class="tittle">等待付款</div>-->
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice ? `￥${item.TotalPrice}` : ''}}</span></div>
             <div class="set">
-              <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
+              <!--<div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
               <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice,item.OId)">去支付</div>
             </div>
           </div>
@@ -60,7 +60,7 @@
             <!--<div class="tittle">等待付款</div>-->
             <div class="text">合计：<span style="color: red;">{{item.TotalPrice ? `￥${item.TotalPrice}` : ''}}</span></div>
             <div class="set">
-              <div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>
+              <!--<div class="payBtn" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
               <div class="payBtn" v-if="item.State == 0" @click="goPay(item.TotalPrice,item.OId)">去支付</div>
             </div>
           </div>
