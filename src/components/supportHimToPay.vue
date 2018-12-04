@@ -4,7 +4,7 @@
       <div class="support_info">
         <p>支持他：</p>
         <img :src="headimgurl" alt="" class="user_img">
-        <div class="user_name">昵称昵称</div>
+        <!--<div class="user_name">昵称昵称</div>-->
         <div class="user_desc">
           <input v-if="isEditDesc" type="text" value="" v-model="userDesc" v-on:blur="isEditDesc=!isEditDesc;">
           <div v-if="!isEditDesc">{{userDesc}}</div>
@@ -139,6 +139,7 @@
         };
         util.fetchData (data).then(res => {
           if (res.data.result == 0) {
+            console.log("支付成功，录入数据",jsoncontent)
             this.$router.go(-1);
           }
           else {}

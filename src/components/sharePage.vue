@@ -40,7 +40,8 @@
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
-            <div class="icon" v-bind:style="{left:crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}">{{crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}}</div>
+
+            <div class="icon" v-bind:style="{left:(parseInt(crowdFundOrder.Rate)>90)?'90%':crowdFundOrder.Rate}">{{crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}}</div>
             <div class="progress-child"  v-bind:style="{width:crowdFundOrder.Rate}"></div>
           </div>
           <div class="money">还差{{crowdFundOrder.Unfinished}}元</div>
@@ -142,7 +143,7 @@
         <div class="selfPay" @click="jumpSelfSupport" v-if="isShare == 'false'">自己支持</div>
         <div class="helpPay" @click="jumpHelpPay" v-if="isShare == 'false'">找人帮我筹</div>
         <div class="myCrowd" @click="jumpMyCrowd" v-if="isShare == 'false'">我的众筹</div>
-        <div class="selfPay" @click="jumpHimSupport" v-show="isShare == 'true'">给他支持</div>
+        <div class="selfPay" @click="jumpHimSupport" v-show="isShare == 'true' && (parseInt(crowdFundOrder.Rate) < 100)">给他支持</div>
         <div class="myCrowd" @click="myPlay" v-if="isShare == 'true'&&!hasOrder">我也要玩</div>
       </div>
     </div>
