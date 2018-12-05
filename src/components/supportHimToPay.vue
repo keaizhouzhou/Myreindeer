@@ -119,7 +119,7 @@
         this.useInfo();
         this.getPayMsg();
         this.headimgurl = decodeURIComponent(this.$route.params.headimgurl);
-        window.changeTitle('给他支持付款页');
+        // window.changeTitle('给他支持付款页');
       },
       saveOrder () {
         let jsoncontent ={

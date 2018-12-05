@@ -1,7 +1,7 @@
 <template>
   <div class="pay-order">
     <!--<houseHead>确认订单</houseHead>-->
-    <div class="relationship">
+    <div class="relationship confirmRelation">
       <div v-if=" userInfo && userInfo.username" class="name">姓名：{{userInfo.username}}</div>
       <div v-if=" userInfo && userInfo.phone" class="phone">联系电话：{{userInfo.phone}}</div>
       <div v-if=" team.teamName" class="queue">队伍：{{team.teamName}}</div>
@@ -103,9 +103,7 @@
         util.fetchData(data).then(res => {
           if (res.data.result == 0) {
             this.matchHandler = res.data.data[0] || {};
-            console.log(this.matchHandler.MName);
-            console.log(this.matchHandler.SmallImgUrl);
-            console.log(this.matchHandler.Price);
+            window.changeTitle(this.matchHandler.MName);
           }
           else {
           }

@@ -255,7 +255,9 @@
               this.selectImg = this.MatchHandler.DetailDesImgUrl
               this.listImg = this.MatchHandler.PlayImgUrlPath.split(',');
               console.log(this.listImg)
-              window.changeTitle('活动详情');
+              setTimeout(()=>{
+                window.changeTitle(this.MatchHandler.MName);
+              },10);
               let vm = this;
               wx.onMenuShareAppMessage({ // 发送朋友
                 title: vm.MatchHandler.ShareTitle, // 分享标题

@@ -7,7 +7,7 @@
         <div class="itemWrap" v-for="(item,index) in crowdingItems">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
@@ -30,7 +30,7 @@
         <div class="itemWrap" v-for="(item,index) in successfulItems">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
@@ -53,7 +53,7 @@
         <div class="itemWrap" v-for="(item,index) in failureItems">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>

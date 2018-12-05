@@ -18,7 +18,7 @@
       <div class="img-information">
         <div class="logo"
              v-if="crowdFundOrder.FirstImgUrl"
-             :style="{backgroundImage:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroundSize:'contain'}">
+             :style="{backgroundImage:'url('+getBaseUrl+crowdFundOrder.FirstImgUrl+')' ,backgroundSize:'100% 100%'}">
           <div class="edit-text">
            <!-- <div @click=editPop  class="editPop">编辑</div>-->
             <div>
@@ -27,7 +27,7 @@
           </div>
           <div class="logo-text">
             <div class="text">
-              {{crowdFundOrder.UserName}}的赛事
+              {{crowdFundOrder.MName}}
             </div>
             <div class="times">
               {{crowdFundOrder.BeginTime}}发起
@@ -36,7 +36,7 @@
         </div>
         <div class="portrait"
              v-if="crowdFundOrder.headimgurl"
-             v-bind:style="{backgroundImage:'url('+crowdFundOrder.headimgurl+')',backgroundSize:'contain'}"></div>
+             v-bind:style="{backgroundImage:'url('+crowdFundOrder.headimgurl+')',backgroundSize:'100% 100%'}"></div>
         <div class="crowdSate">
           <div class="text" style="visibility: hidden">众筹即将成功，改购买装备了</div>
           <div class="progress-parent">
@@ -48,14 +48,14 @@
         </div>
         <div class="activeInformation">
           <div class="fill-color"></div>
-          <div class="home-item">
+          <div class="home-item" @click="jumpDetail">
             <div class="item-des">
               <div class="tittle">{{matchHandler.MName}}</div>
               <div class="expense">报名费用：<span style="color: red;">{{matchHandler.Price}}元</span></div>
             </div>
             <div class="item-image"
                  v-if="matchHandler.SmallImgUrl"
-                 v-bind:style="{backgroundImage:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')',backgroundSize:'contain'}"></div>
+                 v-bind:style="{backgroundImage:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')',backgroundSize:'100% 100%'}"></div>
           </div>
         </div>
         <div class="contentClass">
@@ -208,7 +208,9 @@
         this.getCrowdFundOrderHandler();
         this.getSelfTeamList();
         this.getSupportList();
-        window.changeTitle('分享页');
+      },
+      jumpDetail () { // 跳转到详情页
+        this.$router.push(`/activeDetail/${this.MId}/false`)
       },
       getCrowdOreder () { // 获取众筹订单
         let jsoncontent ={
@@ -393,6 +395,7 @@
           if (res.data.result == 0) {
             console.log('crowdFundOrder',res.data);
             this.crowdFundOrder = res.data.data[0]|| {};
+            window.changeTitle(this.crowdFundOrder.MName);
           }
           else {
 

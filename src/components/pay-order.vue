@@ -105,7 +105,6 @@
           this.getMatchHandler();
           this.useInfo();
           this.getTeams();
-          window.changeTitle('自付下单');
         },
         jumpToOrder () {
           if (this.check()){
@@ -194,9 +193,7 @@
           util.fetchData (data).then(res => {
             if (res.data.result == 0) {
               this.matchHandler = res.data.data[0]|| {};
-              console.log(this.matchHandler.MName);
-              console.log(this.matchHandler.SmallImgUrl);
-              console.log(this.matchHandler.Price);
+              window.changeTitle(this.matchHandler.MName);
             }
             else {}
           });

@@ -7,11 +7,11 @@
         <div class="itemWrap" v-for="(item,i) in unCompleteOrders">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.FirstImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.FirstImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="state">{{ item.State | orderState}}</div>
-              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}件</span></div>
+              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}</span></div>
             </div>
           </div>
           <div class="total">
@@ -28,11 +28,11 @@
         <div class="itemWrap" v-for="(item,i) in completeOrders">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="state">{{ item.State | orderState}}</div>
-              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}件</span></div>
+              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}</span></div>
             </div>
           </div>
           <div class="total">
@@ -49,11 +49,11 @@
         <div class="itemWrap" v-for="(item,i) in allOrders">
           <div class="home-item">
             <div class="item-image"
-                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroudSize:'cover'}"></div>
+                 :style="{background:'url('+getBaseUrl+item.SmallImgUrl+')' ,backgroundSize:'100% 100%'}"></div>
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="state">{{ item.State | orderState}}</div>
-              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}件</span></div>
+              <div class="price">￥{{item.Price}}<span>{{item.Num ? `X${item.Num}` : ''}}</span></div>
             </div>
           </div>
           <div class="total">

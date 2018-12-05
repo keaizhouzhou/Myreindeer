@@ -103,7 +103,7 @@ export default{
        // this.getJsdk();
       }
 
-      window.changeTitle('驯鹿户外');
+      window.changeTitle('驯鹿探索');
     },
     introduce(item) {
       this.changeRoute(item);

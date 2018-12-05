@@ -69,7 +69,6 @@
           });
         },
         init() {
-          window.changeTitle('活动名称');
           this.lastPrice = this.$route.params.price;
         },
         ...mapActions([

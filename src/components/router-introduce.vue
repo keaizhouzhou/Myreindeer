@@ -29,7 +29,7 @@
       components: {houseBtn, houseHead},
       methods: {
         init() {
-          window.changeTitle('路线介绍');
+          window.changeTitle(this.getSelectRoute.RName);
         },
         sign(){
           this.$router.push('/activeLists')
