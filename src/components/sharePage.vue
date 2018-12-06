@@ -95,8 +95,8 @@
                 <div>
                   <span class="name">{{item.nickname}}</span>
                   <span class="pay_money">付款 <i>{{item.Price}}</i>元</span>
-                  <span class="time">{{[item.DateNowTime,item.CreateTime] | leftTime}}</span>
-                  <span class="reply_btn" @click="replay(index)" v-if="item.Msg">回复</span>
+                  <span class="time">{{item.Msg}}</span>
+                  <span class="reply_btn" @click="replay(index)" v-if="item.Msg&&(item.openid != getOpenId)">回复</span>
                   <span class="thank_btn" v-if="false">答谢</span>
                   <div class="reply_content" v-if="item.content||item.ReplyMsg">
                     <i></i>
@@ -263,6 +263,7 @@
             }
             else {
               this.getCrowdOreder();
+              this.getCount();
             }
           });
         }
@@ -316,10 +317,9 @@
         });
       },
       replay(index) {
-        if (!this.supportList[index].ReplyMsg){
-          this.supportList[index].content = true;
+        if (!this.supportList[index].ReplyMsg && (this.supportList[index].openid !== this.getOpenId)){ // 别人有留言才让回复 且不是自己
+          this.$set(this.supportList[index],'content',true)
         }
-
       },
       replaySave(item,index) {
         let {ReplyMsg,CSId} = item;
