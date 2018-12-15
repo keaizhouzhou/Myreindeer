@@ -49,7 +49,7 @@
           position: absolute;
           height: 30px;
           width: 60px;
-          top: -30px;
+          top: -35px;
           border-radius: 5px;
           text-align: center;
           background-color: red;
@@ -72,7 +72,6 @@
       }
     }
     .activeInformation{
-      margin-top: 130px;
       background-color: #fff;
       .fill-color{
         background-color: #DEDEDE;
@@ -114,6 +113,25 @@
           .expense{
             font-size: 28px;
             margin-top: 20px;
+          }
+        }
+      }
+    }
+    .viewDetail{
+      .text {
+        text-align: center;
+        width: 150px;
+        height: 40px;
+        border-radius: 20px;
+        margin: 0 auto;
+        background-color: #dedede;
+      }
+      .content{
+        padding: 0 10px;
+        p{
+          padding: 0;
+          img {
+            width: 100%;
           }
         }
       }
@@ -238,6 +256,67 @@
         }
       }
     }
+    .tittlelogo{
+      margin-top: 80px;
+      overflow: hidden;
+      line-height: 50px;
+      .mylogo{
+        width: 50px;
+        height: 50px;
+        background-image:url("../images/xunlulogo.jpg") ;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius:30px;
+        float: left;
+        margin-right: 30px;
+      }
+      .companyName{
+        float: left;
+      }
+      .timers{
+        float: right;
+        width: 300px;
+        .tittle{
+        }
+        .text{
+          color: red;
+        }
+        .isOver{
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 40px;
+        }
+      }
+    }
+    .bottom{
+      padding: 20px;
+      border-top: 0.5px solid #DEDEDE;/*px*/
+      border-bottom: 0.5px solid #DEDEDE;/*px*/
+      overflow: hidden;
+      .item{
+        .queenCount,.peopleCount,.support{
+          width: 230px;
+          float: left;
+          .title,.text{
+            text-align: center;
+            margin: 0 auto;
+          }
+          .title{
+            font-size: 28px;
+          }
+          .text{
+            color: red;
+            font-size: 24px;
+          }
+        }
+        .peopleCount{
+          border-right: 1px solid #DEDEDE;/*px*/
+          border-left: 1px solid #DEDEDE;/*px*/
+        }
+      }
+    }
   }
   .btns{
     position: fixed;
@@ -256,7 +335,8 @@
       flex:1;
       text-align: center;
       margin:0 10px;
-      border:1px solid #707070;/*px*/
+      color: #ffffff;
+      background-color: #cc1c24;
     }
     .helpPay,.supportHim{
       background-color: #cc1c24;
@@ -266,17 +346,31 @@
   }
   #pop{
     width: 100%;
-    height: 500px;
     font-size: 30px;
-    background: #fff;
-    color: black;
+    flex-flow: column;
+    align-items: center;
+    color: white;
+    display: flex;
+    justify-content: center;
     text-align: center;
-    line-height: 500px;
+    height: 500px;
   /*  margin: 0 auto;
     background: url('../images/sharePop.png') no-repeat;
     background-size: cover;*/
     position: fixed;
     z-index: 11222;
+    .line1{
+      height: 40px;
+    }
+    .line2{
+      margin: 20px 0;
+    }
+    .popbtn{
+      width: 200px;
+      height: 50px;
+      border-radius: 10px;
+      border:1px solid #fff;/*px*/
+    }
   }
   #mask{
     height: 100%;

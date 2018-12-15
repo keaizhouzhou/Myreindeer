@@ -2,11 +2,6 @@
     <div class="active-detail">
       <!--<houseHead>活动详情</houseHead>-->
       <div class="banners">
-        <div class="timers">
-          <div class="tittle" v-if="!isOver">距开赛</div>
-          <div class="text" v-if="!isOver">{{leftCounts}}</div>
-          <div class="isOver" v-if="isOver">活动已结束</div>
-        </div>
         <!--<div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="(img,index) in listImg" v-bind:style="{background:'url('+img+')' ,color:'red',backgroudSize:'cover'}"></div>
@@ -17,17 +12,27 @@
           <swiper-slide v-for="(img,index) in listImg">
             <div class="swiper-slide"  v-bind:style="{background:'url('+img+')' ,backgroundSize:'cover'}"></div>
           </swiper-slide>
+          <div class="swiper-pagination "  slot="pagination"></div>
         </swiper>
       </div>
       <div class="introduce">
         <div class="top">
-          <div class="tittle">{{MatchHandler.MName}}</div>
+          <div class="tittle">
+            <div class="mylogo"></div>
+            <div class="companyName">驯鹿探索</div>
+            <div class="timers">
+              <span class="tittle" v-if="!isOver">距开赛</span>
+              <span class="text" v-if="!isOver">{{leftCounts}}</span>
+              <span class="isOver" v-if="isOver">活动已结束</span>
+            </div>
+          </div>
+          <div class="Nname">{{MatchHandler.MName}}</div>
           <div class="pricePlace">
             <div class="price">￥{{MatchHandler.Price}}</div>
-            <div class="place">北京市</div>
+            <div class="place"></div>
           </div>
         </div>
-        <div class="bottom">
+        <!--<div class="bottom">
           <div class="item">
             <div class="queenCount">
               <div class="title">
@@ -54,14 +59,21 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
-      <houseSort :tabList="tabList" @tabClick="tabClick ($event)"></houseSort>
+      <houseSort :tabList="tabList" @tabClick="tabClick ($event)" :isTop="isTop"></houseSort>
       <div class="content"  v-html="selectImg">
+      </div>
+      <div class="footerWrap">
+        <div class="footer">
+          <div>驯鹿探索&copy;2018</div>
+          <div>技术支持&copy;联系驯鹿</div>
+        </div>
       </div>
       <div class="btns">
         <div class="Crowd" @click="jumpCrowd" v-show="!isOver&&!hasOrder&&isSupport">我要众筹</div>
-        <div class="pay" @click="jumpPay" v-show="!isOver&&!hasOrder" >立即支付</div>
+        <div class="Crowd" @click="jumpMyCrowd">我的众筹</div>
+        <div class="Crowd" @click="jumpPay" v-show="!isOver&&!hasOrder" >立即支付</div>
         <div class="btnOvers" v-if="isOver">活动已经结束</div>
       </div>
     </div>
@@ -86,9 +98,14 @@
                 disableOnInteraction: true,
                 delay: 2000,
               },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable :true
+              },
               speed: 500,
               loop: true
             },
+            isTop:false,
             listImg:[],
             tabList: [
               {value: '详情描述', key: 'detail'},
@@ -215,6 +232,9 @@
         jumpPay () {
           this.$router.push('/payOrder/' + this.$route.params.MId);
         },
+        jumpMyCrowd () {
+          this.$router.push('/main/myCrowd');
+        },
         jumpCrowd () {
           this.$router.push('/orderCrowd/'  + this.$route.params.MId);
         },
@@ -322,18 +342,6 @@
           },1000)
 
         },
-        getlun () {
-          let swiper = new Swiper('.swiper-container', {
-             pagination: '.swiper-pagination',
-             paginationClickable: true,
-             loop: true,
-             speed: 100,
-             autoplay: 100,
-             onTouchEnd: function() {
-               /*swiper.startAutoplay()*/
-             }
-           });
-        },
         getCount(){ // 获取各种数量
           let jsoncontent ={
             condition:[
@@ -381,14 +389,30 @@
           else { // 自己访问的
             this.init();
           }
+        },
+        scroll () {
+          if (this.$route.name === "activeDetail") {
+            let t = document.documentElement.scrollTop || document.body.scrollTop;
+            let bannerHeight = parseInt(window.getComputedStyle(document.querySelector(".banners")).height);
+            let introduceHeight = parseInt(window.getComputedStyle(document.querySelector(".introduce")).height);
+            console.log(t)
+            if (t >= bannerHeight + introduceHeight) {
+              this.isTop = true;
+            }
+            else {
+              this.isTop = false;
+            }
+          }
         }
       },
     mounted() {
       this.getNewOpen();
-
+      window.addEventListener("scroll",this.scroll);
+      console.log("router",this.$route.name)
     },
     destroyed () {
       clearInterval(this.timer);
+      window.removeEventListener("scroll",this.scroll)
     }
   };
 </script>

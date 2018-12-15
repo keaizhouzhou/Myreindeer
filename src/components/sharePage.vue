@@ -4,7 +4,9 @@
       <div id="mask" v-if="isCancal">
       </div>
       <div id="pop" @click="cancalShare" v-if="isPop">
-        点击右上角，进行朋友圈分享
+        <div class="line1">1.点击右上方...</div>
+        <div class="line1 line2">2.点击发送或者分享朋友圈</div>
+        <div @click="cancalShare" class="popbtn">知道了</div>
       </div>
       <div class="myEdit" v-if="isEdit">
            <textarea style="display: block;"
@@ -27,7 +29,7 @@
           </div>
           <div class="logo-text">
             <div class="text">
-              {{crowdFundOrder.MName}}
+              {{crowdFundOrder.UserName}}的众筹
             </div>
             <div class="times">
               {{crowdFundOrder.BeginTime}}发起
@@ -44,7 +46,44 @@
             <div class="icon" v-bind:style="{left:(parseInt(crowdFundOrder.Rate)>90)?'90%':crowdFundOrder.Rate}">{{crowdFundOrder.Rate?crowdFundOrder.Rate:'0%'}}</div>
             <div class="progress-child"  v-bind:style="{width:crowdFundOrder.Rate}"></div>
           </div>
-          <div class="money">还差{{crowdFundOrder.Unfinished}}元</div>
+          <!--<div class="money">还差{{crowdFundOrder.Unfinished}}元</div>-->
+        </div>
+        <div class="tittlelogo">
+          <div class="mylogo"></div>
+          <div class="companyName">驯鹿探索</div>
+          <div class="timers">
+            <span class="tittle" v-if="!isOver">距开赛</span>
+            <span class="text" v-if="!isOver">{{leftCounts}}</span>
+            <span class="isOver" v-if="isOver">活动已结束</span>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="item">
+            <div class="queenCount">
+              <div class="title">
+                目标金额
+              </div>
+              <div class="text">
+                {{crowdFundOrder.Price}}元
+              </div>
+            </div>
+            <div class="peopleCount">
+              <div class="title">
+                已筹金额
+              </div>
+              <div class="text">
+                {{crowdFundOrder.Sumprice}}元
+              </div>
+            </div>
+            <div class="support">
+              <div class="title">
+                还差金额
+              </div>
+              <div class="text">
+                {{crowdFundOrder.Unfinished}}元
+              </div>
+            </div>
+          </div>
         </div>
         <div class="activeInformation">
           <div class="fill-color"></div>
@@ -57,6 +96,14 @@
                  v-if="matchHandler.SmallImgUrl"
                  v-bind:style="{backgroundImage:'url('+ getBaseUrl + matchHandler.SmallImgUrl+')',backgroundSize:'100% 100%'}"></div>
           </div>
+        </div>
+        <div class="viewDetail">
+          <div class="" v-if="isViewDetail">
+            <houseSort :tabList="tabList1" @tabClick="tabClick1 ($event)" :isTop="isTop"></houseSort>
+            <div class="content"  v-html="selectImg">
+            </div>
+          </div>
+          <div class="text" @click="viewDetail">{{viewText}}</div>
         </div>
         <div class="contentClass">
           <houseSort :tabList="tabList" @tabClick="tabClick ($event)" :isCount="isCount"></houseSort>
@@ -96,7 +143,7 @@
                   <span class="name">{{item.nickname}}</span>
                   <span class="pay_money">付款 <i>{{item.Price}}</i>元</span>
                   <span class="time">{{item.Msg}}</span>
-                  <span class="reply_btn" @click="replay(index)" v-if="item.Msg&&(item.openid != getOpenId)">回复</span>
+                  <!--<span class="reply_btn" @click="replay(index)" v-if="item.Msg&&(item.openid != getOpenId)">回复</span>
                   <span class="thank_btn" v-if="false">答谢</span>
                   <div class="reply_content" v-if="item.content||item.ReplyMsg">
                     <i></i>
@@ -105,7 +152,7 @@
                     <div  v-if="item.content">
                       <textarea v-model="item.ReplyMsg" v-if="!item.isReplyMsg"></textarea><span @click="replaySave(item, index)" v-if="!item.isReplyMsg">确认</span>
                     </div>
-                  </div>
+                  </div>-->
                 </div>
               </li>
              <!-- <li>
@@ -140,9 +187,9 @@
         </div>
       </div>
       <div class="btns">
-        <div class="selfPay" @click="jumpSelfSupport" v-if="isShare == 'false'">自己支持</div>
-        <div class="helpPay" @click="jumpHelpPay" v-if="isShare == 'false'">找人帮我筹</div>
         <div class="myCrowd" @click="jumpMyCrowd" v-if="isShare == 'false'">我的众筹</div>
+        <div class="helpPay" @click="jumpHelpPay" v-if="isShare == 'false'">找人帮我筹</div>
+        <div class="selfPay" @click="jumpSelfSupport" v-if="isShare == 'false'">自己付款</div>
         <div class="selfPay" @click="jumpHimSupport" v-show="isShare == 'true' && (parseInt(crowdFundOrder.Rate) < 100)">给他支持</div>
         <div class="myCrowd" @click="myPlay" v-if="isShare == 'true'&&!hasOrder">我也要玩</div>
       </div>
@@ -159,11 +206,21 @@
     data: function () {
         return {
           selectedTab:{value: '参赛队伍', key: 'queue'},
+          selectedTab1: {value: '详情描述', key: 'detail'},
           tabList:[
             {value: '参赛队伍', key: 'queue',num:0},
             {value: '本队人数', key: 'queuePeople',num:0},
             {value: '支持人数', key: 'supportPeople',num:0},
           ],
+          tabList1: [
+            {value: '详情描述', key: 'detail'},
+            {value: '报名相关', key: 'sign'},
+            {value: '参赛标准', key: 'params'}
+          ],
+          isViewDetail:false,
+          viewText:"查看详情",
+          isTop:false,
+          selectImg:'',
           isCount:true,
           matchHandler:{},
           countObj:{},
@@ -180,7 +237,9 @@
           CId:'',
           TId:'',
           hasOrder:false,
-          himHeadUrl:'none'
+          himHeadUrl:'none',
+          leftCounts:'',
+          isOver:false, // 活动时间是否过期
         };
     },
     computed: {
@@ -197,6 +256,31 @@
         'changeOpenId',
         'changeUserInfo'
       ]),
+      viewDetail () {
+        if (this.isViewDetail) {
+          this.isViewDetail = false;
+          this.viewText = "查看详情"
+        }
+        else {
+          this.isViewDetail = true;
+          this.viewText = "收起详情"
+        }
+      },
+      getLeftCounts([timeS,timeE]){
+        let timeCounts = new Date(timeE) - new Date(timeS);
+        if (timeCounts <= 0){
+          this.isOver = true;
+        }
+        this.timer = setInterval(()=>{
+          timeCounts = timeCounts - 1000;
+          let days = Math.floor(timeCounts/(1000*60*60*24));
+          let hours = Math.floor((timeCounts - days*(1000*60*60*24))/(1000*60*60));
+          let minute = Math.floor((timeCounts - days*(1000*60*60*24) - hours*(1000*60*60))/(1000*60));
+          let second = (timeCounts - days*(1000*60*60*24) - hours*(1000*60*60) - minute*(1000*60))/1000;
+          this.leftCounts = `${days}天 ${hours}:${minute}:${second}`;
+        },1000)
+
+      },
       init() {
         this.MId = this.$route.params.MId;
         this.CId = this.$route.params.CId;
@@ -246,7 +330,7 @@
         });
       },
       getNewOpen () {
-        if (this.isShare == 'true') {
+        if (this.isShare === 'true') {
           let data = {
             data:{
               Action:'getuserinfobycode',
@@ -255,7 +339,7 @@
             url:this.getBaseUrl + 'CommonHandler/APIHandler.ashx'
           };
           util.fetchData (data).then(res => {
-            if (res.data.result == 0) {
+            if (res.data.result === 0) {
               this.changeOpenId(res.data.data.openid); // 存储openid
               this.changeUserInfo(res.data.data); // 存储useinfo
               this.getCount();
@@ -285,6 +369,17 @@
       },
       tabClick (tab) {
         this.selectedTab = tab;
+      },
+      tabClick1 (tab) {
+        if (tab.key === 'detail'){
+          this.selectImg = this.matchHandler.DetailDesImgUrl
+        }
+        else if (tab.key === 'sign'){
+          this.selectImg = this.matchHandler.RegisterRelated
+        }
+        else if (tab.key === 'params') {
+          this.selectImg = this.matchHandler.MatchStandard
+        }
       },
       saveDes(des) {
         let jsoncontent ={
@@ -372,6 +467,9 @@
           if (res.data.result == 0) {
             console.log('matchHandler',res.data.data);
             this.matchHandler = res.data.data[0]|| {};
+            // 判断时间
+            this.getLeftCounts([this.matchHandler.TimeStamp,this.matchHandler.BeingTime])
+            this.selectImg = this.matchHandler.DetailDesImgUrl
           }
           else {
 
@@ -491,6 +589,22 @@
       myPlay(){ // 我也要玩跳转到众筹下单
         this.$router.push(`/orderCrowd/${this.MId}`)
       },
+      scroll () {
+        if (this.$route.name === "sharePage") {
+          let t = document.documentElement.scrollTop || document.body.scrollTop;
+          let bannerHeight = parseInt(window.getComputedStyle(document.querySelector(".logo")).height);
+          let introduceHeight = parseInt(window.getComputedStyle(document.querySelector(".home-item")).height);
+          let activeInformationHeight = parseInt(window.getComputedStyle(document.querySelector(".activeInformation")).height);
+          let tittlelogoHeight = parseInt(window.getComputedStyle(document.querySelector(".tittlelogo")).height);
+          console.log(t)
+          if (t >= bannerHeight + introduceHeight + activeInformationHeight + tittlelogoHeight) {
+            this.isTop = true;
+          }
+          else {
+            this.isTop = false;
+          }
+        }
+      },
       jumpHelpPay () { // 进行分享 调第三方接口
         // this.$router.push('/supportHim/' + this.$route.params.MId + '/' + this.$route.params.CId + '/' + this.$route.params.TId);
         this.isCancal = true;
@@ -537,8 +651,14 @@
         this.$router.push('/sharePage/'+userInfo.MId)
       },
     },
-    mounted: function () {
+    mounted () {
         this.init()
+      window.addEventListener("scroll",this.scroll);
+      console.log("router",this.$route.name)
+    },
+    destroyed () {
+      clearInterval(this.timer);
+      window.removeEventListener("scroll",this.scroll)
     }
   };
 </script>

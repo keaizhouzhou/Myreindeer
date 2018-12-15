@@ -50,5 +50,6 @@ export default {
   body{
     margin: 0;
     background-color: #f7f7f7;
+    font-family: "Microsoft YaHei!important;"
   }
 </style>

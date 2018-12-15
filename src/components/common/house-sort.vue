@@ -1,5 +1,5 @@
 <template>
-  <div class="house-sort">
+  <div class="house-sort" :class="{fixed:isTop}">
     <div class="tab-group">
       <div v-for="(tab, index) in tabList" v-bind:class="{item:!isCount,chose:tabChose==index,itemCount:isCount}" @click="onTabClick(tab, index)" v-bind:key="index">
         {{tab.value}}
@@ -14,7 +14,8 @@ export default {
   name: 'sort',
   props:{
     tabList:Array,
-    isCount:Boolean
+    isCount:Boolean,
+    isTop:Boolean
   },
   data: function () {
     return {

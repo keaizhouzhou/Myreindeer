@@ -1,31 +1,6 @@
 .active-detail{
   .banners{
     position: relative;
-    .timers{
-      position: absolute;
-      top: 30px;
-      left: 20px;
-      width: 224px;
-      height: 78px;
-      border-radius: 8px;
-      color: #ffffff;
-      padding: 10px;
-      z-index:11;
-      background-color: rgba(0,0,0,.1);
-      .tittle{
-        font-size: 20px;
-      }
-      .text{
-        font-size: 20px;
-      }
-      .isOver{
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 40px;
-      }
-    }
     .swiper-container{
       .swiper-slide{
         height: 450px;
@@ -36,15 +11,48 @@
   .introduce{
     background: #fff;
     .top{
-      padding: 25px 20px;
-      border-bottom: 1px solid #DEDEDE;/*px*/
-      .tittle{
+      padding: 25px 20px 0px 20px;
+      .Nname{
         font-size: 30px;
-        color: #707070;
-        margin-bottom: 20px;
+        font-weight: bold;
+      }
+      .tittle{
+        margin-bottom: 10px;
+        overflow: hidden;
+        line-height: 50px;
+        .mylogo{
+          width: 50px;
+          height: 50px;
+          background-image:url("../images/xunlulogo.jpg") ;
+          background-repeat: no-repeat;
+          background-size: cover;
+          border-radius:30px;
+          float: left;
+          margin-right: 30px;
+        }
+        .companyName{
+          float: left;
+        }
+        .timers{
+         float: right;
+          width: 300px;
+          .tittle{
+          }
+          .text{
+            color: red;
+          }
+          .isOver{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+          }
+        }
       }
       .pricePlace{
         overflow: hidden;
+        margin-top: 10px;
         .price{
           float: left;
           font-size: 35px;
@@ -58,7 +66,8 @@
     }
     .bottom{
       padding: 20px;
-      border: 1px solid #DEDEDE;/*px*/
+      border-top: 0.5px solid #DEDEDE;/*px*/
+      border-bottom: 0.5px solid #DEDEDE;/*px*/
       overflow: hidden;
       .item{
         .queenCount,.peopleCount,.support{
@@ -84,6 +93,7 @@
     }
   }
   .content{
+    padding: 0 10px;
     p{
       padding: 0;
       img {
@@ -92,10 +102,11 @@
     }
   }
   .btns{
-    padding:0px 20px;
     overflow: hidden;
     position: fixed;
-    width: 100%;
+    width: calc(100% - 20px);
+    display: flex;
+    left: 10px;
     bottom: 10px;
     .btnOvers{
       width: 100%;
@@ -108,25 +119,33 @@
       align-items: center;
       color: #fff;
     }
-    .Crowd,.pay{
-      float: left;
-      width: 345px;
+    .Crowd{
       height: 66px;
       border-radius: 5px;
       background-color: #cc1c24;
+      margin: 0 5px;
       color: #ffffff;
       /*border: 1px solid #DEDEDE;!*px*!*/
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 28px;
+      flex: 1;
     }
-    .pay{
-      float: right;
-      margin-right: 40px;
-    }
-    .Crowd{
-      margin-right: 20px;
+
+  }
+  .footerWrap{
+    padding: 0 16px;
+    .footer{
+      display: flex;
+      height: 250px;
+      width: 100%;
+      background-color: #DEDEDE;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 66px;
     }
   }
+
 }
