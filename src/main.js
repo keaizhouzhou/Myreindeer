@@ -1,11 +1,17 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import 'babel-polyfill'
+import Es6Promise from 'es6-promise'
+Es6Promise.polyfill()
 import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
 import 'lib-flexible/flexible';
 import wx from 'weixin-js-sdk'
+window.onerror = function(message) {
+  alert(message)
+}
 window.changeTitle = function (title) {
   document.title = title;
   let i = document.createElement('iframe');

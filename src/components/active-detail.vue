@@ -9,7 +9,7 @@
           <div class="swiper-pagination swiper-pagination-white"></div>
         </div>-->
         <swiper :options="swiperOption" v-if="listImg.length>0" ref="swiperOption">
-          <swiper-slide v-for="(img,index) in listImg">
+          <swiper-slide v-for="(img,index) in listImg" :key="index">
             <div class="swiper-slide"  v-bind:style="{background:'url('+img+')' ,backgroundSize:'cover'}"></div>
           </swiper-slide>
           <div class="swiper-pagination "  slot="pagination"></div>
