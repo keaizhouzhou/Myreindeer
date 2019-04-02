@@ -21,32 +21,38 @@
         overflow: hidden;
         line-height: 50px;
         .mylogo{
-          width: 50px;
-          height: 50px;
+          width: 55px;
+          height: 55px;
           background-image:url("../images/xunlulogo.jpg") ;
           background-repeat: no-repeat;
           background-size: cover;
           border-radius:30px;
           float: left;
-          margin-right: 30px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          margin-left: 5px;
         }
         .companyName{
           float: left;
+          font-size: 28px;
+          margin-left: -45px;
         }
         .timers{
          float: right;
-          width: 300px;
+          width: 350px;
           .tittle{
+            font-size: 25px;
           }
           .text{
             color: red;
+            font-size: 25px;
           }
           .isOver{
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 30px;
           }
         }
       }
@@ -69,9 +75,12 @@
       border-top: 0.5px solid #DEDEDE;/*px*/
       border-bottom: 0.5px solid #DEDEDE;/*px*/
       overflow: hidden;
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-top: 20px;
       .item{
         .queenCount,.peopleCount,.support{
-          width: 230px;
+          width: 210px;
           float: left;
           .title,.text{
             text-align: center;
@@ -89,6 +98,25 @@
           border-right: 1px solid #DEDEDE;/*px*/
           border-left: 1px solid #DEDEDE;/*px*/
         }
+        .targetPriceName,.targetPrice{
+          width: 320px;
+          float: left;
+          .title,.text{
+            text-align: center;
+            margin: 0 auto;
+          }
+          .title{
+            font-size: 28px;
+          }
+          .text{
+            color: red;
+            font-size: 28px;
+            font-weight: bold;
+          }
+        }
+        .targetPrice{
+          border-left: 1px solid #DEDEDE;/*px*/
+        }
       }
     }
   }
@@ -104,26 +132,26 @@
   .btns{
     overflow: hidden;
     position: fixed;
-    width: calc(100% - 20px);
+    width: calc(100% - 1px);
     display: flex;
-    left: 10px;
-    bottom: 10px;
+    //left: 10px;
+    bottom: 0px;
     .btnOvers{
       width: 100%;
-      margin-left: -20px;
-      height: 100%;
-      background-color: #a0a0a0;
-      font-size: 40px;
+      //margin-left: -20px;
+      height: 66px;
+      background-color: #E5E5E5;
+      font-size: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: #fff;
     }
     .Crowd{
-      height: 66px;
+      height: 80px;
       border-radius: 5px;
       background-color: #cc1c24;
-      margin: 0 5px;
+      //margin: 0 0px;
       color: #ffffff;
       /*border: 1px solid #DEDEDE;!*px*!*/
       display: flex;
@@ -135,16 +163,16 @@
 
   }
   .footerWrap{
-    padding: 0 16px;
+    //padding: 0 16px;
     .footer{
       display: flex;
-      height: 250px;
+      height: 120px;
       width: 100%;
-      background-color: #DEDEDE;
+      //background-color: #DEDEDE;
       flex-flow: column;
       justify-content: center;
       align-items: center;
-      margin-bottom: 66px;
+      margin-bottom: 100px;
     }
   }
 

@@ -4,6 +4,7 @@
   .img-information{
     position: relative;
     margin-bottom: 120px;
+    background-color: white;
     .logo{
       display: flex;
       justify-content: center;
@@ -39,7 +40,7 @@
       width: 540px;
       padding-right: 20px;
       .progress-parent{
-        margin-top: 10px;
+        margin-top: 5px;
         width: 100%;
         height: 20px;
         border-radius: 10px;
@@ -49,12 +50,13 @@
           position: absolute;
           height: 30px;
           width: 60px;
-          top: -35px;
+          top: -6px;
           border-radius: 5px;
           text-align: center;
           background-color: red;
           color: #ffffff;
           left: 405px;
+          z-index: 2;
         }
         .progress-child{
           position: absolute;
@@ -74,8 +76,8 @@
     .activeInformation{
       background-color: #fff;
       .fill-color{
-        background-color: #DEDEDE;
-        height: 20px;
+       //background-color: #DEDEDE;
+        //height: 20px;
       }
       .last-time{
         padding: 0 20px;
@@ -88,43 +90,56 @@
         border-bottom: 1px solid #DEDEDE;/*px*/
       }
       .home-item{
-        padding: 30px;
-        border-bottom: 1px solid #707070;/*px*/
+        //padding: 10px;
+        //border-bottom: 1px solid #DEDEDE;/*px*/
         overflow: hidden;
-        width: 690px;
+        //width: 690px;
         .item-image,.item-des{
           float: left;
+          margin-top: 20px;
+          margin-left: 10px;
         }
         .item-image{
-          width: 215px;
+          width: 200px;
           height: 140px;
           background-color: #42b983;
+          margin-left: 20px;
+          margin-top: 30px;
         }
         .item-des{
           height: 158px;
           margin-right: 35px;
           .tittle{
-            font-size: 30px;
-            width: 420px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            width: 470px;
+            margin-bottom: 5px;
+            margin-top: 10px;
             color: black;
             .overflow(2);
+            margin-left: 15px;
+            font-weight: bold;
           }
           .expense{
             font-size: 28px;
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-left: 15px;
           }
         }
       }
     }
     .viewDetail{
+      border-bottom: 1px solid #DEDEDE;
       .text {
         text-align: center;
-        width: 150px;
-        height: 40px;
+        width: 200px;
+        height: 48px;
         border-radius: 20px;
         margin: 0 auto;
         background-color: #dedede;
+        color: red;
+        font-size: 30px;
+        margin-top: 20px;
+        margin-bottom: 30px;
       }
       .content{
         padding: 0 10px;
@@ -162,12 +177,12 @@
         }
       }
       .queue_content{
-        background-color: #dedede;
-        padding-top:10px;
+        //background-color: #dedede;
+        //padding-top:10px;
         &>p{
           padding-left:35px;
-          height: 72px;
-          line-height: 72px;
+          height: 50px;
+          line-height: 50px;
           background-color: #fff;
           span{
 
@@ -259,42 +274,53 @@
     .tittlelogo{
       margin-top: 80px;
       overflow: hidden;
-      line-height: 50px;
+      line-height: 55px;
+      background-color: white;
       .mylogo{
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         background-image:url("../images/xunlulogo.jpg") ;
         background-repeat: no-repeat;
         background-size: cover;
         border-radius:30px;
         float: left;
-        margin-right: 30px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-left: 10px;
       }
       .companyName{
         float: left;
+        font-size: 28px;
+        margin-top: 3px;
+        margin-left: -40px;
       }
       .timers{
         float: right;
-        width: 300px;
+        width: 350px;
         .tittle{
+          font-size: 25px;
         }
         .text{
           color: red;
+          font-size: 25px;
         }
         .isOver{
           height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 40px;
+          font-size: 30px;
         }
       }
     }
     .bottom{
-      padding: 20px;
+      padding: 5px;
       border-top: 0.5px solid #DEDEDE;/*px*/
       border-bottom: 0.5px solid #DEDEDE;/*px*/
       overflow: hidden;
+      background-color: white;
+      margin-left: 20px;
+      margin-right: 20px;
       .item{
         .queenCount,.peopleCount,.support{
           width: 230px;
@@ -309,6 +335,7 @@
           .text{
             color: red;
             font-size: 24px;
+            margin-top: 5px;
           }
         }
         .peopleCount{
@@ -321,12 +348,12 @@
   .btns{
     position: fixed;
     bottom: 0;
-    padding:10px 20px;
+    //padding:10px 20px;
     display: flex;
-    width:calc(100% - 40px );
+    width:calc(100% - 1px );
     background-color: #fff;
     .selfPay,.helpPay,.myCrowd,.supportHim,.toCrowd{
-      height: 66px;
+      //height: 80px;
       line-height: 66px;
       border-radius: 5px;
       justify-content: center;
@@ -334,7 +361,7 @@
       font-size: 28px;
       flex:1;
       text-align: center;
-      margin:0 10px;
+      margin:0 3px 0 0;
       color: #ffffff;
       background-color: #cc1c24;
     }
@@ -360,9 +387,14 @@
     position: fixed;
     z-index: 11222;
     .line1{
-      height: 40px;
+      height: 30px;
+      width: 430px;
+      float:left;
+      text-align: left;
+      margin: 0 auto;
     }
     .line2{
+      height: 150px;
       margin: 20px 0;
     }
     .popbtn{
@@ -402,6 +434,20 @@
       div{
         margin-right: 20px;
       }
+    }
+
+  }
+  .footerWrap{
+    //padding: 0 16px;
+    .footer{
+      display: flex;
+      height: 120px;
+      width: 100%;
+      background-color: #F8F8F8;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 50px;
     }
   }
 }

@@ -27,8 +27,8 @@ export default{
       title: '申请列表',
       footers: [
         {to: 'home', class: 'tab0', content: '首页'},
-        {to: 'myCrowd', class: 'tab2', content: '我的众筹'},
-        {to: 'myOrder', class: 'tab3', content: '自付订单'}
+        {to: 'myCrowd', class: 'tab2', content: '我的订单'}
+        //,{to: 'myOrder', class: 'tab3', content: '自付订单'}
       ]
     };
   },

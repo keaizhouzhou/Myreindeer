@@ -2,11 +2,11 @@
     <div class="self-support">
       <!--<houseHead>活动名称</houseHead>-->
       <div class="content">
-        <p>自己支持（元）</p>
+        <p>自己付款（元）</p>
         <div class="pay_content">
           ￥<input type="number" v-model.number="paynum" @input="checkMax" >
         </div>
-        <p>当前最多可支持{{lastPrice}}元</p>
+        <p>支付金额{{lastPrice}}元</p>
       </div>
       <houseBtn title="确认付款" @toSave="goPay"></houseBtn>
     </div>
@@ -43,7 +43,6 @@
           if (this.lastPrice < this.paynum) {
             this.paynum = 0;
           }
-
         },
         saveOrder () {
           let jsoncontent ={
@@ -70,6 +69,7 @@
         },
         init() {
           this.lastPrice = this.$route.params.price;
+          this.paynum=this.$route.params.price;
         },
         ...mapActions([
           'changeRoute'

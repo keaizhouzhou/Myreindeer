@@ -11,17 +11,18 @@
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
+              <div class="need_price">还差{{item.Unfinished}}元</div>
               <div class="progress-parent">
                 <div class="icon" :style="{left:(parseInt(item.Rate)>90)?'90%':item.Rate}">{{item.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
-              <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己付款</div>
+            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">朋友代付</div>
             <!--<div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
+            <div class="go_crowd" @click="jumpSharePage(item)" >查看详情</div>
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
         </div>
@@ -34,16 +35,17 @@
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
-              <div class="progress-parent">i
+              <div class="need_price">还差{{item.Unfinished}}元</div>
+              <div class="progress-parent">
                 <div class="icon" :style="{left:(parseInt(item.Rate)>90)?'90%':item.Rate}">{{item.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
-              <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己付款</div>
+            <!--<div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">我去众筹</div>-->
+            <div class="go_crowd" @click="jumpSharePage(item)" >查看详情</div>
             <!--<div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
@@ -57,16 +59,16 @@
             <div class="item-des">
               <div class="tittle">{{item.MName}}</div>
               <div class="price">￥{{item.Price}}</div>
+              <div class="need_price">还差{{item.Unfinished}}元</div>
               <div class="progress-parent">
                 <div class="icon" :style="{left:(parseInt(item.Rate)>90)?'90%':item.Rate}">{{item.Rate?item.Rate:'0%'}}</div>
                 <div class="progress-child" :style="{width:item.Rate}"></div>
               </div>
-              <div class="need_price">还差{{item.Unfinished}}元</div>
             </div>
           </div>
           <div class="btns">
-            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己支持</div>
-            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">去众筹</div>
+            <div class="myself_support" @click="jumpSelfSupport(item)" v-if="item.State == 0">自己付款</div>
+            <div class="go_crowd" @click="jumpSharePage(item)" v-if="item.State == 0">朋友代付</div>
             <!--<div class="write_message" v-if="item.State == 1" @click="goInfo()">填写报名信息</div>-->
             <div class="deposit" v-if="item.State == 2" @click="payLast()">补齐尾款</div>
           </div>
@@ -86,11 +88,11 @@
     template: '.myCrowd',
     data: function () {
       return {
-        selectedTab: {value: '进行中', key: 'crowding'},
+        selectedTab: {value: '全部订单', key: 'crowding'},
         tabList: [
-          {value: '进行中', key: 'crowding'},
-          {value: '成功', key: 'successful'},
-          {value: '失败', key: 'failure'}
+          {value: '全部订单', key: 'crowding'},
+          {value: '成功', key: 'successful'}
+          //,{value: '失败', key: 'failure'}
         ],
         crowdingItems: [],
         successfulItems: [],
@@ -107,7 +109,7 @@
     components: {houseHead, houseBtn, houseSort},
     methods: {
       init() {
-        window.changeTitle('我的众筹');
+        window.changeTitle('我的订单');
         if (!this.getOpenId) { // 如果没有openid 先获取
           let data = {
             data:{
@@ -160,8 +162,8 @@
               key: 'openid',
               values: this.getOpenId || '',
               oprate: '='
-            },
-            {"key": "State", "values": "0", "oprate": "="}
+            }
+            //,{"key": "State", "values": "0", "oprate": "="}
           ]
         };
         let data = {

@@ -70,7 +70,8 @@
           let jsoncontent ={
             field:{
               username:this.$refs.username.finalValue || '',
-              phone:this.$refs.phone.finalValue || ''
+              phone:this.$refs.phone.finalValue || '',
+              openid:this.getOpenId || ''
             },
             condition:[
               {
@@ -82,7 +83,7 @@
           };
           let data = {
             data:{
-              Action:'updatedata',
+              Action:'adddatauserinfo',
               jsoncontent:JSON.stringify(jsoncontent)
             },
             url:this.getBaseUrl + 'CommonHandler/UserInfoHandler.ashx'

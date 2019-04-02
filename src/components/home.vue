@@ -1,11 +1,13 @@
 <template>
   <div class="myhome">
-    <div class="home-item" v-for="(item,i) in homeLists">
+    <div class="home-item" @click="signUp(item)" v-for="(item,i) in homeLists">
       <img :src="getBaseUrl + item.SmallImgUrl" alt="" class="item-image">
       <!--<div class="item-image" :style="{'background-image':'url('+(item.SmallImgUrl?getBaseUrl + item.SmallImgUrl:'')+')','background-size':'cover'}"></div>-->
       <div class="item-des">
         <div class="tittle">{{item.RName}}</div>
-        <div class="text">共{{item.MatchCount}}场赛事，已有{{item.OrderCount}}人报名</div>
+        <div class="textleft">经典线路</div>
+        <div class="text">{{item.MatchCount}}场赛事</div>
+        <!--<div class="text">共{{item.MatchCount}}场赛事，已有{{item.OrderCount}}人报名</div>-->
         <div class="btns">
           <div class="introduce" @click="introduce(item)">路线介绍</div>
           <div class="choice" @click="signUp(item)">我要报名</div>
@@ -91,6 +93,7 @@ export default{
     init () {
      // this.judge();
       if (util.getQueryString('TId')) { // 其他页面来的分享 跳转到sharePage
+        debugger
         let headimgurl = encodeURIComponent(encodeURIComponent(util.getQueryString('headimgurl')));
         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx39d442db1bead075&redirect_uri=http%3A%2F%2Fwww.xunluzhe.com.cn%2F%23%2FsharePage%2F${util.getQueryString('MId')}%2F${util.getQueryString('CId')}%2F${util.getQueryString('TId')}%2Ftrue%2F${headimgurl}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
       }
@@ -103,7 +106,7 @@ export default{
        // this.getJsdk();
       }
 
-      window.changeTitle('驯鹿探索');
+      window.changeTitle('驯鹿探索-路线介绍');
     },
     introduce(item) {
       this.changeRoute(item);

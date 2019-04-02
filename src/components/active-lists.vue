@@ -5,7 +5,8 @@
         <img class="item-image" :src="getBaseUrl + match.SmallImgUrl" alt="">
         <div class="item-des">
           <div class="tittle">{{match.MName}}</div>
-          <div class="text">{{match.CreateTime | timeSplit}}~{{match.CrowdFundEndTime | timeSplit}}</div>
+          <!--<div class="text">{{match.CreateTime | timeSplit}}~{{match.CrowdFundEndTime | timeSplit}}</div>-->
+          <div class="text">{{match.MatchBeingTime | timeSplit}}~{{match.MatchEndTime | timeSplit}}</div>
           <div class="price">{{match.Price?`￥${match.Price}`:`￥0`}}</div>
         </div>
         <div class="arrow"></div>
@@ -72,7 +73,7 @@
       },
       init () {
         this.getMatchList();
-        window.changeTitle('活动列表');
+        window.changeTitle('赛事列表');
       }
     },
     mounted: function () {

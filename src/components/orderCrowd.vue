@@ -13,7 +13,7 @@
         </div>
         <div class="task-items">
           <houseSelect
-            title = '队伍'
+            title = '选择地区：'
             :choseList = 'channellist'
             :initValue = channel
             @getList="change"
@@ -27,25 +27,42 @@
              :style="{background:'url('+getBaseUrl+matchHandler.SmallImgUrl+')',backgroundSize:'cover'}"></div>
         <div class="tittle">{{matchHandler.MName}}</div>
         <div class="price">
-          <div class="onePrice">￥{{matchHandler.Price}}</div>
-          <div class="count">X{{orderNum}}</div>
+          <div class="onePrice">报名费用：{{matchHandler.Price}}元</div>
+          <!--<div class="count">X{{orderNum}}</div>-->
         </div>
       </div>
       <div class="computed">
         <div class="computedCount">
-          <div class="reduce" @click="orderNum>1?orderNum--:''">-</div>
+          <!--<div class="reduce" @click="orderNum>1?orderNum--:''">-</div>
           <div class="count">{{orderNum}}</div>
-          <div class="plus" @click="orderNum++">+</div>
+          <div class="plus" @click="orderNum++">+</div>-->
         </div>
         <div class="totalPrice">
-          合计:￥{{orderNum*matchHandler.Price}}
+          <!--众筹合计:￥{{orderNum*matchHandler.Price}}-->
+          订单合计:￥{{orderNum*matchHandler.Price}}
         </div>
       </div>
-      <div class="pay">
-        <div class="payTittle">众筹支付</div>
-        <div class="icon"></div>
+
+      <div class="relationship">
+        <div class="nameAndPhone">
+          <div class="name">物资领取：<a :href=matchHandler.TurnUrl>点击填写物资领取表及查看免责条款</a></div>
+          <!--<div @click="clicklink">点击填写物资领取表及查看免责条款</div>-->
+          <!-- <router-link tag='a' :to="matchHandler.TurnUrl" >{{matchHandler.TurnUrl}}点击填写物资领取表及查看免责条款</router-link>-->
+        </div>
       </div>
-      <div class="btn" @click="saveOrderCrowd">提交订单</div>
+        <div class="relationship">
+        <div class="nameAndPhone">
+          <div class="name"><input v-model="chkMZ" type="checkbox"/>我已阅读免责条款，并同意。</div>
+        </div>
+      </div>
+
+      <div class="pay">
+        <!--<div class="payTittle">众筹支付</div>
+        <div class="icon"></div>-->
+      </div>
+      <!--<div class="btn" @click="saveOrderCrowd">发布众筹</div>-->
+
+      <div class="btn" @click="saveOrderCrowd">报名提交</div>
       <houseToast ref="toast"></houseToast>
     </div>
 
@@ -68,7 +85,8 @@
 
           },
           channel:'',
-          channelName:''
+          channelName:'',
+          chkMZ:"",
         };
     },
     computed: {
@@ -81,6 +99,12 @@
     },
     components: {houseBtn, houseHead, houseSelect, houseToast},
     methods: {
+      clicklink(){
+          let _this=this
+        alert("###")
+        console.log(_this.matchHandler.TurnUrl)
+        //this.$router.push({path:"https://www.baidu.com/"})
+      },
       ...mapActions([
         'changeRoute',
         'changeOpenId',
@@ -90,7 +114,8 @@
         this.useInfo();
         this.getMatchHandler();
         this.getTeams();
-        window.changeTitle('众筹下单');
+      //window.changeTitle('众筹下单');
+        window.changeTitle('报名下单');
       },
       change() {
 
@@ -98,7 +123,7 @@
       check() { // 校验
         let Tid = this.$refs.channel.choseItem.key;
         if (!Tid) {
-          this.$refs.toast.toastShow('请选择队伍')
+          this.$refs.toast.toastShow('请选择地区')
           return false;
         }
         if (!this.userInfo.username) {
@@ -107,6 +132,10 @@
         }
         if (!this.userInfo.phone) {
           this.$refs.toast.toastShow('请填写电话')
+          return false;
+        }
+        if(!this.chkMZ){
+          this.$refs.toast.toastShow('请勾选 我已阅读免责条款，并同意')
           return false;
         }
         return true;
@@ -198,6 +227,15 @@
           else {}
         });
       },
+    sleep(numberMillis) { // 间隔一段时间后执行
+      var now = new Date();
+      var exitTime = now.getTime() + numberMillis;
+      while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime)
+          return;
+      }
+    },
       saveOrderCrowd() { // 提交订单
         if (this.check()) {
           let jsoncontent ={
@@ -218,6 +256,7 @@
           };
           util.fetchData (data).then(res => {
             if (res.data.result == 0) {
+              this.$refs.toast.toastShow('众筹发布成功，找人帮我筹 去众筹吧！');
               this.jumpToCrowd(res.data.data.CId);
             }
             else {
@@ -225,10 +264,19 @@
           });
         }
 
-      }
+      },
+      sleep(numberMillis) { // 间隔一段时间后执行
+        var now = new Date();
+        var exitTime = now.getTime() + numberMillis;
+        while (true) {
+          now = new Date();
+          if (now.getTime() > exitTime)
+            return;
+        }
+     }
     },
     mounted: function () {
-        this.init()
+        this.init();
     }
   };
 </script>

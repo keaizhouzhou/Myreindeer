@@ -598,41 +598,44 @@
             console.log('supportList',res.data.data);
             this.supportList = res.data.data;
 
-            wx.onMenuShareAppMessage({ // 发送朋友
-              title: this.matchHandler.MName, // 分享标题
-              desc:  this.matchHandler.ShareDescribe, // 分享描述
-              link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
-              type: 'link', // 分享类型,music、video或link，不填默认为link
-              success: function () {
-                // 用户确认分享后执行的回调函数
-                console.log('succ')
-              },
-              fail () {
-                console.log('发送失败')
-              },
-              complete () {
-                console.log('发送结束')
-              },
-              cancel: function () {
-                // 用户取消分享后执行的回调函数
-                console.log('cancel')
-              }
-            });
-            wx.onMenuShareTimeline({ // 分享朋友圈
-              title: this.matchHandler.MName, // 分享标题
-              link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
-              imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
-              success: function () {
-                // 用户确认分享后执行的回调函数
-                console.log('朋友圈分享成功');
-              },
-              cancel: function () {
-                // 用户取消分享后执行的回调函数
-              }
-            });
-
+            let vm = this;
+            console.log("vm",wx)
+            wx.ready(function(){
+              wx.onMenuShareAppMessage({ // 发送朋友
+                title: vm.matchHandler.MName, // 分享标题
+                desc:  vm.matchHandler.ShareDescribe, // 分享描述
+                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&CId=${vm.$route.params.CId}&TId=${vm.$route.params.TId}&isShare=true&headimgurl=${vm.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: vm.getBaseUrl + vm.matchHandler.SmallImgUrl,// 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                success: function () {
+                  // 用户确认分享后执行的回调函数
+                  console.log('succ')
+                },
+                fail () {
+                  console.log('发送失败')
+                },
+                complete () {
+                  console.log('发送结束')
+                },
+                cancel: function () {
+                  // 用户取消分享后执行的回调函数
+                  console.log('cancel')
+                }
+              });
+              wx.onMenuShareTimeline({ // 分享朋友圈
+                title: vm.matchHandler.MName, // 分享标题
+                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&CId=${vm.$route.params.CId}&TId=${vm.$route.params.TId}&isShare=true&headimgurl=${vm.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
+                imgUrl: vm.getBaseUrl + vm.matchHandler.SmallImgUrl,// 分享图标
+                success: function () {
+                  // 用户确认分享后执行的回调函数
+                  console.log('朋友圈分享成功');
+                },
+                cancel: function () {
+                  // 用户取消分享后执行的回调函数
+                }
+              });
+            })
 
           }
           else {
@@ -672,41 +675,44 @@
         this.isCancal = true;
         this.isPop = true;
 
-        wx.onMenuShareAppMessage({ // 发送朋友
-          title: this.matchHandler.MName, // 分享标题
-          desc:  this.matchHandler.ShareDescribe, // 分享描述
-          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
-          type: 'link', // 分享类型,music、video或link，不填默认为link
-          success: function () {
-            // 用户确认分享后执行的回调函数
-            console.log('succ')
-          },
-          fail () {
-            console.log('发送失败')
-          },
-          complete () {
-            console.log('发送结束')
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-            console.log('cancel')
-          }
-        });
-        wx.onMenuShareTimeline({ // 分享朋友圈
-          title: this.matchHandler.MName, // 分享标题
-          link:`${this.getBaseUrl}?MId=${this.$route.params.MId}&CId=${this.$route.params.CId}&TId=${this.$route.params.TId}&isShare=true&headimgurl=${this.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
-          imgUrl: this.getBaseUrl + this.matchHandler.SmallImgUrl,// 分享图标
-          success: function () {
-            // 用户确认分享后执行的回调函数
-            console.log('朋友圈分享成功');
-          },
-          cancel: function () {
-            // 用户取消分享后执行的回调函数
-          }
-        });
-
+        let vm = this;
+        console.log("vm",wx)
+        wx.ready(function(){
+          wx.onMenuShareAppMessage({ // 发送朋友
+            title: vm.matchHandler.MName, // 分享标题
+            desc:  vm.matchHandler.ShareDescribe, // 分享描述
+            link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&CId=${vm.$route.params.CId}&TId=${vm.$route.params.TId}&isShare=true&headimgurl=${vm.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: vm.getBaseUrl + vm.matchHandler.SmallImgUrl,// 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            success: function () {
+              // 用户确认分享后执行的回调函数
+              console.log('succ')
+            },
+            fail () {
+              console.log('发送失败')
+            },
+            complete () {
+              console.log('发送结束')
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+              console.log('cancel')
+            }
+          });
+          wx.onMenuShareTimeline({ // 分享朋友圈
+            title: vm.matchHandler.MName, // 分享标题
+            link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&CId=${vm.$route.params.CId}&TId=${vm.$route.params.TId}&isShare=true&headimgurl=${vm.crowdFundOrder.headimgurl}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            /*link: `${this.getBaseUrl}#/sharePage/${this.$route.params.MId}/${this.$route.params.CId}/${this.$route.params.TId}`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致*/
+            imgUrl: vm.getBaseUrl + vm.matchHandler.SmallImgUrl,// 分享图标
+            success: function () {
+              // 用户确认分享后执行的回调函数
+              console.log('朋友圈分享成功');
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          });
+        })
 
       },
       jumpMyCrowd () {//跳转至我的众筹

@@ -2,9 +2,10 @@
     <div class="support_pay">
       <!--<houseHead>给他支持付款页</houseHead>-->
       <div class="support_info">
-        <p>支持他：</p>
+        <p>给他支持：</p>
         <img :src="headimgurl" alt="" class="user_img">
         <!--<div class="user_name">昵称昵称</div>-->
+        <p>给他留言：</p>
         <div class="user_desc">
           <input v-if="isEditDesc" type="text" value="" v-model="userDesc" v-on:blur="isEditDesc=!isEditDesc;">
           <div v-if="!isEditDesc">{{userDesc}}</div>

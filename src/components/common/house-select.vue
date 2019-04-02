@@ -13,7 +13,7 @@
         <div class="cancle" @click="selectCancel()">确定</div>
       </div>
       <div class="option-item" v-for="(value,key) of choseList" v-bind:key="key" @click="selectChose({value,key})">
-        <div class="box">
+        <div class="box" @click="selectCancel()">
           <div class="font">{{value}}</div>
           <div v-bind:class="{mark:true,selected:contains(choseItem.key,key)}"></div>
         </div>

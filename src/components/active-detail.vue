@@ -21,17 +21,34 @@
             <div class="mylogo"></div>
             <div class="companyName">驯鹿探索</div>
             <div class="timers">
-              <span class="tittle" v-if="!isOver">距开赛</span>
-              <span class="text" v-if="!isOver">{{leftCounts}}</span>
               <span class="isOver" v-if="isOver">活动已结束</span>
+              <span class="tittle" v-if="!isOver">距开赛还有:</span>
+              <span class="text" v-if="!isOver">{{leftCounts}}</span>
+
             </div>
           </div>
           <div class="Nname">{{MatchHandler.MName}}</div>
-          <div class="pricePlace">
+          <!--<div class="pricePlace">
             <div class="price">￥{{MatchHandler.Price}}</div>
             <div class="place"></div>
+          </div>-->
+        </div>
+
+        <div class="bottom">
+          <div class="item">
+            <div class="targetPriceName">
+              <div class="title">
+                目标金额
+              </div>
+            </div>
+            <div class="targetPrice">
+              <div class="text">
+                {{MatchHandler.Price}} 元
+              </div>
+            </div>
           </div>
         </div>
+
         <!--<div class="bottom">
           <div class="item">
             <div class="queenCount">
@@ -71,15 +88,17 @@
         </div>
       </div>
       <div class="btns">
-        <div class="Crowd" @click="jumpCrowd" v-show="!isOver&&!hasOrder&&isSupport">我要众筹</div>
-        <div class="Crowd" @click="jumpMyCrowd">我的众筹</div>
-        <div class="Crowd" @click="jumpPay" v-show="!isOver&&!hasOrder" >立即支付</div>
-        <div class="btnOvers" v-if="isOver">活动已经结束</div>
+        <div class="btnOvers" v-if="isOver">报名已截止</div>
+        <!--<div class="Crowd" @click="jumpCrowd" v-show="!isOver&&!hasOrder&&isSupport">我要发布众筹</div>
+        <div class="Crowd" @click="jumpMyCrowd" v-show="hasOrder&&isSupport">我的众筹</div>-->
+        <div class="Crowd" @click="jumpCrowd" v-show="!isOver&&!hasOrder&&isSupport">我要报名</div>
+        <div class="Crowd" @click="jumpMyCrowd" v-show="hasOrder&&isSupport">我的订单</div>
+        <!--<div class="Crowd" @click="jumpPay" v-show="!isOver&&!hasOrder" >立即支付</div>-->
       </div>
     </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapActions} from 'vuex';
   import houseBtn from './common/house-btn.vue';
   import houseHead from './common/house-head.vue';
   import houseSort from './common/house-sort.vue';
@@ -92,6 +111,7 @@
       template: '.active-detail',
       data: function () {
           return {
+            isShare:false,
             swiperOption: {//swiper3
               autoplay: {
                 stopOnLastSlide: false,
@@ -132,11 +152,16 @@
       },
       components: {houseHead, houseBtn, houseSort, swiper, swiperSlide},
       methods: {
+        ...mapActions([
+          'changeRoute',
+          'changeOpenId',
+          'changeUserInfo'
+        ]),
         init() {
           this.getMatchHandler();
           this.getCount();
           this.getCrowdOreder();
-          this.getSelfOrder();
+          //this.getSelfOrder();
           this.getIsCrowdFund();
 
         },
@@ -180,7 +205,7 @@
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
               if (res.data.data.length === 0) { // 没有订单
-               // this.hasOrder = true;
+                //this.hasOrder = false;
               }
               else { // 有订单
                 res.data.data.map((item)=>{
@@ -213,7 +238,7 @@
           util.fetchData (data).then(res => {
             if (res.data.result === 0) {
               if (res.data.data.length === 0) { // 没有订单
-               //this.hasOrder = true;
+               //this.hasOrder = false;
               }
               else { // 有订单
                 res.data.data.map((item)=>{
@@ -271,7 +296,7 @@
               console.log('data',res.data);
               this.MatchHandler = res.data.data[0]|| {};
               // 判断时间
-              this.getLeftCounts([this.MatchHandler.TimeStamp,this.MatchHandler.BeingTime])
+              this.getLeftCounts([this.MatchHandler.TimeStamp,this.MatchHandler.MatchBeingTime])
               this.selectImg = this.MatchHandler.DetailDesImgUrl
               this.listImg = this.MatchHandler.PlayImgUrlPath.split(',');
               console.log(this.listImg)
@@ -279,48 +304,53 @@
                 window.changeTitle(this.MatchHandler.MName);
               },10);
               let vm = this;
-              wx.onMenuShareAppMessage({ // 发送朋友
-                title: vm.MatchHandler.ShareTitle, // 分享标题
-                desc:  vm.MatchHandler.ShareDescribe, // 分享描述
-                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
-                type: 'link', // 分享类型,music、video或link，不填默认为link
-                success: function () {
-                  // 用户确认分享后执行的回调函数
-                  console.log('succ')
-                },
-                fail () {
-                  console.log('发送失败')
-                },
-                complete () {
-                  console.log('发送结束')
-                },
-                cancel: function () {
-                  // 用户取消分享后执行的回调函数
-                  console.log('cancel')
-                }
-              });
-              wx.onMenuShareTimeline({ // 分享朋友圈
-                title: vm.MatchHandler.ShareTitle, // 分享标题
-                desc:  vm.MatchHandler.ShareDescribe, // 分享描述
-                link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
-                type: 'link', // 分享类型,music、video或link，不填默认为link
-                success: function () {
-                  // 用户确认分享后执行的回调函数
-                  console.log('succ')
-                },
-                fail () {
-                  console.log('发送失败')
-                },
-                complete () {
-                  console.log('发送结束')
-                },
-                cancel: function () {
-                  // 用户取消分享后执行的回调函数
-                  console.log('cancel')
-                }
-              });
+              console.log("vm",wx)
+              wx.ready(function(){
+                //alert('jsdk加载成功')
+                wx.onMenuShareAppMessage({ // 发送朋友
+                  title: vm.MatchHandler.MName, // 分享标题
+                  desc:  vm.MatchHandler.ShareDescribe, // 分享描述
+                  link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                  imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
+                  type: 'link', // 分享类型,music、video或link，不填默认为link
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+                    console.log('succ')
+                  },
+                  fail () {
+                    console.log('发送失败')
+                  },
+                  complete () {
+                    console.log('发送结束')
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    console.log('cancel')
+                  }
+                });
+                wx.onMenuShareTimeline({ // 分享朋友圈
+                  title: vm.MatchHandler.MName, // 分享标题
+                  desc:  vm.MatchHandler.ShareDescribe, // 分享描述
+                  link:`${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                  imgUrl: vm.getBaseUrl + vm.MatchHandler.SmallImgUrl,// 分享图标
+                  type: 'link', // 分享类型,music、video或link，不填默认为link
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+                    //alert("分享url", `${vm.getBaseUrl}?MId=${vm.$route.params.MId}&isShare=true&type=detail`)
+                    console.log('succ')
+                  },
+                  fail () {
+                    console.log('发送失败')
+                  },
+                  complete () {
+                    console.log('发送结束')
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    console.log('cancel')
+                  }
+                });
+              })
             }
             else {
 
@@ -328,19 +358,33 @@
           });
         },
         getLeftCounts([timeS,timeE]){
+          if(timeS=='' || timeE=='') {
+            this.isOver = true;
+            return false;
+          }
+          //console.log('1111 timeS:'+timeS+"   timeE:"+timeE);
+          //增加转换时间，用于ios系统使用
+          timeE=timeE.replace(/-/g, '/');
+          timeS=timeS.replace(/-/g, '/');
+          //console.log('2222 timeS:'+timeS+"   timeE:"+timeE);
           let timeCounts = new Date(timeE) - new Date(timeS);
-          if (timeCounts <= 0){
+          //console.log('2222 timeCounts:'+timeCounts);
+          if (timeCounts <= 0) {
+            this.isOver = true;
+            return false;
+          }
+          if(timeCounts>0) {
+            this.timer = setInterval(() => {
+              timeCounts = timeCounts - 1000;
+              let days = Math.floor(timeCounts / (1000 * 60 * 60 * 24));
+              let hours = Math.floor((timeCounts - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              let minute = Math.floor((timeCounts - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60));
+              let second = (timeCounts - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minute * (1000 * 60)) / 1000;
+              this.leftCounts = `${days}天 ${hours}:${minute}:${second}`;
+            }, 1000)
+          }else{
             this.isOver = true;
           }
-          this.timer = setInterval(()=>{
-            timeCounts = timeCounts - 1000;
-            let days = Math.floor(timeCounts/(1000*60*60*24));
-            let hours = Math.floor((timeCounts - days*(1000*60*60*24))/(1000*60*60));
-            let minute = Math.floor((timeCounts - days*(1000*60*60*24) - hours*(1000*60*60))/(1000*60));
-            let second = (timeCounts - days*(1000*60*60*24) - hours*(1000*60*60) - minute*(1000*60))/1000;
-            this.leftCounts = `${days}天 ${hours}:${minute}:${second}`;
-          },1000)
-
         },
         getCount(){ // 获取各种数量
           let jsoncontent ={
@@ -370,7 +414,7 @@
           });
         },
         getNewOpen () {
-          if (this.isShare === 'true') { // 通过别人分享来的
+          if (this.isShare  === 'true') { // 通过别人分享来的
             let data = {
               data:{
                 Action:'getuserinfobycode',
@@ -406,6 +450,7 @@
         }
       },
     mounted() {
+      this.isShare = this.$route.params.isShare;
       this.getNewOpen();
       window.addEventListener("scroll",this.scroll);
       console.log("router",this.$route.name)

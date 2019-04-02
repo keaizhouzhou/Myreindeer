@@ -3,10 +3,10 @@
     <!--<houseHead>路线介绍</houseHead>-->
     <div class="content">
       <div class="tittle">{{getSelectRoute.RName}}</div>
-      <img class="img" :src="getBaseUrl + getSelectRoute.SmallImgUrl" alt="">
+      <!--<img class="img" :src="getBaseUrl + getSelectRoute.SmallImgUrl" alt="">-->
       <div class="text" v-html="getSelectRoute.Introduce"></div>
     </div>
-    <div class="choiceBtn" @click="sign">马上报名</div>
+    <div class="choiceBtn" @click="sign">查看赛事</div>
   </div>
 </template>
 <script>

@@ -1,7 +1,7 @@
 export const state = {
-  name: 'zhouwei',
+  name: '',
   baseUrl:'http://xunluzhe.com.cn/',
   selectedRoute:{},
-  openid:'ogOCO1tlPleqMpJmiCduBHlGekSk',
+  openid:'',
   userInfo:{}
 };

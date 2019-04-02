@@ -88,7 +88,7 @@
         check() { // 校验
           let Tid = this.$refs.channel.choseItem.key;
           if (!Tid) {
-            this.$refs.toast.toastShow('请选择队伍')
+            this.$refs.toast.toastShow('请选择地区')
             return false;
           }
           if (!this.userInfo.username) {
